@@ -1,0 +1,84 @@
+{"frames": {
+
+"SilkscreenSmall.png":
+{
+	"frame": {"x":2,"y":2,"w":248,"h":220},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":3,"w":248,"h":220},
+	"sourceSize": {"w":256,"h":256}
+},
+"bathroomBottom.psd":
+{
+	"frame": {"x":128,"y":224,"w":124,"h":48},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":124,"h":48},
+	"sourceSize": {"w":124,"h":48}
+},
+"bathroomTop.psd":
+{
+	"frame": {"x":2,"y":224,"w":124,"h":48},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":124,"h":48},
+	"sourceSize": {"w":124,"h":48}
+},
+"bladderBar.psd":
+{
+	"frame": {"x":2,"y":274,"w":103,"h":25},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":103,"h":25},
+	"sourceSize": {"w":103,"h":25}
+},
+"borderBarPieceCurved.psd":
+{
+	"frame": {"x":64,"y":443,"w":60,"h":60},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":60,"h":60},
+	"sourceSize": {"w":60,"h":60}
+},
+"borderBarPieceStraight.psd":
+{
+	"frame": {"x":2,"y":443,"w":60,"h":60},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":60,"h":60},
+	"sourceSize": {"w":60,"h":60}
+},
+"circle.png":
+{
+	"frame": {"x":2,"y":379,"w":62,"h":62},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":1,"w":62,"h":62},
+	"sourceSize": {"w":64,"h":64}
+},
+"drinker.psd":
+{
+	"frame": {"x":29,"y":326,"w":28,"h":32},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":28,"h":32},
+	"sourceSize": {"w":28,"h":32}
+},
+"square.psd":
+{
+	"frame": {"x":29,"y":274,"w":50,"h":50},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":50},
+	"sourceSize": {"w":50,"h":50}
+}},
+"meta": {
+	"app": "http://www.texturepacker.com",
+	"version": "1.0",
+	"image": "MainSheet-sixPack.png",
+	"format": "RGBA8888",
+	"size": {"w":256,"h":512},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:e3ea652eedd4e9ce0ed94fa54edb02fd$"
+}
+}
