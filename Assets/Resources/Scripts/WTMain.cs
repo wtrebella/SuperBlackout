@@ -32,7 +32,7 @@ public class WTMain : MonoBehaviour {
 	public void SwitchToScene(SceneType sceneType) {
 		if (currentScene != null) Futile.RemoveStage(currentScene);
 		
-		if (sceneType == SceneType.FalldownTest) currentScene = new SBGameScene();
+		if (sceneType == SceneType.GameScene) currentScene = new SBGameScene();
 		if (sceneType == SceneType.None) currentScene = null;
 		
 		if (currentScene != null) Futile.AddStage(currentScene);

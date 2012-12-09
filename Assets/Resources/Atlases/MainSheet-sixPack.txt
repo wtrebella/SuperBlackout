@@ -2,75 +2,67 @@
 
 "SilkscreenSmall.png":
 {
-	"frame": {"x":2,"y":2,"w":248,"h":220},
-	"rotated": false,
+	"frame": {"x":2,"y":2,"w":250,"h":90},
+	"rotated": true,
 	"trimmed": true,
-	"spriteSourceSize": {"x":3,"y":3,"w":248,"h":220},
-	"sourceSize": {"w":256,"h":256}
+	"spriteSourceSize": {"x":2,"y":1,"w":250,"h":90},
+	"sourceSize": {"w":256,"h":128}
 },
 "bathroomBottom.psd":
 {
-	"frame": {"x":128,"y":224,"w":124,"h":48},
-	"rotated": false,
+	"frame": {"x":94,"y":2,"w":248,"h":96},
+	"rotated": true,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":124,"h":48},
-	"sourceSize": {"w":124,"h":48}
+	"spriteSourceSize": {"x":0,"y":0,"w":248,"h":96},
+	"sourceSize": {"w":248,"h":96}
 },
 "bathroomTop.psd":
 {
-	"frame": {"x":2,"y":224,"w":124,"h":48},
+	"frame": {"x":2,"y":376,"w":248,"h":96},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":124,"h":48},
-	"sourceSize": {"w":124,"h":48}
+	"spriteSourceSize": {"x":0,"y":0,"w":248,"h":96},
+	"sourceSize": {"w":248,"h":96}
 },
 "bladderBar.psd":
 {
-	"frame": {"x":2,"y":274,"w":103,"h":25},
+	"frame": {"x":192,"y":2,"w":206,"h":50},
 	"rotated": true,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":103,"h":25},
-	"sourceSize": {"w":103,"h":25}
+	"spriteSourceSize": {"x":0,"y":0,"w":206,"h":50},
+	"sourceSize": {"w":206,"h":50}
 },
 "borderBarPieceCurved.psd":
 {
-	"frame": {"x":64,"y":443,"w":60,"h":60},
+	"frame": {"x":2,"y":254,"w":120,"h":120},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":60,"h":60},
-	"sourceSize": {"w":60,"h":60}
+	"spriteSourceSize": {"x":0,"y":0,"w":120,"h":120},
+	"sourceSize": {"w":120,"h":120}
 },
 "borderBarPieceStraight.psd":
 {
-	"frame": {"x":2,"y":443,"w":60,"h":60},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":60,"h":60},
-	"sourceSize": {"w":60,"h":60}
-},
-"circle.png":
-{
-	"frame": {"x":2,"y":379,"w":62,"h":62},
-	"rotated": false,
+	"frame": {"x":2,"y":474,"w":32,"h":120},
+	"rotated": true,
 	"trimmed": true,
-	"spriteSourceSize": {"x":1,"y":1,"w":62,"h":62},
-	"sourceSize": {"w":64,"h":64}
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":120},
+	"sourceSize": {"w":120,"h":120}
 },
 "drinker.psd":
 {
-	"frame": {"x":29,"y":326,"w":28,"h":32},
-	"rotated": false,
+	"frame": {"x":124,"y":252,"w":112,"h":128},
+	"rotated": true,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":28,"h":32},
-	"sourceSize": {"w":28,"h":32}
+	"spriteSourceSize": {"x":0,"y":0,"w":112,"h":128},
+	"sourceSize": {"w":112,"h":128}
 },
 "square.psd":
 {
-	"frame": {"x":29,"y":274,"w":50,"h":50},
+	"frame": {"x":192,"y":210,"w":2,"h":2},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":50},
-	"sourceSize": {"w":50,"h":50}
+	"spriteSourceSize": {"x":0,"y":0,"w":2,"h":2},
+	"sourceSize": {"w":2,"h":2}
 }},
 "meta": {
 	"app": "http://www.texturepacker.com",
@@ -79,6 +71,6 @@
 	"format": "RGBA8888",
 	"size": {"w":256,"h":512},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:e3ea652eedd4e9ce0ed94fa54edb02fd$"
+	"smartupdate": "$TexturePacker:SmartUpdate:dee3f94489674040cfdf58975ad1c3b3$"
 }
 }
