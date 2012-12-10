@@ -3,6 +3,33 @@ using System.Collections;
 
 public class SBBackgroundLayer : FContainer {
 	public SBBackgroundLayer() {
+		MakeFloor();
+		MakeBorder();
+	}
+	
+	private void MakeFloor() {
+		float boardWidth = 200f;
+		float boardHeight = 20f;
+		float padding = 2f;
+		int boardRowCount = (int)((Futile.screen.height - SBConfig.TOP_UI_HEIGHT) / boardHeight);
+		
+		for (int i = 0; i < boardRowCount; i++) {
+			float rowOffset = Random.Range(-boardWidth, 0);
+			int boardColumnCount = (int)((Futile.screen.width - rowOffset) / boardWidth) + 1;
+			for (int j = 0; j < boardColumnCount; j++) {
+				FSprite board = WTSquareMaker.Square(boardWidth + padding * 2, boardHeight + padding * 2);
+				float rand = Random.Range(-0.05f, 0.05f) + 0.25f;
+				board.color = new Color(0.46f + rand, 0.3f + rand, 0.14f + rand);
+				board.anchorX = 0;
+				board.anchorY = 0;
+				board.x = j * boardWidth + rowOffset - padding;
+				board.y = i * boardHeight - padding;
+				AddChild(board);
+			}
+		}
+	}
+	
+	private void MakeBorder() {
 		float borderPieceWidth = 120f;
 		int horizontalPieceCount = (int)(Futile.screen.width / borderPieceWidth) + 1;
 		int verticalPieceCount = (int)(Futile.screen.height / borderPieceWidth) - 1;
@@ -107,6 +134,6 @@ public class SBBackgroundLayer : FContainer {
 		bathroom2.x = Futile.screen.halfWidth;
 		bathroom2.anchorY = 0;
 		bathroom2.y = 0;
-		AddChild(bathroom2);
+		AddChild(bathroom2);	
 	}
 }

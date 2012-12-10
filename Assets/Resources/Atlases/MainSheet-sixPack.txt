@@ -3,38 +3,38 @@
 "SilkscreenSmall.png":
 {
 	"frame": {"x":2,"y":2,"w":250,"h":90},
-	"rotated": true,
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":1,"w":250,"h":90},
 	"sourceSize": {"w":256,"h":128}
 },
 "bathroomBottom.psd":
 {
-	"frame": {"x":94,"y":2,"w":248,"h":96},
-	"rotated": true,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":248,"h":96},
-	"sourceSize": {"w":248,"h":96}
+	"frame": {"x":2,"y":94,"w":248,"h":120},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":8,"w":248,"h":120},
+	"sourceSize": {"w":248,"h":128}
 },
 "bathroomTop.psd":
 {
-	"frame": {"x":2,"y":376,"w":248,"h":96},
+	"frame": {"x":254,"y":2,"w":248,"h":128},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":248,"h":96},
-	"sourceSize": {"w":248,"h":96}
+	"spriteSourceSize": {"x":0,"y":0,"w":248,"h":128},
+	"sourceSize": {"w":248,"h":128}
 },
 "bladderBar.psd":
 {
-	"frame": {"x":192,"y":2,"w":206,"h":50},
-	"rotated": true,
+	"frame": {"x":252,"y":132,"w":206,"h":50},
+	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":206,"h":50},
 	"sourceSize": {"w":206,"h":50}
 },
 "borderBarPieceCurved.psd":
 {
-	"frame": {"x":2,"y":254,"w":120,"h":120},
+	"frame": {"x":382,"y":254,"w":120,"h":120},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":120,"h":120},
@@ -42,15 +42,15 @@
 },
 "borderBarPieceStraight.psd":
 {
-	"frame": {"x":2,"y":474,"w":32,"h":120},
-	"rotated": true,
+	"frame": {"x":460,"y":132,"w":32,"h":120},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":120},
 	"sourceSize": {"w":120,"h":120}
 },
 "drinker.psd":
 {
-	"frame": {"x":124,"y":252,"w":112,"h":128},
+	"frame": {"x":252,"y":184,"w":112,"h":128},
 	"rotated": true,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":112,"h":128},
@@ -58,7 +58,7 @@
 },
 "square.psd":
 {
-	"frame": {"x":192,"y":210,"w":2,"h":2},
+	"frame": {"x":504,"y":2,"w":2,"h":2},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":2,"h":2},
@@ -69,8 +69,8 @@
 	"version": "1.0",
 	"image": "MainSheet-sixPack.png",
 	"format": "RGBA8888",
-	"size": {"w":256,"h":512},
+	"size": {"w":512,"h":512},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:dee3f94489674040cfdf58975ad1c3b3$"
+	"smartupdate": "$TexturePacker:SmartUpdate:84d55f92330a49ddf8b89cd755e15637$"
 }
 }
