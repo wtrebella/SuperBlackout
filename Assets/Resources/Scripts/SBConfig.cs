@@ -12,6 +12,7 @@ public enum Direction {
 public static class SBConfig {
 	public const float BATHROOM_WIDTH = 248f;
 	public const float TOP_UI_HEIGHT = 60f;
+	public const float BORDER_WIDTH = 30f;
 	
 	public const KeyCode JOYSTICK_1_RIGHT = KeyCode.RightArrow;
 	public const KeyCode JOYSTICK_1_LEFT = KeyCode.LeftArrow;

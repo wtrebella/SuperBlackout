@@ -34,7 +34,7 @@
 },
 "borderBarPieceCurved.psd":
 {
-	"frame": {"x":382,"y":254,"w":120,"h":120},
+	"frame": {"x":252,"y":184,"w":120,"h":120},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":120,"h":120},
@@ -50,11 +50,11 @@
 },
 "drinker.psd":
 {
-	"frame": {"x":252,"y":184,"w":112,"h":128},
+	"frame": {"x":374,"y":184,"w":56,"h":64},
 	"rotated": true,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":112,"h":128},
-	"sourceSize": {"w":112,"h":128}
+	"spriteSourceSize": {"x":0,"y":0,"w":56,"h":64},
+	"sourceSize": {"w":56,"h":64}
 },
 "square.psd":
 {
@@ -71,6 +71,6 @@
 	"format": "RGBA8888",
 	"size": {"w":512,"h":512},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:84d55f92330a49ddf8b89cd755e15637$"
+	"smartupdate": "$TexturePacker:SmartUpdate:7ed47177ee9edbe9f6fa00b69153d43d$"
 }
 }

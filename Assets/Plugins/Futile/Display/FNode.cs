@@ -66,38 +66,41 @@ public class FNode
 	
 	public Vector2 LocalToStage(Vector2 localVector)
 	{
+		UpdateMatrix();
 		return _concatenatedMatrix.GetNewTransformedVector(localVector);
 	}
 	
 	public Vector2 StageToLocal(Vector2 globalVector) 
 	{
+		UpdateMatrix();
 		//using "this" so the getter is called (because it checks if the matrix exists and lazy inits it if it doesn't)
 		return this.inverseConcatenatedMatrix.GetNewTransformedVector(globalVector);
 	}
 	
 	public Vector2 LocalToGlobal(Vector2 localVector)
 	{
+		UpdateMatrix();
 		//using "this" so the getter is called (because it checks if the matrix exists and lazy inits it if it doesn't)
 		return this.screenConcatenatedMatrix.GetNewTransformedVector(localVector);
 	}
 	
 	public Vector2 GlobalToLocal(Vector2 globalVector)
 	{
+		UpdateMatrix();
 		//using "this" so the getter is called (because it checks if the matrix exists and lazy inits it if it doesn't)
 		return this.screenInverseConcatenatedMatrix.GetNewTransformedVector(globalVector);
 	}
 	
 	public Vector2 LocalToLocal(FNode otherNode, Vector2 otherVector) //returns the position in THIS node of a point in the OTHER node 
 	{
+		UpdateMatrix();
 		return GlobalToLocal(otherNode.LocalToGlobal(otherVector));
 	}
 	
 	public void UpdateMatrix()
 	{
 		if(!_isMatrixDirty) return;
-		
-		_isMatrixDirty = false;
-		
+				
 		_matrix.SetScaleThenRotate(_x,_y,_scaleX,_scaleY,_rotation * -RXMath.DTOR);
 			
 		if(_container != null)
@@ -303,7 +306,7 @@ public class FNode
 		_inverseConcatenatedMatrix = new FMatrix();
 		_screenConcatenatedMatrix = new FMatrix();
 		_screenInverseConcatenatedMatrix = new FMatrix();
-		
+
 		_inverseConcatenatedMatrix.InvertAndCopyValues(_concatenatedMatrix);
 		_screenConcatenatedMatrix.ConcatAndCopyValues(_concatenatedMatrix, _stage.screenConcatenatedMatrix);
 		_screenInverseConcatenatedMatrix.InvertAndCopyValues(_screenConcatenatedMatrix);

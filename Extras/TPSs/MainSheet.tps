@@ -40,7 +40,7 @@
             </struct>
         </struct>
         <key>shapePadding</key>
-        <uint>8</uint>
+        <uint>2</uint>
         <key>jpgQuality</key>
         <uint>80</uint>
         <key>pngOptimizationLevel</key>
@@ -50,7 +50,7 @@
         <key>textureFormat</key>
         <enum type="SettingsBase::TextureFormat">png</enum>
         <key>borderPadding</key>
-        <uint>8</uint>
+        <uint>2</uint>
         <key>maxTextureSize</key>
         <QSize>
             <key>width</key>
@@ -125,7 +125,7 @@
         <key>globalSpriteSettings</key>
         <struct type="SpriteSettings">
             <key>scale</key>
-            <double>8</double>
+            <double>1</double>
             <key>scaleMode</key>
             <enum type="ScaleMode">Fast</enum>
             <key>innerPadding</key>

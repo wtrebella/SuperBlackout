@@ -75,7 +75,7 @@ public class FContainer : FNode
 		}
 	}
 	
-	public void AddChild(FNode node)
+	virtual public void AddChild(FNode node)
 	{
 		int nodeIndex = _childNodes.IndexOf(node);
 		
