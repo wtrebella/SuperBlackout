@@ -3,8 +3,6 @@ using System.Collections;
 
 public class SBDrinker : SBEntity {	
 	public SBSittableComponent currentSittableComponent;
-	public bool isBeingControlledBySittableComponent = false;
-	public bool isBeingControlledByFaceADirectionComponent = false;
 	public bool hasDrink = false;
 	
 	public SBDrinker(string name) : base(name) {

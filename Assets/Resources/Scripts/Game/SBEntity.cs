@@ -8,6 +8,8 @@ interface ComponentInterface {
 }
 
 public class SBEntity : FContainer, ComponentInterface {
+	public bool isBeingControlledBySittableComponent = false;
+	public bool isBeingControlledByDirectionComponent = false;
 	List<SBAbstractComponent> components;
 	public string name;
 	

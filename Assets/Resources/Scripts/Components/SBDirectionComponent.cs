@@ -21,6 +21,8 @@ public class SBDirectionComponent : SBAbstractComponent {
 	}
 	
 	private void FaceDirection(Direction direction) {		
+		owner.isBeingControlledByDirectionComponent = true;
+		
 		if (directionState == DirectionState.Moving) {
 			List<AbstractTween> tweens = Go.tweensWithId(currentTweenID);
 			if (tweens.Count > 0) {
@@ -62,6 +64,7 @@ public class SBDirectionComponent : SBAbstractComponent {
 	
 	public void HandleDoneMovingToDirection(AbstractTween tween) {
 		directionState = DirectionState.Static;
+		owner.isBeingControlledByDirectionComponent = false;
 	}
 	
 	public Direction direction {
