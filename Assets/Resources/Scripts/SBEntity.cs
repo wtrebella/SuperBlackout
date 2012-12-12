@@ -63,6 +63,10 @@ public class SBEntity : FContainer, ComponentInterface {
 		}
 	}
 	
+	public void HandleUpdate() {
+		foreach (SBAbstractComponent component in components) component.HandleUpdate();
+	}
+	
 	public void HandleComponentAdded(SBAbstractComponent component) {
 		switch (component.componentType) {
 		case ComponentType.Sprite:

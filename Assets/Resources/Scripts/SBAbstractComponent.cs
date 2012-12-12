@@ -19,4 +19,8 @@ public class SBAbstractComponent {
 		componentType = ComponentType.Abstract;
 		name = "abstract";
 	}
+	
+	virtual public void HandleUpdate() {
+		
+	}
 }

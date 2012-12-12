@@ -2,8 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public class SBBathroom : SBEntity {
-	public SBBathroom() {
-		// haha another comment!
-		// fuck this comment
+	public SBBathroom(string name) : base(name) {
+		
 	}
 }
