@@ -24,11 +24,23 @@ public class SBCollideComponent : SBAbstractComponent {
 		float yMin = fixedRect.yMin;
 		float yMax = fixedRect.yMax;
 				
-		if (preMovedSpriteRect.xMin >= xMax && postMovedSpriteRect.xMin < xMax) newX = xMax + preMovedSpriteRect.width / 2f;
-		else if (preMovedSpriteRect.xMax <= xMin && postMovedSpriteRect.xMax > xMin) newX = xMin - preMovedSpriteRect.width / 2f - 1;
+		if (preMovedSpriteRect.xMin >= xMax && postMovedSpriteRect.xMin < xMax) {
+			newX = xMax + preMovedSpriteRect.width / 2f;
+			entity.VelocityComponent().ResetX();
+		}
+		else if (preMovedSpriteRect.xMax <= xMin && postMovedSpriteRect.xMax > xMin) {
+			newX = xMin - preMovedSpriteRect.width / 2f - 1;
+			entity.VelocityComponent().ResetX();
+		}
 		
-		if (preMovedSpriteRect.yMin >= yMax && postMovedSpriteRect.yMin < yMax) newY = yMax + preMovedSpriteRect.height / 2f;
-		else if (preMovedSpriteRect.yMax <= yMin && postMovedSpriteRect.yMax > yMin) newY = yMin - preMovedSpriteRect.height / 2f - 1;
+		if (preMovedSpriteRect.yMin >= yMax && postMovedSpriteRect.yMin < yMax) {
+			newY = yMax + preMovedSpriteRect.height / 2f;
+			entity.VelocityComponent().ResetY();
+		}
+		else if (preMovedSpriteRect.yMax <= yMin && postMovedSpriteRect.yMax > yMin) {
+			newY = yMin - preMovedSpriteRect.height / 2f - 1;
+			entity.VelocityComponent().ResetY();
+		}
 		
 		return new Vector2(newX, newY);
 	}

@@ -19,9 +19,18 @@ public class SBVelocityComponent : SBAbstractComponent {
 	}
 	
 	public void Reset() {
+		ResetX();
+		ResetY();
+	}
+	
+	public void ResetX() {
 		xVelocity = 0;
+		if (accelerationDirection == Direction.Left || accelerationDirection == Direction.Right) accelerationDirection = Direction.None;
+	}
+	
+	public void ResetY() {
 		yVelocity = 0;
-		accelerationDirection = Direction.None;	
+		if (accelerationDirection == Direction.Up || accelerationDirection == Direction.Down) accelerationDirection = Direction.None;
 	}
 		
 	public void UpdateAcceleration() {	
