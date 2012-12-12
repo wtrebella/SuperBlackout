@@ -7,7 +7,8 @@ public enum ComponentType {
 	Sprite,
 	Velocity,
 	Sittable,
-	Collide
+	Collide,
+	Direction
 }
 
 public class SBAbstractComponent {

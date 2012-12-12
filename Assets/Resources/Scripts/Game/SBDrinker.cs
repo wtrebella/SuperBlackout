@@ -11,6 +11,7 @@ public class SBDrinker : SBEntity {
 		SBSpriteComponent sc = new SBSpriteComponent("drinker.psd");
 		sc.name = string.Format("{0} sprite", this.name);
 		AddComponent(sc);
+		AddComponent(new SBDirectionComponent());
 		AddComponent(new SBVelocityComponent());
 	}
 }

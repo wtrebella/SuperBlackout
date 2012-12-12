@@ -52,6 +52,10 @@ public class SBEntity : FContainer, ComponentInterface {
 		return ComponentForType(ComponentType.Velocity) as SBVelocityComponent;	
 	}
 	
+	public SBDirectionComponent DirectionComponent() {
+		return ComponentForType(ComponentType.Direction) as SBDirectionComponent;	
+	}
+	
 	public void HandleComponentRemoved(SBAbstractComponent component) {
 		switch (component.componentType) {
 		case ComponentType.Sprite:
