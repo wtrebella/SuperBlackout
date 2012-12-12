@@ -23,6 +23,6 @@ public static class SBConfig {
 	
 	public const KeyCode JOYSTICK_2_RIGHT = KeyCode.D;
 	public const KeyCode JOYSTICK_2_LEFT = KeyCode.A;
-	public const KeyCode JOYSTICK_2_DOWN = KeyCode.W;
-	public const KeyCode JOYSTICK_2_UP = KeyCode.S;
+	public const KeyCode JOYSTICK_2_UP = KeyCode.W;
+	public const KeyCode JOYSTICK_2_DOWN = KeyCode.S;
 }

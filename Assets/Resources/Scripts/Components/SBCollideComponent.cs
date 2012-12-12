@@ -29,7 +29,7 @@ public class SBCollideComponent : SBAbstractComponent {
 			entity.VelocityComponent().ResetX();
 		}
 		else if (preMovedSpriteRect.xMax <= xMin && postMovedSpriteRect.xMax > xMin) {
-			newX = xMin - preMovedSpriteRect.width / 2f - 1;
+			newX = xMin - preMovedSpriteRect.width / 2f;
 			entity.VelocityComponent().ResetX();
 		}
 		
@@ -38,7 +38,7 @@ public class SBCollideComponent : SBAbstractComponent {
 			entity.VelocityComponent().ResetY();
 		}
 		else if (preMovedSpriteRect.yMax <= yMin && postMovedSpriteRect.yMax > yMin) {
-			newY = yMin - preMovedSpriteRect.height / 2f - 1;
+			newY = yMin - preMovedSpriteRect.height / 2f;
 			entity.VelocityComponent().ResetY();
 		}
 		
