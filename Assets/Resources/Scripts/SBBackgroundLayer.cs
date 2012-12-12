@@ -19,7 +19,7 @@ public class SBBackgroundLayer : FContainer {
 			for (int j = 0; j < boardColumnCount; j++) {
 				FSprite board = WTSquareMaker.Square(boardWidth + padding * 2, boardHeight + padding * 2);
 				float rand = Random.Range(-0.05f, 0.05f) + 0.25f;
-				board.color = new Color(0.46f + rand, 0.3f + rand, 0.14f + rand);
+				board.color = new Color(0.66f + rand, 0.55f + rand, 0.4f + rand);
 				board.anchorX = 0;
 				board.anchorY = 0;
 				board.x = j * boardWidth + rowOffset - padding;

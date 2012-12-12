@@ -8,6 +8,22 @@
 	"spriteSourceSize": {"x":2,"y":1,"w":250,"h":90},
 	"sourceSize": {"w":256,"h":128}
 },
+"bar.psd":
+{
+	"frame": {"x":252,"y":184,"w":192,"h":192},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":192,"h":192},
+	"sourceSize": {"w":192,"h":192}
+},
+"barStool.psd":
+{
+	"frame": {"x":460,"y":132,"w":48,"h":48},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":48,"h":48},
+	"sourceSize": {"w":48,"h":48}
+},
 "bathroomBottom.psd":
 {
 	"frame": {"x":2,"y":94,"w":248,"h":120},
@@ -34,7 +50,7 @@
 },
 "borderBarPieceCurved.psd":
 {
-	"frame": {"x":252,"y":184,"w":120,"h":120},
+	"frame": {"x":2,"y":378,"w":120,"h":120},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":120,"h":120},
@@ -42,7 +58,7 @@
 },
 "borderBarPieceStraight.psd":
 {
-	"frame": {"x":460,"y":132,"w":32,"h":120},
+	"frame": {"x":460,"y":182,"w":32,"h":120},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":120},
@@ -50,7 +66,7 @@
 },
 "drinker.psd":
 {
-	"frame": {"x":374,"y":184,"w":56,"h":64},
+	"frame": {"x":446,"y":304,"w":56,"h":64},
 	"rotated": true,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":56,"h":64},
@@ -71,6 +87,6 @@
 	"format": "RGBA8888",
 	"size": {"w":512,"h":512},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:7ed47177ee9edbe9f6fa00b69153d43d$"
+	"smartupdate": "$TexturePacker:SmartUpdate:811529b86db95f889a91254f0d1e8871$"
 }
 }

@@ -5,7 +5,9 @@ using System;
 public enum ComponentType {
 	Abstract,
 	Sprite,
-	Velocity
+	Velocity,
+	Sittable,
+	Collide
 }
 
 public class SBAbstractComponent {

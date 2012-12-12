@@ -11,8 +11,8 @@ public class SBEntity : FContainer, ComponentInterface {
 	List<SBAbstractComponent> components;
 	public string name;
 	
-	public SBEntity() {
-		name = "entity";
+	public SBEntity(string name) {
+		this.name = name;
 		components = new List<SBAbstractComponent>();
 	}
 	
@@ -34,6 +34,14 @@ public class SBEntity : FContainer, ComponentInterface {
 		}
 		
 		return null;
+	}
+	
+	public SBCollideComponent CollideComponent() {
+		return ComponentForType(ComponentType.Collide) as SBCollideComponent;	
+	}
+	
+	public SBSittableComponent SittableComponent() {
+		return ComponentForType(ComponentType.Sittable) as SBSittableComponent;	
 	}
 	
 	public SBSpriteComponent SpriteComponent() {

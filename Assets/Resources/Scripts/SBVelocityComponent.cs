@@ -7,5 +7,6 @@ public class SBVelocityComponent : SBAbstractComponent {
 	
 	public SBVelocityComponent() {
 		componentType = ComponentType.Velocity;
+		name = "velocity component";
 	}
 }

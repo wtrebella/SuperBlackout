@@ -76,7 +76,7 @@ public class FContainer : FNode
 	}
 	
 	virtual public void AddChild(FNode node)
-	{
+	{		
 		int nodeIndex = _childNodes.IndexOf(node);
 		
 		if(nodeIndex == -1) //add it if it's not a child
@@ -99,7 +99,7 @@ public class FContainer : FNode
 	}
 	
 	public void AddChildAtIndex(FNode node, int newIndex)
-	{
+	{		
 		int nodeIndex = _childNodes.IndexOf(node);
 		
 		if(newIndex > _childNodes.Count) //if it's past the end, make it at the end

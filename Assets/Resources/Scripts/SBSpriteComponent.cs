@@ -7,7 +7,7 @@ public class SBSpriteComponent : SBAbstractComponent {
 	public SBSpriteComponent(string imageName) {
 		sprite = new FSprite(imageName);
 		componentType = ComponentType.Sprite;
-		name = "sprite";
+		name = "sprite component";
 	}
 	
 	public Rect GetGlobalRect() {
