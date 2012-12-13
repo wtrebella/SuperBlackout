@@ -3,6 +3,6 @@ using System.Collections;
 
 public class SBBathroom : SBEntity {
 	public SBBathroom(string name) : base(name) {
-		
+		// i am a bathroom!!!
 	}
 }
