@@ -27,7 +27,7 @@ public class SBGameScene : FStage {
 		drinker1.y = 100f;
 		drinker1.ProgressBarComponent().progressBar.isVisible = false;
 		drinker1.DirectionComponent().FaceDirection(Direction.Right, true);
-		drinker1.SpriteComponent().sprite.color = new Color(0.3f, 0.5f, 1.0f, 1.0f);
+		//drinker1.SpriteComponent().sprite.color = new Color(0.3f, 0.5f, 1.0f, 1.0f);
 		drinkers.Add(drinker1);
 		AddChild(drinker1);
 
@@ -36,7 +36,7 @@ public class SBGameScene : FStage {
 		drinker2.y = Futile.screen.height - SBConfig.TOP_UI_HEIGHT - 100f;
 		drinker2.ProgressBarComponent().progressBar.isVisible = false;
 		drinker2.DirectionComponent().FaceDirection(Direction.Left, true);
-		drinker2.SpriteComponent().sprite.color = new Color(1.0f, 0.3f, 0.5f, 1.0f);
+		//drinker2.SpriteComponent().sprite.color = new Color(1.0f, 0.3f, 0.5f, 1.0f);
 		drinkers.Add(drinker2);
 		AddChild(drinker2);
 	}
@@ -134,14 +134,6 @@ public class SBGameScene : FStage {
 		bar.HandleUpdate();
 		
 		// === temp ===
-		foreach (SBBarStool barStool in bar.barStools) {
-			if (Input.GetKeyDown(KeyCode.Return)) {
-				if (barStool.SittableComponent().currentDrinker != null) {
-					barStool.SittableComponent().currentDrinker.hasDrink = true;
-					barStool.SittableComponent().EjectDrinker();
-				}
-			}
-		}
 		
 		foreach (SBDrinker drinker in drinkers) {
 			if (drinker.hasDrink) {
