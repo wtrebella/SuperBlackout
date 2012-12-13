@@ -19,7 +19,7 @@ public class SBBarStool : SBEntity {
 	
 	override public void HandleUpdate() {
 		if (ProgressBarComponent().progressBar.isVisible) {
-			ProgressBarComponent().progressBar.percent = 2 - TimerComponent().timer;
+			ProgressBarComponent().progressBar.percent = (2.0f - TimerComponent().timer) / 2.0f;
 		}
 	}
 }

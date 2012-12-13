@@ -49,6 +49,10 @@ public class SBBar : SBEntity {
 	override public void HandleUpdate() {
 		foreach (SBBarStool barStool in barStools) {
 			barStool.HandleUpdate();
+			if (barStool.SittableComponent().currentDrinker != null && barStool.TimerComponent().timer > 2) {
+				barStool.SittableComponent().currentDrinker.hasDrink = true;
+				barStool.SittableComponent().EjectDrinker();
+			}
 		}
 	}
 }
