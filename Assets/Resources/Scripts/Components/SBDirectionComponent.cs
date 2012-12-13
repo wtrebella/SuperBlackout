@@ -13,6 +13,7 @@ public class SBDirectionComponent : SBAbstractComponent {
 	static private int directionTweenID = -1;
 	int currentTweenID = -1;
 	private Direction direction_ = Direction.None;
+	private float currentAbsoluteRotation_ = 0;
 	private DirectionState directionState = DirectionState.Static;
 	
 	public SBDirectionComponent() {
@@ -20,7 +21,13 @@ public class SBDirectionComponent : SBAbstractComponent {
 		componentType = ComponentType.Direction;
 	}
 	
-	private void FaceDirection(Direction direction) {		
+	public void FaceDirection(Direction toDirection, bool instantly = false) {		
+		Direction fromDirection = direction_;
+
+		if (fromDirection == toDirection) return;
+		
+		direction_ = toDirection;
+				
 		owner.isBeingControlledByDirectionComponent = true;
 		
 		if (directionState == DirectionState.Moving) {
@@ -31,48 +38,53 @@ public class SBDirectionComponent : SBAbstractComponent {
 		}
 		
 		directionState = DirectionState.Moving;
-		
-		float newRotation = 0;
-		
-		// don't let it turn more than 180
-		
-		switch (direction) {
+				
+		switch (toDirection) {
 		case Direction.Right:
-			newRotation = 0;
+			if (fromDirection == Direction.Down) currentAbsoluteRotation_ -= 90;
+			else if (fromDirection == Direction.Left) currentAbsoluteRotation_ += 180;
+			else if (fromDirection == Direction.Up) currentAbsoluteRotation_ += 90;
+			else if (fromDirection == Direction.None) currentAbsoluteRotation_ = 0;
 			break;
 		case Direction.Down:
-			newRotation = 0;
+			if (fromDirection == Direction.Up) currentAbsoluteRotation_ += 180;
+			else if (fromDirection == Direction.Left) currentAbsoluteRotation_ -= 90;
+			else if (fromDirection == Direction.Right) currentAbsoluteRotation_ += 90;
+			else if (fromDirection == Direction.None) currentAbsoluteRotation_ = 90;
 			break;
 		case Direction.Left:
-			newRotation = 180;
+			if (fromDirection == Direction.Down) currentAbsoluteRotation_ += 90;
+			else if (fromDirection == Direction.Right) currentAbsoluteRotation_ += 180;
+			else if (fromDirection == Direction.Up) currentAbsoluteRotation_ -= 90;
+			else if (fromDirection == Direction.None) currentAbsoluteRotation_ = 180;
 			break;
 		case Direction.Up:
-			newRotation = 270;
+			if (fromDirection == Direction.Down) currentAbsoluteRotation_ += 180;
+			else if (fromDirection == Direction.Left) currentAbsoluteRotation_ += 90;
+			else if (fromDirection == Direction.Right) currentAbsoluteRotation_ -= 90;
+			else if (fromDirection == Direction.None) currentAbsoluteRotation_ = -90;
 			break;
 		case Direction.None:
 			Debug.Log("uhhh this guy has no direction");
 			break;
 		}
 		
-		currentTweenID = ++directionTweenID;
-		
-		Go.to(owner, 0.2f, new TweenConfig()
-			.floatProp("rotation", newRotation)
-			.setId(currentTweenID)
-			.onComplete(HandleDoneMovingToDirection));
+		if (instantly) {
+			owner.rotation = currentAbsoluteRotation_;
+			HandleDoneMovingToDirection(null);
+		}
+		else {
+			currentTweenID = ++directionTweenID;
+			
+			Go.to(owner, 0.2f, new TweenConfig()
+				.floatProp("rotation", currentAbsoluteRotation_)
+				.setId(currentTweenID)
+				.onComplete(HandleDoneMovingToDirection));
+		}
 	}
 	
 	public void HandleDoneMovingToDirection(AbstractTween tween) {
 		directionState = DirectionState.Static;
 		owner.isBeingControlledByDirectionComponent = false;
-	}
-	
-	public Direction direction {
-		get {return direction_;}
-		set {
-			if (this.direction == value) return;
-			direction_ = value;
-			FaceDirection(direction_);
-		}
 	}
 }

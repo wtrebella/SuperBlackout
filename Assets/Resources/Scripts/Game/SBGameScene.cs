@@ -25,6 +25,7 @@ public class SBGameScene : FStage {
 		drinker1 = new SBDrinker("drinker1");
 		drinker1.x = 100f;
 		drinker1.y = 100f;
+		drinker1.DirectionComponent().FaceDirection(Direction.Right, true);
 		drinker1.SpriteComponent().sprite.color = new Color(0.3f, 0.5f, 1.0f, 1.0f);
 		drinkers.Add(drinker1);
 		AddChild(drinker1);
@@ -32,7 +33,7 @@ public class SBGameScene : FStage {
 		drinker2 = new SBDrinker("drinker2");
 		drinker2.x = Futile.screen.width - 100f;
 		drinker2.y = Futile.screen.height - SBConfig.TOP_UI_HEIGHT - 100f;
-		drinker2.rotation = 180f;
+		drinker2.DirectionComponent().FaceDirection(Direction.Left, true);
 		drinker2.SpriteComponent().sprite.color = new Color(1.0f, 0.3f, 0.5f, 1.0f);
 		drinkers.Add(drinker2);
 		AddChild(drinker2);
@@ -51,37 +52,37 @@ public class SBGameScene : FStage {
 	public void HandleKeyInput() {
 		if (Input.GetKey(SBConfig.JOYSTICK_1_DOWN)) {
 			drinker1.VelocityComponent().accelerationDirection = Direction.Down;
-			drinker1.DirectionComponent().direction = Direction.Down;
+			drinker1.DirectionComponent().FaceDirection(Direction.Down);
 		}
 		else if (Input.GetKey(SBConfig.JOYSTICK_1_UP)) {
 			drinker1.VelocityComponent().accelerationDirection = Direction.Up;
-			drinker1.DirectionComponent().direction = Direction.Up;
+			drinker1.DirectionComponent().FaceDirection(Direction.Up);
 		}
 		else if (Input.GetKey(SBConfig.JOYSTICK_1_RIGHT)) {
 			drinker1.VelocityComponent().accelerationDirection = Direction.Right;
-			drinker1.DirectionComponent().direction = Direction.Right;
+			drinker1.DirectionComponent().FaceDirection(Direction.Right);
 		}
 		else if (Input.GetKey(SBConfig.JOYSTICK_1_LEFT)) {
 			drinker1.VelocityComponent().accelerationDirection = Direction.Left;
-			drinker1.DirectionComponent().direction = Direction.Left;
+			drinker1.DirectionComponent().FaceDirection(Direction.Left);
 		}
 		else drinker1.VelocityComponent().accelerationDirection = Direction.None;
 		
 		if (Input.GetKey(SBConfig.JOYSTICK_2_DOWN)) {
 			drinker2.VelocityComponent().accelerationDirection = Direction.Down;
-			drinker1.DirectionComponent().direction = Direction.Down;
+			drinker2.DirectionComponent().FaceDirection(Direction.Down);
 		}
 		else if (Input.GetKey(SBConfig.JOYSTICK_2_UP)) {
 			drinker2.VelocityComponent().accelerationDirection = Direction.Up;
-			drinker1.DirectionComponent().direction = Direction.Up;
+			drinker2.DirectionComponent().FaceDirection(Direction.Up);
 		}
 		else if (Input.GetKey(SBConfig.JOYSTICK_2_RIGHT)) {
 			drinker2.VelocityComponent().accelerationDirection = Direction.Right;
-			drinker1.DirectionComponent().direction = Direction.Right;
+			drinker2.DirectionComponent().FaceDirection(Direction.Right);
 		}
 		else if (Input.GetKey(SBConfig.JOYSTICK_2_LEFT)) {
 			drinker2.VelocityComponent().accelerationDirection = Direction.Left;
-			drinker1.DirectionComponent().direction = Direction.Left;
+			drinker2.DirectionComponent().FaceDirection(Direction.Left);
 		}
 		else drinker2.VelocityComponent().accelerationDirection = Direction.None;
 	}
