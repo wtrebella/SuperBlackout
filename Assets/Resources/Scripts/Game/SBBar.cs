@@ -34,10 +34,21 @@ public class SBBar : SBEntity {
 		
 		for (int i = 0; i < 8; i++) {
 			SBBarStool barStool = new SBBarStool(string.Format("barStool{0}", i), new Color(165f/255f, 115f/255f, 67f/255f));
+			if (i == 5 || i == 6 || i == 7) {
+				barStool.ProgressBarComponent().progressBar.y -= 45f;	
+			}
+			else barStool.ProgressBarComponent().progressBar.y += 45f;
+			barStool.ProgressBarComponent().progressBar.isVisible = false;
 			barStool.x = barStoolMargin * Mathf.Cos(i * 45 * Mathf.Deg2Rad);
 			barStool.y = barStoolMargin * Mathf.Sin(i * 45 * Mathf.Deg2Rad);
 			barStools.Add(barStool);
 			AddChild(barStool);
+		}
+	}
+	
+	override public void HandleUpdate() {
+		foreach (SBBarStool barStool in barStools) {
+			barStool.HandleUpdate();
 		}
 	}
 }

@@ -9,7 +9,8 @@ public enum ComponentType {
 	Sittable,
 	Collide,
 	Direction,
-	ProgressBar
+	ProgressBar,
+	Timer
 }
 
 public class SBAbstractComponent {

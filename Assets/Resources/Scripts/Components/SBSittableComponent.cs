@@ -24,7 +24,9 @@ public class SBSittableComponent : SBAbstractComponent {
 	}
 	
 	public void HandleDrinkerFinishedSittingDown(AbstractTween tween) {
-	
+		owner.ProgressBarComponent().progressBar.isVisible = true;
+		owner.ProgressBarComponent().progressBar.percent = 1;
+		owner.TimerComponent().Restart();
 	}
 	
 	public void EjectDrinker() {

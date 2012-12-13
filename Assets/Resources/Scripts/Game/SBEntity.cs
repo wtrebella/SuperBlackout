@@ -66,6 +66,10 @@ public class SBEntity : FContainer, ComponentInterface {
 		return ComponentForType(ComponentType.ProgressBar) as SBProgressBarComponent;	
 	}
 	
+	public SBTimerComponent TimerComponent() {
+		return ComponentForType(ComponentType.Timer) as SBTimerComponent;	
+	}
+	
 	public void HandleComponentRemoved(SBAbstractComponent component) {
 		if (component.componentType == ComponentType.Sprite) {
 			SBSpriteComponent sc = component as SBSpriteComponent;
@@ -79,7 +83,7 @@ public class SBEntity : FContainer, ComponentInterface {
 		}
 	}
 	
-	public void HandleUpdate() {
+	virtual public void HandleUpdate() {
 		foreach (SBAbstractComponent component in components) component.HandleUpdate();
 	}
 	

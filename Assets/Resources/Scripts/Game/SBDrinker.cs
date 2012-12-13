@@ -10,6 +10,7 @@ public class SBDrinker : SBEntity {
 		sc.name = string.Format("{0} sprite", this.name);
 		AddComponent(sc);
 		AddComponent(new SBProgressBarComponent(0, 45f, 65f, 10f, Color.green, ProgressBarType.FillLeftToRight));
+		AddComponent(new SBTimerComponent());
 		AddComponent(new SBDirectionComponent());
 		AddComponent(new SBVelocityComponent());
 	}

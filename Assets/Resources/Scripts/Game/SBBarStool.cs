@@ -9,9 +9,17 @@ public class SBBarStool : SBEntity {
 		sc.sprite.color = color;
 		AddComponent(sc);
 		AddComponent(new SBSittableComponent());
+		AddComponent(new SBTimerComponent());
+		AddComponent(new SBProgressBarComponent(0, 0, 65f, 10f, Color.green, ProgressBarType.FillLeftToRight));
 	}
 	
 	public Rect GetGlobalSitTriggerRect() {
 		return SpriteComponent().GetGlobalRect().CloneWithExpansion(15f);
+	}
+	
+	override public void HandleUpdate() {
+		if (ProgressBarComponent().progressBar.isVisible) {
+			ProgressBarComponent().progressBar.percent = 2 - TimerComponent().timer;
+		}
 	}
 }
