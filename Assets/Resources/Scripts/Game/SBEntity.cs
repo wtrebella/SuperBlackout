@@ -8,12 +8,16 @@ interface ComponentInterface {
 }
 
 public class SBEntity : FContainer, ComponentInterface {
+	public FContainer rotatingContainer;
+	
 	public bool isBeingControlledBySittableComponent = false;
 	public bool isBeingControlledByDirectionComponent = false;
 	List<SBAbstractComponent> components;
 	public string name;
 	
 	public SBEntity(string name) {
+		rotatingContainer = new FContainer();
+		AddChild(rotatingContainer);
 		this.name = name;
 		components = new List<SBAbstractComponent>();
 	}
@@ -58,14 +62,20 @@ public class SBEntity : FContainer, ComponentInterface {
 		return ComponentForType(ComponentType.Direction) as SBDirectionComponent;	
 	}
 	
+	public SBProgressBarComponent ProgressBarComponent() {
+		return ComponentForType(ComponentType.ProgressBar) as SBProgressBarComponent;	
+	}
+	
 	public void HandleComponentRemoved(SBAbstractComponent component) {
-		switch (component.componentType) {
-		case ComponentType.Sprite:
+		if (component.componentType == ComponentType.Sprite) {
 			SBSpriteComponent sc = component as SBSpriteComponent;
-			RemoveChild(sc.sprite);
-			break;
-		case ComponentType.Velocity:
-			break;
+			if (sc.shouldBeInRotatingContainer) rotatingContainer.RemoveChild(sc.sprite);
+			else RemoveChild(sc.sprite);
+		}
+		
+		else if (component.componentType == ComponentType.ProgressBar) {
+			SBProgressBarComponent pbc = component as SBProgressBarComponent;
+			RemoveChild(pbc.progressBar);
 		}
 	}
 	
@@ -74,13 +84,15 @@ public class SBEntity : FContainer, ComponentInterface {
 	}
 	
 	public void HandleComponentAdded(SBAbstractComponent component) {
-		switch (component.componentType) {
-		case ComponentType.Sprite:
+		if (component.componentType == ComponentType.Sprite) {
 			SBSpriteComponent sc = component as SBSpriteComponent;
-			AddChild(sc.sprite);
-			break;
-		case ComponentType.Velocity:
-			break;
+			if (sc.shouldBeInRotatingContainer) rotatingContainer.AddChild(sc.sprite);
+			else AddChild(sc.sprite);
+		}
+		
+		else if (component.componentType == ComponentType.ProgressBar) {
+			SBProgressBarComponent pbc = component as SBProgressBarComponent;
+			AddChild(pbc.progressBar);
 		}
 	}
 }

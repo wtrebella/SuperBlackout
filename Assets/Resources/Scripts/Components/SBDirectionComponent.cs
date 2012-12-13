@@ -70,13 +70,13 @@ public class SBDirectionComponent : SBAbstractComponent {
 		}
 		
 		if (instantly) {
-			owner.rotation = currentAbsoluteRotation_;
+			owner.rotatingContainer.rotation = currentAbsoluteRotation_;
 			HandleDoneMovingToDirection(null);
 		}
 		else {
 			currentTweenID = ++directionTweenID;
 			
-			Go.to(owner, 0.2f, new TweenConfig()
+			Go.to(owner.rotatingContainer, 0.2f, new TweenConfig()
 				.floatProp("rotation", currentAbsoluteRotation_)
 				.setId(currentTweenID)
 				.onComplete(HandleDoneMovingToDirection));

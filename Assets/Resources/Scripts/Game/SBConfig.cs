@@ -21,8 +21,8 @@ public static class SBConfig {
 	public const KeyCode JOYSTICK_1_DOWN = KeyCode.DownArrow;
 	public const KeyCode JOYSTICK_1_UP = KeyCode.UpArrow;
 	
-	public const KeyCode JOYSTICK_2_RIGHT = KeyCode.D;
-	public const KeyCode JOYSTICK_2_LEFT = KeyCode.A;
-	public const KeyCode JOYSTICK_2_UP = KeyCode.W;
-	public const KeyCode JOYSTICK_2_DOWN = KeyCode.S;
+	public const KeyCode JOYSTICK_2_RIGHT = KeyCode.G;
+	public const KeyCode JOYSTICK_2_LEFT = KeyCode.D;
+	public const KeyCode JOYSTICK_2_UP = KeyCode.R;
+	public const KeyCode JOYSTICK_2_DOWN = KeyCode.F;
 }

@@ -116,7 +116,7 @@ public class SBGameScene : FStage {
 			if (drinker.hasDrink) continue;
 			
 			SBBarStool barStool = bar.BarStoolThatIntersectsWithGlobalRect(drinker.SpriteComponent().GetGlobalRect());
-			if (barStool != null && barStool.SittableComponent().currentDrinker == null) {
+			if (barStool != null && barStool.SittableComponent().currentDrinker == null && !drinker.isBeingControlledBySittableComponent) {
 				barStool.SittableComponent().SeatDrinker(drinker);
 				return;
 			}

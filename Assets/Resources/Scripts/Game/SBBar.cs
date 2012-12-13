@@ -6,7 +6,7 @@ public class SBBar : SBEntity {
 	public List<SBBarStool> barStools;
 	
 	public SBBar() : base("bar") {
-		SBSpriteComponent sc = new SBSpriteComponent("bar.psd");
+		SBSpriteComponent sc = new SBSpriteComponent("bar.psd", false);
 		sc.name = "bar sprite component";
 		AddComponent(sc);
 		
