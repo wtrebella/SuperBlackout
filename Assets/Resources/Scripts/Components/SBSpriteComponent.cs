@@ -84,6 +84,7 @@ public class SBSpriteComponent : SBAbstractComponent {
 	}
 	
 	override public void HandleUpdate() {
+		if (owner.tag == 1) Debug.Log(isAnimating);
 		if (!isAnimating) return;
 		
 		UpdateAnimation();

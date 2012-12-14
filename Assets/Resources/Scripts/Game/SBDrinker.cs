@@ -3,6 +3,7 @@ using System.Collections;
 
 public class SBDrinker : SBEntity {	
 	public SBSittableComponent currentSittableComponent;
+	public bool isActuallySitting = false;
 	public bool hasDrink = false;
 	public bool isWalking = true;
 	
@@ -31,5 +32,18 @@ public class SBDrinker : SBEntity {
 		if (SpriteComponent().frameDuration < SBConfig.DRINKER_MIN_FRAME_DURATION) {
 			SpriteComponent().frameDuration = SBConfig.DRINKER_MIN_FRAME_DURATION;	
 		}
+	}
+	
+	public void Sit() {
+		isActuallySitting = true;
+		SpriteComponent().StopAnimation();
+		SpriteComponent().sprite.element = Futile.atlasManager.GetElementWithName("drinkerSitting.png");
+	}
+	
+	public void Stand() {
+		isActuallySitting = false;
+		currentSittableComponent = null;
+		isBeingControlledBySittableComponent = false;
+		SpriteComponent().RestartAnimation();
 	}
 }

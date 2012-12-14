@@ -66,15 +66,15 @@
 },
 "drinkerIdle.png":
 {
-	"frame": {"x":124,"y":298,"w":80,"h":96},
-	"rotated": true,
+	"frame": {"x":124,"y":388,"w":80,"h":96},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":16,"y":8,"w":80,"h":96},
 	"sourceSize": {"w":112,"h":112}
 },
 "drinkerLeftFront.png":
 {
-	"frame": {"x":2,"y":216,"w":80,"h":96},
+	"frame": {"x":124,"y":306,"w":80,"h":96},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":16,"y":8,"w":80,"h":96},
@@ -82,10 +82,18 @@
 },
 "drinkerRightFront.png":
 {
-	"frame": {"x":124,"y":216,"w":80,"h":96},
+	"frame": {"x":2,"y":216,"w":80,"h":96},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":16,"y":8,"w":80,"h":96},
+	"sourceSize": {"w":112,"h":112}
+},
+"drinkerSitting.png":
+{
+	"frame": {"x":124,"y":216,"w":88,"h":96},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":16,"y":8,"w":88,"h":96},
 	"sourceSize": {"w":112,"h":112}
 },
 "square.psd":
@@ -103,6 +111,6 @@
 	"format": "RGBA8888",
 	"size": {"w":512,"h":512},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:b5d0ace6414e5c02e8a7dbd2a99f969e$"
+	"smartupdate": "$TexturePacker:SmartUpdate:94b14ec504d850f7bdf82e2facac5c02$"
 }
 }

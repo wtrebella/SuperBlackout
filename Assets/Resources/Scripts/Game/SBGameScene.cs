@@ -23,6 +23,7 @@ public class SBGameScene : FStage {
 		drinkers = new List<SBEntity>();
 		
 		drinker1 = new SBDrinker("drinker1");
+		drinker1.tag = 1;
 		drinker1.x = 100f;
 		drinker1.y = 100f;
 		drinker1.ProgressBarComponent().progressBar.isVisible = false;
@@ -32,6 +33,7 @@ public class SBGameScene : FStage {
 		AddChild(drinker1);
 
 		drinker2 = new SBDrinker("drinker2");
+		drinker2.tag = 2;
 		drinker2.x = Futile.screen.width - 100f;
 		drinker2.y = Futile.screen.height - SBConfig.TOP_UI_HEIGHT - 100f;
 		drinker2.ProgressBarComponent().progressBar.isVisible = false;

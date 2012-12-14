@@ -8,17 +8,17 @@ interface ComponentInterface {
 }
 
 public class SBEntity : FContainer, ComponentInterface {
-	public FContainer rotatingContainer;
-	
 	public bool isBeingControlledBySittableComponent = false;
 	public bool isBeingControlledByDirectionComponent = false;
+	public FContainer rotatingContainer;
 	List<SBAbstractComponent> components;
 	public string name;
+	public int tag = -1;
 	
 	public SBEntity(string name) {
+		this.name = name;
 		rotatingContainer = new FContainer();
 		AddChild(rotatingContainer);
-		this.name = name;
 		components = new List<SBAbstractComponent>();
 	}
 	
@@ -70,33 +70,31 @@ public class SBEntity : FContainer, ComponentInterface {
 		return ComponentForType(ComponentType.Timer) as SBTimerComponent;	
 	}
 	
-	public void HandleComponentRemoved(SBAbstractComponent component) {
-		if (component.componentType == ComponentType.Sprite) {
-			SBSpriteComponent sc = component as SBSpriteComponent;
-			if (sc.shouldBeInRotatingContainer) rotatingContainer.RemoveChild(sc.sprite);
-			else RemoveChild(sc.sprite);
-		}
-		
-		else if (component.componentType == ComponentType.ProgressBar) {
-			SBProgressBarComponent pbc = component as SBProgressBarComponent;
-			RemoveChild(pbc.progressBar);
-		}
-	}
-	
-	virtual public void HandleUpdate() {
-		foreach (SBAbstractComponent component in components) component.HandleUpdate();
-	}
-	
 	public void HandleComponentAdded(SBAbstractComponent component) {
 		if (component.componentType == ComponentType.Sprite) {
 			SBSpriteComponent sc = component as SBSpriteComponent;
 			if (sc.shouldBeInRotatingContainer) rotatingContainer.AddChild(sc.sprite);
 			else AddChild(sc.sprite);
 		}
-		
 		else if (component.componentType == ComponentType.ProgressBar) {
 			SBProgressBarComponent pbc = component as SBProgressBarComponent;
-			AddChild(pbc.progressBar);
+			AddChild(pbc.progressBar);	
 		}
+	}
+	
+	public void HandleComponentRemoved(SBAbstractComponent component) {
+		if (component.componentType == ComponentType.Sprite) {
+			SBSpriteComponent sc = component as SBSpriteComponent;
+			if (sc.shouldBeInRotatingContainer) rotatingContainer.RemoveChild(sc.sprite);
+			else RemoveChild(sc.sprite);
+		}
+		else if (component.componentType == ComponentType.ProgressBar) {
+			SBProgressBarComponent pbc = component as SBProgressBarComponent;
+			RemoveChild(pbc.progressBar);	
+		}
+	}
+	
+	virtual public void HandleUpdate() {
+		foreach (SBAbstractComponent component in components) component.HandleUpdate();
 	}
 }

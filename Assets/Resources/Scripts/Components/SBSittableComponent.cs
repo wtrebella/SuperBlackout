@@ -3,7 +3,6 @@ using System.Collections;
 
 public class SBSittableComponent : SBAbstractComponent {
 	public SBDrinker currentDrinker;
-	public bool drinkerIsActuallySitting = false;
 
 	public SBSittableComponent() {
 		name = "sittable component";
@@ -28,15 +27,13 @@ public class SBSittableComponent : SBAbstractComponent {
 		owner.ProgressBarComponent().progressBar.isVisible = true;
 		owner.ProgressBarComponent().progressBar.percent = 1;
 		owner.TimerComponent().Restart();
-		drinkerIsActuallySitting = true;
+		currentDrinker.Sit();
 	}
 	
 	public void EjectDrinker() {
-		drinkerIsActuallySitting = false;
 		owner.ProgressBarComponent().progressBar.isVisible = false;
 		owner.TimerComponent().Stop();
-		currentDrinker.currentSittableComponent = null;
-		currentDrinker.isBeingControlledBySittableComponent = false;
+		currentDrinker.Stand();
 		currentDrinker = null;
 	}
 }

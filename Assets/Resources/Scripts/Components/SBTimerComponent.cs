@@ -31,7 +31,8 @@ public class SBTimerComponent : SBAbstractComponent {
 		Futile.instance.SignalUpdate -= HandleUpdate;
 	}
 	
-	public void HandleUpdate() {
+	override public void HandleUpdate() {
+		base.HandleUpdate();
 		timer_ += Time.fixedDeltaTime;
 	}
 	
