@@ -13,6 +13,8 @@ public static class SBConfig {
 	public const float BATHROOM_WIDTH = 248f;
 	public const float DRINKER_MAX_VELOCITY = 800f;
 	public const float DRINKER_ACCELERATION_CONSTANT = 800f;
+	public const float DRINKER_MIN_FRAME_DURATION = 0.1f;
+	public const float DRINKER_MAX_FRAME_DURATION = 0.4f;
 	public const float TOP_UI_HEIGHT = 60f;
 	public const float BORDER_WIDTH = 30f;
 	public const float DRINK_WAIT_TIME = 2.0f;

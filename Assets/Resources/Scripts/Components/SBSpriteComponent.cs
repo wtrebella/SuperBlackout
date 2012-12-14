@@ -4,10 +4,10 @@ using System.Collections;
 public class SBSpriteComponent : SBAbstractComponent {
 	public FSprite sprite;
 	public bool shouldBeInRotatingContainer;
+	public bool isAnimating = false;
+	public float frameDuration;
 	
 	private float animationTimer = 0;
-	private bool isAnimating = false;
-	private float frameDuration;
 	private int frameIndex = 0;
 	private FAtlasElement[] spriteFrames;
 	
@@ -24,7 +24,7 @@ public class SBSpriteComponent : SBAbstractComponent {
 		if (spriteFrameNames == null) return;
 		
 		this.frameDuration = frameDuration;
-		
+		animationTimer = frameDuration;
 		spriteFrames = new FAtlasElement[spriteFrameNames.Length];
 		
 		for (int i = 0; i < spriteFrameNames.Length; i++) {
@@ -35,7 +35,6 @@ public class SBSpriteComponent : SBAbstractComponent {
 	
 	public void UpdateAnimation() {
 		animationTimer += Time.fixedDeltaTime;
-		
 		if (animationTimer >= frameDuration) {
 			animationTimer -= frameDuration;
 			frameIndex = (frameIndex + 1) % spriteFrames.Length;
@@ -54,6 +53,7 @@ public class SBSpriteComponent : SBAbstractComponent {
 	
 	public void PauseAnimation() {
 		isAnimating = false;
+		animationTimer = frameDuration;
 	}
 	
 	public void StartAnimation() {
