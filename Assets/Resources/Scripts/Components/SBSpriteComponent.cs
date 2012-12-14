@@ -34,6 +34,20 @@ public class SBSpriteComponent : SBAbstractComponent {
 	}
 	
 	public void UpdateAnimation() {
+		float curVel = Mathf.Max(Mathf.Abs(owner.VelocityComponent().xVelocity), Mathf.Abs(owner.VelocityComponent().yVelocity));
+
+		if (curVel == 0) {
+			frameDuration = 1000;
+			ResetAnimation();
+		}
+		else {
+			frameDuration = (1 - curVel / SBConfig.DRINKER_MAX_VELOCITY) * SBConfig.DRINKER_MAX_FRAME_DURATION;
+		}
+		
+		if (frameDuration < SBConfig.DRINKER_MIN_FRAME_DURATION) {
+			frameDuration = SBConfig.DRINKER_MIN_FRAME_DURATION;	
+		}
+		
 		animationTimer += Time.fixedDeltaTime;
 		if (animationTimer >= frameDuration) {
 			animationTimer -= frameDuration;
@@ -84,7 +98,6 @@ public class SBSpriteComponent : SBAbstractComponent {
 	}
 	
 	override public void HandleUpdate() {
-		if (owner.tag == 1) Debug.Log(isAnimating);
 		if (!isAnimating) return;
 		
 		UpdateAnimation();

@@ -55,38 +55,70 @@ public class SBGameScene : FStage {
 	
 	public void HandleKeyInput() {
 		if (Input.GetKey(SBConfig.JOYSTICK_1_DOWN)) {
-			drinker1.VelocityComponent().accelerationDirection = Direction.Down;
-			drinker1.DirectionComponent().FaceDirection(Direction.Down);
+			if (!drinker1.isActuallySitting) {
+				drinker1.VelocityComponent().accelerationDirection = Direction.Down;
+				drinker1.DirectionComponent().FaceDirection(Direction.Down);
+			}
 		}
 		else if (Input.GetKey(SBConfig.JOYSTICK_1_UP)) {
-			drinker1.VelocityComponent().accelerationDirection = Direction.Up;
-			drinker1.DirectionComponent().FaceDirection(Direction.Up);
+			if (!drinker1.isActuallySitting) {
+				drinker1.VelocityComponent().accelerationDirection = Direction.Up;
+				drinker1.DirectionComponent().FaceDirection(Direction.Up);
+			}
 		}
 		else if (Input.GetKey(SBConfig.JOYSTICK_1_RIGHT)) {
-			drinker1.VelocityComponent().accelerationDirection = Direction.Right;
-			drinker1.DirectionComponent().FaceDirection(Direction.Right);
+			if (drinker1.isActuallySitting) {
+				drinker1.rotatingContainer.rotation += 650 * Time.fixedDeltaTime;
+				drinker1.currentSittableComponent.owner.rotatingContainer.rotation += 650 * Time.fixedDeltaTime;
+			}
+			else {
+				drinker1.VelocityComponent().accelerationDirection = Direction.Right;
+				drinker1.DirectionComponent().FaceDirection(Direction.Right);
+			}
 		}
 		else if (Input.GetKey(SBConfig.JOYSTICK_1_LEFT)) {
-			drinker1.VelocityComponent().accelerationDirection = Direction.Left;
-			drinker1.DirectionComponent().FaceDirection(Direction.Left);
+			if (drinker1.isActuallySitting) {
+				drinker1.rotatingContainer.rotation -= 650 * Time.fixedDeltaTime;
+				drinker1.currentSittableComponent.owner.rotatingContainer.rotation -= 650 * Time.fixedDeltaTime;
+			}
+			else {
+				drinker1.VelocityComponent().accelerationDirection = Direction.Left;
+				drinker1.DirectionComponent().FaceDirection(Direction.Left);
+			}
 		}
 		else drinker1.VelocityComponent().accelerationDirection = Direction.None;
 		
 		if (Input.GetKey(SBConfig.JOYSTICK_2_DOWN)) {
-			drinker2.VelocityComponent().accelerationDirection = Direction.Down;
-			drinker2.DirectionComponent().FaceDirection(Direction.Down);
+			if (!drinker2.isActuallySitting) {
+				drinker2.VelocityComponent().accelerationDirection = Direction.Down;
+				drinker2.DirectionComponent().FaceDirection(Direction.Down);
+			}
 		}
 		else if (Input.GetKey(SBConfig.JOYSTICK_2_UP)) {
-			drinker2.VelocityComponent().accelerationDirection = Direction.Up;
-			drinker2.DirectionComponent().FaceDirection(Direction.Up);
+			if (!drinker2.isActuallySitting) {
+				drinker2.VelocityComponent().accelerationDirection = Direction.Up;
+				drinker2.DirectionComponent().FaceDirection(Direction.Up);
+			}
 		}
 		else if (Input.GetKey(SBConfig.JOYSTICK_2_RIGHT)) {
-			drinker2.VelocityComponent().accelerationDirection = Direction.Right;
-			drinker2.DirectionComponent().FaceDirection(Direction.Right);
+			if (drinker2.isActuallySitting) {
+				drinker2.rotatingContainer.rotation += 650 * Time.fixedDeltaTime;
+				drinker2.currentSittableComponent.owner.rotatingContainer.rotation += 650 * Time.fixedDeltaTime;
+			}
+			else {
+				drinker2.VelocityComponent().accelerationDirection = Direction.Right;
+				drinker2.DirectionComponent().FaceDirection(Direction.Right);
+			}
 		}
 		else if (Input.GetKey(SBConfig.JOYSTICK_2_LEFT)) {
-			drinker2.VelocityComponent().accelerationDirection = Direction.Left;
-			drinker2.DirectionComponent().FaceDirection(Direction.Left);
+			if (drinker2.isActuallySitting) {
+				drinker2.rotatingContainer.rotation -= 650 * Time.fixedDeltaTime;
+				drinker2.currentSittableComponent.owner.rotatingContainer.rotation -= 650 * Time.fixedDeltaTime;
+			}
+			else {
+				drinker2.VelocityComponent().accelerationDirection = Direction.Left;
+				drinker2.DirectionComponent().FaceDirection(Direction.Left);
+			}
 		}
 		else drinker2.VelocityComponent().accelerationDirection = Direction.None;
 	}

@@ -5,7 +5,6 @@ public class SBDrinker : SBEntity {
 	public SBSittableComponent currentSittableComponent;
 	public bool isActuallySitting = false;
 	public bool hasDrink = false;
-	public bool isWalking = true;
 	
 	public SBDrinker(string name) : base(name) {
 		SBSpriteComponent sc = new SBSpriteComponent("drinkerIdle.png", true, new string[] {"drinkerIdle.png", "drinkerLeftFront.png", "drinkerIdle.png", "drinkerRightFront.png"}, 0.2f);
@@ -18,36 +17,14 @@ public class SBDrinker : SBEntity {
 		AddComponent(new SBVelocityComponent());
 	}
 	
-	override public void HandleUpdate() {
-		base.HandleUpdate();
-		
-		if (!isWalking) return;
-		
-		float curVel = Mathf.Max(Mathf.Abs(VelocityComponent().xVelocity), Mathf.Abs(VelocityComponent().yVelocity));
-		if (isActuallySitting) {
-			SpriteComponent().sprite.element = Futile.atlasManager.GetElementWithName("drinkerSitting.png");
-		}
-		else if (curVel == 0) {
-			SpriteComponent().frameDuration = 1000;
-			SpriteComponent().ResetAnimation();
-		}
-		else {
-			SpriteComponent().frameDuration = (1 - curVel / SBConfig.DRINKER_MAX_VELOCITY) * SBConfig.DRINKER_MAX_FRAME_DURATION;
-		}
-		if (SpriteComponent().frameDuration < SBConfig.DRINKER_MIN_FRAME_DURATION) {
-			SpriteComponent().frameDuration = SBConfig.DRINKER_MIN_FRAME_DURATION;	
-		}
-	}
-	
 	public void Sit() {
 		isActuallySitting = true;
 		SpriteComponent().StopAnimation();
+		SpriteComponent().sprite.element = Futile.atlasManager.GetElementWithName("drinkerSitting.png");
 	}
 	
 	public void Stand() {
 		isActuallySitting = false;
-		currentSittableComponent = null;
-		isBeingControlledBySittableComponent = false;
 		SpriteComponent().RestartAnimation();
 	}
 }
