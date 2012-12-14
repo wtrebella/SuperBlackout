@@ -33,6 +33,8 @@ public class SBSittableComponent : SBAbstractComponent {
 	public void EjectDrinker() {
 		owner.ProgressBarComponent().progressBar.isVisible = false;
 		owner.TimerComponent().Stop();
+		currentDrinker.currentSittableComponent = null;
+		currentDrinker.isBeingControlledBySittableComponent = false;
 		currentDrinker.Stand();
 		currentDrinker = null;
 	}

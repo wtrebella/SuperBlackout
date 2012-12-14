@@ -24,9 +24,14 @@ public class SBDrinker : SBEntity {
 		if (!isWalking) return;
 		
 		float curVel = Mathf.Max(Mathf.Abs(VelocityComponent().xVelocity), Mathf.Abs(VelocityComponent().yVelocity));
-		if (curVel == 0 && SpriteComponent().isAnimating) SpriteComponent().StopAnimation();
+		if (isActuallySitting) {
+			SpriteComponent().sprite.element = Futile.atlasManager.GetElementWithName("drinkerSitting.png");
+		}
+		else if (curVel == 0) {
+			SpriteComponent().frameDuration = 1000;
+			SpriteComponent().ResetAnimation();
+		}
 		else {
-			if (!SpriteComponent().isAnimating) SpriteComponent().StartAnimation();
 			SpriteComponent().frameDuration = (1 - curVel / SBConfig.DRINKER_MAX_VELOCITY) * SBConfig.DRINKER_MAX_FRAME_DURATION;
 		}
 		if (SpriteComponent().frameDuration < SBConfig.DRINKER_MIN_FRAME_DURATION) {
@@ -37,7 +42,6 @@ public class SBDrinker : SBEntity {
 	public void Sit() {
 		isActuallySitting = true;
 		SpriteComponent().StopAnimation();
-		SpriteComponent().sprite.element = Futile.atlasManager.GetElementWithName("drinkerSitting.png");
 	}
 	
 	public void Stand() {
