@@ -54,7 +54,7 @@ public class SBGameScene : FStage {
 		Futile.instance.SignalUpdate -= HandleUpdate;
 	}
 	
-	public void HandleKeyInput() {
+	public void HandleKeyInput() {		
 		if (Input.GetKey(SBConfig.JOYSTICK_1_DOWN)) {
 			if (!drinker1.isActuallySitting) {
 				drinker1.VelocityComponent().accelerationDirection = Direction.Down;
@@ -130,16 +130,20 @@ public class SBGameScene : FStage {
 			
 			float newX = drinker.x + Time.fixedDeltaTime * drinker.VelocityComponent().xVelocity;
 			float newY = drinker.y + Time.fixedDeltaTime * drinker.VelocityComponent().yVelocity;
-						
-			Rect leftWallRect = new Rect(0, 0, SBConfig.BORDER_WIDTH, Futile.screen.height);
-			Rect rightWallRect = new Rect(Futile.screen.width - SBConfig.BORDER_WIDTH, 0, SBConfig.BORDER_WIDTH, Futile.screen.height);
-			Rect bottomWallRect = new Rect(0, 0, Futile.screen.width, SBConfig.BORDER_WIDTH);
-			Rect topWallRect = new Rect(0, Futile.screen.height - SBConfig.TOP_UI_HEIGHT - SBConfig.BORDER_WIDTH, Futile.screen.width, SBConfig.BORDER_WIDTH);
+			float bathroomPadding = 30f;
+			float borderPadding = -30f;
+			
+			Rect leftWallRect = new Rect(0, 0, SBConfig.BORDER_WIDTH + borderPadding, Futile.screen.height);
+			Rect rightWallRect = new Rect(Futile.screen.width - SBConfig.BORDER_WIDTH - borderPadding, 0, SBConfig.BORDER_WIDTH + borderPadding, Futile.screen.height);
+			Rect bottomLeftWallRect = new Rect(0, 0, Futile.screen.halfWidth - SBConfig.BATHROOM_WIDTH / 2f - bathroomPadding, SBConfig.BORDER_WIDTH + borderPadding);
+			Rect bottomRightWallRect = new Rect(Futile.screen.halfWidth + SBConfig.BATHROOM_WIDTH / 2f + bathroomPadding, 0, Futile.screen.halfWidth - SBConfig.BATHROOM_WIDTH / 2f - bathroomPadding, SBConfig.BORDER_WIDTH + borderPadding);
+			Rect topWallRect = new Rect(0, Futile.screen.height - SBConfig.TOP_UI_HEIGHT - SBConfig.BORDER_WIDTH - borderPadding, Futile.screen.width, SBConfig.BORDER_WIDTH + borderPadding);
 			
 			Vector2 updatedPoint;
 			updatedPoint = bar.CollideComponent().PointToAvoidCollidingFixedRectWithMovingEntity(leftWallRect, drinker, newX, newY);
 			updatedPoint = bar.CollideComponent().PointToAvoidCollidingFixedRectWithMovingEntity(rightWallRect, drinker, updatedPoint.x, updatedPoint.y);
-			updatedPoint = bar.CollideComponent().PointToAvoidCollidingFixedRectWithMovingEntity(bottomWallRect, drinker, updatedPoint.x, updatedPoint.y);
+			updatedPoint = bar.CollideComponent().PointToAvoidCollidingFixedRectWithMovingEntity(bottomLeftWallRect, drinker, updatedPoint.x, updatedPoint.y);
+			updatedPoint = bar.CollideComponent().PointToAvoidCollidingFixedRectWithMovingEntity(bottomRightWallRect, drinker, updatedPoint.x, updatedPoint.y);
 			updatedPoint = bar.CollideComponent().PointToAvoidCollidingFixedRectWithMovingEntity(topWallRect, drinker, updatedPoint.x, updatedPoint.y);
 			updatedPoint = bar.CollideComponent().PointToAvoidCollidingFixedRectWithMovingEntity(bar.SpriteComponent().GetGlobalRect().CloneWithExpansion(-10f), drinker, updatedPoint.x, updatedPoint.y);
 			
