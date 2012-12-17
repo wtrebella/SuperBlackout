@@ -8,6 +8,8 @@ public class SBGameScene : FStage {
 	public SBBar bar;
 	public List<SBEntity> drinkers;
 	
+	private static int frameCount_ = 0;
+	
 	public SBGameScene(bool addToFutileOnInit) : base("") {
 		if (addToFutileOnInit) Futile.AddStage(this);
 		
@@ -17,9 +19,8 @@ public class SBGameScene : FStage {
 		bar = new SBBar();
 		bar.x = Futile.screen.halfWidth;
 		bar.y = Futile.screen.halfHeight;
-		bar.UpdateMatrix();
 		AddChild(bar);
-		
+				
 		drinkers = new List<SBEntity>();
 		
 		drinker1 = new SBDrinker("drinker1");
@@ -150,7 +151,6 @@ public class SBGameScene : FStage {
 	public void UpdateDrinkerBarstoolRelations() {
 		foreach (SBDrinker drinker in drinkers) {
 			if (drinker.hasDrink) continue;
-			
 			SBBarStool barStool = bar.BarStoolThatIntersectsWithGlobalRect(drinker.SpriteComponent().GetGlobalRect());
 			if (barStool != null && barStool.SittableComponent().currentDrinker == null && !drinker.isBeingControlledBySittableComponent) {
 				barStool.SittableComponent().SeatDrinker(drinker);
@@ -160,12 +160,14 @@ public class SBGameScene : FStage {
 	}
 	
 	public void HandleUpdate() {
+		if (frameCount_++ < 5) return;
+		
 		HandleKeyInput();
 		UpdateDrinkerPositions();
 		UpdateDrinkerBarstoolRelations();
+		bar.HandleUpdate();
 		drinker1.HandleUpdate();
 		drinker2.HandleUpdate();
-		bar.HandleUpdate();
 		
 		// === temp ===
 		
