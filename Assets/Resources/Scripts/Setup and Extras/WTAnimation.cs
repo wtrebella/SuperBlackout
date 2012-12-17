@@ -36,6 +36,10 @@ public class WTAnimation {
 		return new WTAnimation(spriteFrames, minFrameDuration, maxFrameDuration);
 	}
 	
+	public void ResetSpriteToFirstFrame(FSprite sprite) {
+		sprite.element = spriteFrames[0];	
+	}
+	
 	public void HandleUpdateWithSprite(FSprite sprite) {
 		if (frameDuration < minFrameDuration) {
 			frameDuration = minFrameDuration;	

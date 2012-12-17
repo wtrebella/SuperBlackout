@@ -9,10 +9,6 @@ public class SBSpriteComponent : SBAbstractComponent {
 	public float frameDuration;
 	WTAnimation currentAnimation;
 	
-	private float animationTimer = 0;
-	private int frameIndex = 0;
-	private FAtlasElement[] spriteFrames;
-
 	public SBSpriteComponent(string imageName, bool ableToRotate) {
 		this.shouldBeInRotatingContainer = ableToRotate;
 		sprite = new FSprite(imageName);
@@ -42,15 +38,16 @@ public class SBSpriteComponent : SBAbstractComponent {
 	}
 	
 	public void ResetAnimation() {
-		sprite.element = spriteFrames[0];	
+		currentAnimation.ResetSpriteToFirstFrame(sprite);
 	}
 	
 	public void PauseAnimation() {
 		isAnimating = false;
-		animationTimer = frameDuration;
+		currentAnimation.animationTimer = frameDuration;
 	}
 	
 	public void StartAnimation(WTAnimation animation) {
+		currentAnimation = animation;
 		isAnimating = true;
 	}
 	
