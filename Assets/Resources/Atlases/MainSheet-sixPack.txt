@@ -64,6 +64,14 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":120},
 	"sourceSize": {"w":120,"h":120}
 },
+"drink.psd":
+{
+	"frame": {"x":446,"y":304,"w":32,"h":32},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+	"sourceSize": {"w":32,"h":32}
+},
 "drinkerIdle.png":
 {
 	"frame": {"x":124,"y":388,"w":80,"h":96},
@@ -111,6 +119,6 @@
 	"format": "RGBA8888",
 	"size": {"w":512,"h":512},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:94b14ec504d850f7bdf82e2facac5c02$"
+	"smartupdate": "$TexturePacker:SmartUpdate:b9d8f4b9123291a7ad0367cf5867914f$"
 }
 }

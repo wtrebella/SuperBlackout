@@ -5,55 +5,35 @@ public class SBSpriteComponent : SBAbstractComponent {
 	public FSprite sprite;
 	public bool shouldBeInRotatingContainer;
 	public bool isAnimating = false;
+	public bool animationIsVelocityDependent = true;
 	public float frameDuration;
+	WTAnimation currentAnimation;
 	
 	private float animationTimer = 0;
 	private int frameIndex = 0;
 	private FAtlasElement[] spriteFrames;
-	
-	public SBSpriteComponent(string imageName, bool ableToRotate) : this(imageName, ableToRotate, null, 0) {
-		
-	}
-	
-	public SBSpriteComponent(string imageName, bool ableToRotate, string[] spriteFrameNames, float frameDuration) {
+
+	public SBSpriteComponent(string imageName, bool ableToRotate) {
 		this.shouldBeInRotatingContainer = ableToRotate;
 		sprite = new FSprite(imageName);
 		componentType = ComponentType.Sprite;
 		name = "sprite component";
-		
-		if (spriteFrameNames == null) return;
-		
-		this.frameDuration = frameDuration;
-		animationTimer = frameDuration;
-		spriteFrames = new FAtlasElement[spriteFrameNames.Length];
-		
-		for (int i = 0; i < spriteFrameNames.Length; i++) {
-			string spriteFrameName = spriteFrameNames[i];
-			spriteFrames[i] = Futile.atlasManager.GetElementWithName(spriteFrameName);
-		}
 	}
 	
 	public void UpdateAnimation() {
-		float curVel = Mathf.Max(Mathf.Abs(owner.VelocityComponent().xVelocity), Mathf.Abs(owner.VelocityComponent().yVelocity));
-
-		if (curVel == 0) {
-			frameDuration = 1000;
-			ResetAnimation();
-		}
-		else {
-			frameDuration = (1 - curVel / SBConfig.DRINKER_MAX_VELOCITY) * SBConfig.DRINKER_MAX_FRAME_DURATION;
-		}
-		
-		if (frameDuration < SBConfig.DRINKER_MIN_FRAME_DURATION) {
-			frameDuration = SBConfig.DRINKER_MIN_FRAME_DURATION;	
+		if (animationIsVelocityDependent) {
+			float curVel = Mathf.Max(Mathf.Abs(owner.VelocityComponent().xVelocity), Mathf.Abs(owner.VelocityComponent().yVelocity));
+	
+			if (curVel == 0) {
+				currentAnimation.frameDuration = 1000;
+				ResetAnimation();
+			}
+			else {
+				frameDuration = (1 - curVel / SBConfig.DRINKER_MAX_VELOCITY) * currentAnimation.maxFrameDuration;
+			}
 		}
 		
-		animationTimer += Time.fixedDeltaTime;
-		if (animationTimer >= frameDuration) {
-			animationTimer -= frameDuration;
-			frameIndex = (frameIndex + 1) % spriteFrames.Length;
-			sprite.element = spriteFrames[frameIndex];	
-		}
+		currentAnimation.HandleUpdateWithSprite(sprite);
 	}
 	
 	public void StopAnimation() {
@@ -70,13 +50,13 @@ public class SBSpriteComponent : SBAbstractComponent {
 		animationTimer = frameDuration;
 	}
 	
-	public void StartAnimation() {
+	public void StartAnimation(WTAnimation animation) {
 		isAnimating = true;
 	}
 	
 	public void RestartAnimation() {
 		ResetAnimation();
-		StartAnimation();
+		StartAnimation(currentAnimation);
 	}
 	
 	public Rect GetGlobalRect() {
@@ -100,6 +80,6 @@ public class SBSpriteComponent : SBAbstractComponent {
 	override public void HandleUpdate() {
 		if (!isAnimating) return;
 		
-		UpdateAnimation();
+		if (currentAnimation != null) UpdateAnimation();
 	}
 }
