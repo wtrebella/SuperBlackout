@@ -6,7 +6,6 @@ public class SBSpriteComponent : SBAbstractComponent {
 	public bool shouldBeInRotatingContainer;
 	public bool isAnimating = false;
 	public bool animationIsVelocityDependent = true;
-	public float frameDuration;
 	WTAnimation currentAnimation;
 	
 	public SBSpriteComponent(string imageName, bool ableToRotate) {
@@ -25,10 +24,13 @@ public class SBSpriteComponent : SBAbstractComponent {
 				ResetAnimation();
 			}
 			else {
-				frameDuration = (1 - curVel / SBConfig.DRINKER_MAX_VELOCITY) * currentAnimation.maxFrameDuration;
+				currentAnimation.frameDuration = (1 - curVel / SBConfig.DRINKER_MAX_VELOCITY) * currentAnimation.maxFrameDuration;
+				if (currentAnimation.frameDuration < currentAnimation.minFrameDuration) {
+					currentAnimation.frameDuration = currentAnimation.minFrameDuration;	
+				}
 			}
 		}
-		
+
 		currentAnimation.HandleUpdateWithSprite(sprite);
 	}
 	
@@ -43,7 +45,7 @@ public class SBSpriteComponent : SBAbstractComponent {
 	
 	public void PauseAnimation() {
 		isAnimating = false;
-		currentAnimation.animationTimer = frameDuration;
+		currentAnimation.animationTimer = currentAnimation.frameDuration;
 	}
 	
 	public void StartAnimation(WTAnimation animation) {

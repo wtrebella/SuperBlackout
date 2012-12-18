@@ -41,10 +41,6 @@ public class WTAnimation {
 	}
 	
 	public void HandleUpdateWithSprite(FSprite sprite) {
-		if (frameDuration < minFrameDuration) {
-			frameDuration = minFrameDuration;	
-		}
-		
 		animationTimer += Time.fixedDeltaTime;
 		
 		if (animationTimer >= frameDuration) {

@@ -10,14 +10,17 @@ public class WTAnimationManager {
 	}
 	
 	public void AddAnimation(string animationName, string[] spriteFrameNames, float minFrameDuration, float maxFrameDuration) {
+		if (animationDictionary.ContainsKey(animationName)) return;
 		animationDictionary.Add(animationName, new WTAnimation(spriteFrameNames, minFrameDuration, maxFrameDuration));
 	}
 	
 	public void AddAnimation(string animationName, string[] spriteFrameNames, float frameDuration) {
+		if (animationDictionary.ContainsKey(animationName)) return;
 		animationDictionary.Add(animationName, new WTAnimation(spriteFrameNames, frameDuration));	
 	}
 	
 	public void AddAnimation(string animationName, WTAnimation animation) {
+		if (animationDictionary.ContainsKey(animationName)) return;
 		animationDictionary.Add(animationName, animation);
 	}
 	
