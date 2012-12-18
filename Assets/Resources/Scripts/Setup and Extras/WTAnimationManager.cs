@@ -11,17 +11,17 @@ public class WTAnimationManager {
 	
 	public void AddAnimation(string animationName, string[] spriteFrameNames, float minFrameDuration, float maxFrameDuration, bool isLooping) {
 		if (animationDictionary.ContainsKey(animationName)) return;
-		animationDictionary.Add(animationName, new WTAnimation(spriteFrameNames, minFrameDuration, maxFrameDuration, isLooping));
+		animationDictionary.Add(animationName, new WTAnimation(animationName, spriteFrameNames, minFrameDuration, maxFrameDuration, isLooping));
 	}
 	
 	public void AddAnimation(string animationName, string[] spriteFrameNames, float frameDuration, bool isLooping) {
 		if (animationDictionary.ContainsKey(animationName)) return;
-		animationDictionary.Add(animationName, new WTAnimation(spriteFrameNames, frameDuration, isLooping));	
+		animationDictionary.Add(animationName, new WTAnimation(animationName, spriteFrameNames, frameDuration, isLooping));	
 	}
 	
-	public void AddAnimation(string animationName, WTAnimation animation, bool isLooping) {
-		if (animationDictionary.ContainsKey(animationName)) return;
-		animationDictionary.Add(animationName, animation);
+	public void AddAnimation(WTAnimation animation, bool isLooping) {
+		if (animationDictionary.ContainsKey(animation.name)) return;
+		animationDictionary.Add(animation.name, animation);
 	}
 	
 	public WTAnimation AnimationForName(string animationName) {

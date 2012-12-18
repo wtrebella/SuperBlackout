@@ -1,6 +1,10 @@
 using UnityEngine;
 using System.Collections;
 
+public interface AnimationInterface {
+	void AnimationDone(WTAnimation animation);
+}
+
 public class WTAnimation {
 	public float animationTimer = 0;
 	public int frameIndex = 0;
@@ -9,11 +13,13 @@ public class WTAnimation {
 	public float minFrameDuration;
 	public float maxFrameDuration;
 	public bool isLooping;
-	public SBSpriteComponent animationDoneDelegate;
+	public AnimationInterface animationDelegate;
+	public string name;
 	
-	public WTAnimation(string[] spriteFrameNames, float minFrameDuration, float maxFrameDuration, bool isLooping) {
+	public WTAnimation(string name, string[] spriteFrameNames, float minFrameDuration, float maxFrameDuration, bool isLooping) {
 		spriteFrames = new FAtlasElement[spriteFrameNames.Length];
 		this.isLooping = isLooping;
+		this.name = name;
 		this.minFrameDuration = minFrameDuration;
 		this.maxFrameDuration = maxFrameDuration;
 		this.frameDuration = this.minFrameDuration;
@@ -24,20 +30,21 @@ public class WTAnimation {
 		}
 	}
 	
-	public WTAnimation(FAtlasElement[] spriteFrames, float minFrameDuration, float maxFrameDuration, bool isLooping) {
+	public WTAnimation(string name, FAtlasElement[] spriteFrames, float minFrameDuration, float maxFrameDuration, bool isLooping) {
 		this.spriteFrames = spriteFrames;
+		this.name = name;
 		this.isLooping = isLooping;
 		this.minFrameDuration = minFrameDuration;
 		this.maxFrameDuration = maxFrameDuration;
 		this.frameDuration = this.minFrameDuration;
 	}
 	
-	public WTAnimation(string[] spriteFrameNames, float frameDuration, bool isLooping) : this(spriteFrameNames, frameDuration, frameDuration, isLooping) {
+	public WTAnimation(string name, string[] spriteFrameNames, float frameDuration, bool isLooping) : this(name, spriteFrameNames, frameDuration, frameDuration, isLooping) {
 		
 	}
 	
 	public WTAnimation Copy() {
-		return new WTAnimation(spriteFrames, minFrameDuration, maxFrameDuration, isLooping);
+		return new WTAnimation(name, spriteFrames, minFrameDuration, maxFrameDuration, isLooping);
 	}
 	
 	public void ResetSpriteToFirstFrame(FSprite sprite) {
@@ -52,11 +59,14 @@ public class WTAnimation {
 			frameIndex++;
 			if (isLooping) {
 				frameIndex = frameIndex % spriteFrames.Length;
-				sprite.element = spriteFrames[frameIndex];
 			}
 			else {
-				if (animationDoneDelegate != null) animationDoneDelegate.AnimationDone(this);
+				if (animationDelegate != null && frameIndex >= spriteFrames.Length) {
+					animationDelegate.AnimationDone(this);
+					return;
+				}
 			}
+			sprite.element = spriteFrames[frameIndex];
 		}
 	}
 }

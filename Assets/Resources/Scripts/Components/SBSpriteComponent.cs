@@ -5,8 +5,7 @@ public class SBSpriteComponent : SBAbstractComponent {
 	public FSprite sprite;
 	public bool shouldBeInRotatingContainer;
 	public bool isAnimating = false;
-	public bool animationIsVelocityDependent = true;
-	WTAnimation currentAnimation;
+	public WTAnimation currentAnimation;
 	
 	public SBSpriteComponent(string imageName, bool ableToRotate) {
 		this.shouldBeInRotatingContainer = ableToRotate;
@@ -14,26 +13,7 @@ public class SBSpriteComponent : SBAbstractComponent {
 		componentType = ComponentType.Sprite;
 		name = "sprite component";
 	}
-	
-	public void UpdateAnimation() {
-		if (animationIsVelocityDependent) {
-			float curVel = Mathf.Max(Mathf.Abs(owner.VelocityComponent().xVelocity), Mathf.Abs(owner.VelocityComponent().yVelocity));
-	
-			if (curVel == 0) {
-				currentAnimation.frameDuration = 1000;
-				ResetAnimation();
-			}
-			else {
-				currentAnimation.frameDuration = (1 - curVel / SBConfig.DRINKER_MAX_VELOCITY) * currentAnimation.maxFrameDuration;
-				if (currentAnimation.frameDuration < currentAnimation.minFrameDuration) {
-					currentAnimation.frameDuration = currentAnimation.minFrameDuration;	
-				}
-			}
-		}
 
-		currentAnimation.HandleUpdateWithSprite(sprite);
-	}
-	
 	public void StopAnimation() {
 		PauseAnimation();
 		ResetAnimation();
@@ -45,6 +25,7 @@ public class SBSpriteComponent : SBAbstractComponent {
 	
 	public void PauseAnimation() {
 		isAnimating = false;
+		currentAnimation.animationDelegate = null;
 		currentAnimation.animationTimer = currentAnimation.frameDuration;
 	}
 	
@@ -56,10 +37,6 @@ public class SBSpriteComponent : SBAbstractComponent {
 	public void RestartAnimation() {
 		ResetAnimation();
 		StartAnimation(currentAnimation);
-	}
-	
-	public void AnimationDone(WTAnimation animation) {
-		StopAnimation();	
 	}
 	
 	public Rect GetGlobalRect() {
@@ -81,8 +58,8 @@ public class SBSpriteComponent : SBAbstractComponent {
 	}
 	
 	override public void HandleUpdate() {
-		if (!isAnimating) return;
+		if (!isAnimating || currentAnimation == null) return;
 		
-		if (currentAnimation != null) UpdateAnimation();
+		currentAnimation.HandleUpdateWithSprite(sprite);	
 	}
 }

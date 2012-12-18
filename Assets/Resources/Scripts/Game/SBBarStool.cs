@@ -22,7 +22,7 @@ public class SBBarStool : SBEntity {
 		if (SittableComponent().currentDrinker == null) return;
 		
 		if (SittableComponent().currentDrinker.isActuallySitting) {
-			ProgressBarComponent().progressBar.percent = (2.0f - TimerComponent().timer) / 2.0f;
+			ProgressBarComponent().progressBar.percent = (SBConfig.DRINK_WAIT_TIME - TimerComponent().timer) / SBConfig.DRINK_WAIT_TIME;
 		}
 	}
 }
