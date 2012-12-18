@@ -9,7 +9,7 @@ public class SBDrinker : SBEntity {
 	public SBDrinker(string name) : base(name) {		
 		SBSpriteComponent sc = new SBSpriteComponent("drinkerIdle.png", true);
 		sc.name = string.Format("{0} sprite", this.name);
-		WTMain.animationManager.AddAnimation("drinkerWalk", new string[] {"drinkerIdle.png", "drinkerLeftFront.png", "drinkerIdle.png", "drinkerRightFront.png"}, 0.05f, 0.4f);
+		WTMain.animationManager.AddAnimation("drinkerWalk", new string[] {"drinkerIdle.png", "drinkerLeftFront.png", "drinkerIdle.png", "drinkerRightFront.png"}, 0.05f, 0.4f, true);
 		sc.StartAnimation(WTMain.animationManager.AnimationForName("drinkerWalk"));
 		AddComponent(sc);
 		AddComponent(new SBProgressBarComponent(0, 45f, 65f, 10f, Color.green, ProgressBarType.FillLeftToRight));

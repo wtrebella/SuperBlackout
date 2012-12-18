@@ -58,6 +58,10 @@ public class SBSpriteComponent : SBAbstractComponent {
 		StartAnimation(currentAnimation);
 	}
 	
+	public void AnimationDone(WTAnimation animation) {
+		StopAnimation();	
+	}
+	
 	public Rect GetGlobalRect() {
 		Vector2 globalPos = GetGlobalPosition();
 		float adjWidth = sprite.width * sprite.container.scaleX;
