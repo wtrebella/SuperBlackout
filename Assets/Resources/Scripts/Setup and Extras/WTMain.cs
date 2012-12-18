@@ -5,6 +5,7 @@ public class WTMain : MonoBehaviour {
 
 	public static FStage currentScene;
 	public static WTMain instance;
+	public static WTAnimationManager animationManager;
 	
 	public enum SceneType {
 		None,
@@ -25,6 +26,8 @@ public class WTMain : MonoBehaviour {
 		Futile.atlasManager.LoadFont("Silkscreen", "SilkscreenSmall.png", "Atlases/SilkscreenSmall");
 		
 		Go.defaultEaseType = EaseType.SineInOut;
+		
+		animationManager = new WTAnimationManager();
 		
 		SwitchToScene(SceneType.GameScene);
 	}

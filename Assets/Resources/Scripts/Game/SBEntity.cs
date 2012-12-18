@@ -12,6 +12,7 @@ public class SBEntity : FContainer, ComponentInterface {
 	public bool isBeingControlledByDirectionComponent = false;
 	public FContainer rotatingContainer;
 	List<SBAbstractComponent> components;
+	List<SBSpriteComponent> spriteComponents;
 	public string name;
 	public int tag = -1;
 	
@@ -20,6 +21,7 @@ public class SBEntity : FContainer, ComponentInterface {
 		rotatingContainer = new FContainer();
 		AddChild(rotatingContainer);
 		components = new List<SBAbstractComponent>();
+		spriteComponents = new List<SBSpriteComponent>();
 	}
 	
 	public void AddComponent(SBAbstractComponent component) {
@@ -50,8 +52,8 @@ public class SBEntity : FContainer, ComponentInterface {
 		return ComponentForType(ComponentType.Sittable) as SBSittableComponent;	
 	}
 	
-	public SBSpriteComponent SpriteComponent() {
-		return ComponentForType(ComponentType.Sprite) as SBSpriteComponent;	
+	public SBSpriteComponent SpriteComponent(int spriteComponentIndex = 0) {
+		return spriteComponents[spriteComponentIndex];	
 	}
 	
 	public SBVelocityComponent VelocityComponent() {
@@ -73,6 +75,7 @@ public class SBEntity : FContainer, ComponentInterface {
 	public void HandleComponentAdded(SBAbstractComponent component) {
 		if (component.componentType == ComponentType.Sprite) {
 			SBSpriteComponent sc = component as SBSpriteComponent;
+			spriteComponents.Add(sc);
 			if (sc.shouldBeInRotatingContainer) rotatingContainer.AddChild(sc.sprite);
 			else AddChild(sc.sprite);
 		}

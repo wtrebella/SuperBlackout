@@ -69,7 +69,7 @@ public class SBGameScene : FStage {
 		}
 		else if (Input.GetKey(SBConfig.JOYSTICK_1_RIGHT)) {
 			if (drinker1.isActuallySitting) {
-				drinker1.rotatingContainer.rotation += 650 * Time.fixedDeltaTime;
+				drinker1.RotateInChair(650 * Time.fixedDeltaTime);
 				drinker1.currentSittableComponent.owner.rotatingContainer.rotation += 650 * Time.fixedDeltaTime;
 			}
 			else {
@@ -79,7 +79,7 @@ public class SBGameScene : FStage {
 		}
 		else if (Input.GetKey(SBConfig.JOYSTICK_1_LEFT)) {
 			if (drinker1.isActuallySitting) {
-				drinker1.rotatingContainer.rotation -= 650 * Time.fixedDeltaTime;
+				drinker1.RotateInChair(-650 * Time.fixedDeltaTime);
 				drinker1.currentSittableComponent.owner.rotatingContainer.rotation -= 650 * Time.fixedDeltaTime;
 			}
 			else {
@@ -103,7 +103,7 @@ public class SBGameScene : FStage {
 		}
 		else if (Input.GetKey(SBConfig.JOYSTICK_2_RIGHT)) {
 			if (drinker2.isActuallySitting) {
-				drinker2.rotatingContainer.rotation += 650 * Time.fixedDeltaTime;
+				drinker2.RotateInChair(650 * Time.fixedDeltaTime);
 				drinker2.currentSittableComponent.owner.rotatingContainer.rotation += 650 * Time.fixedDeltaTime;
 			}
 			else {
@@ -113,7 +113,7 @@ public class SBGameScene : FStage {
 		}
 		else if (Input.GetKey(SBConfig.JOYSTICK_2_LEFT)) {
 			if (drinker2.isActuallySitting) {
-				drinker2.rotatingContainer.rotation -= 650 * Time.fixedDeltaTime;
+				drinker2.RotateInChair(-650 * Time.fixedDeltaTime);
 				drinker2.currentSittableComponent.owner.rotatingContainer.rotation -= 650 * Time.fixedDeltaTime;
 			}
 			else {
@@ -178,7 +178,7 @@ public class SBGameScene : FStage {
 		foreach (SBDrinker drinker in drinkers) {
 			if (drinker.hasDrink) {
 				if (Input.GetKeyDown(KeyCode.Space)) {
-					drinker.hasDrink = false;	
+					drinker.DrinkDrink();
 				}
 			}
 		}

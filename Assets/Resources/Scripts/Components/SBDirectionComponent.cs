@@ -23,52 +23,57 @@ public class SBDirectionComponent : SBAbstractComponent {
 	
 	public void FaceDirection(Direction toDirection, bool instantly = false) {		
 		Direction fromDirection = direction_;
-
-		if (fromDirection == toDirection) return;
+						
+		float newAbsoluteRotation = currentAbsoluteRotation_;
 		
-		direction_ = toDirection;
-				
-		owner.isBeingControlledByDirectionComponent = true;
-		
-		if (directionState == DirectionState.Moving) {
-			List<AbstractTween> tweens = Go.tweensWithId(currentTweenID);
-			if (tweens.Count > 0) {
-				foreach (AbstractTween tween in tweens) tween.destroy();
-			}
-		}
-		
-		directionState = DirectionState.Moving;
-				
 		switch (toDirection) {
 		case Direction.Right:
-			if (fromDirection == Direction.Down) currentAbsoluteRotation_ -= 90;
-			else if (fromDirection == Direction.Left) currentAbsoluteRotation_ += 180;
-			else if (fromDirection == Direction.Up) currentAbsoluteRotation_ += 90;
-			else if (fromDirection == Direction.None) currentAbsoluteRotation_ = 0;
+			if (fromDirection == Direction.Down) newAbsoluteRotation -= 90;
+			else if (fromDirection == Direction.Left) newAbsoluteRotation += 180;
+			else if (fromDirection == Direction.Up) newAbsoluteRotation += 90;
+			else if (fromDirection == Direction.None) newAbsoluteRotation = 0;
 			break;
 		case Direction.Down:
-			if (fromDirection == Direction.Up) currentAbsoluteRotation_ += 180;
-			else if (fromDirection == Direction.Left) currentAbsoluteRotation_ -= 90;
-			else if (fromDirection == Direction.Right) currentAbsoluteRotation_ += 90;
-			else if (fromDirection == Direction.None) currentAbsoluteRotation_ = 90;
+			if (fromDirection == Direction.Up) newAbsoluteRotation += 180;
+			else if (fromDirection == Direction.Left) newAbsoluteRotation -= 90;
+			else if (fromDirection == Direction.Right) newAbsoluteRotation += 90;
+			else if (fromDirection == Direction.None) newAbsoluteRotation = 90;
 			break;
 		case Direction.Left:
-			if (fromDirection == Direction.Down) currentAbsoluteRotation_ += 90;
-			else if (fromDirection == Direction.Right) currentAbsoluteRotation_ += 180;
-			else if (fromDirection == Direction.Up) currentAbsoluteRotation_ -= 90;
-			else if (fromDirection == Direction.None) currentAbsoluteRotation_ = 180;
+			if (fromDirection == Direction.Down) newAbsoluteRotation += 90;
+			else if (fromDirection == Direction.Right) newAbsoluteRotation += 180;
+			else if (fromDirection == Direction.Up) newAbsoluteRotation -= 90;
+			else if (fromDirection == Direction.None) newAbsoluteRotation = 180;
 			break;
 		case Direction.Up:
-			if (fromDirection == Direction.Down) currentAbsoluteRotation_ += 180;
-			else if (fromDirection == Direction.Left) currentAbsoluteRotation_ += 90;
-			else if (fromDirection == Direction.Right) currentAbsoluteRotation_ -= 90;
-			else if (fromDirection == Direction.None) currentAbsoluteRotation_ = -90;
+			if (fromDirection == Direction.Down) newAbsoluteRotation += 180;
+			else if (fromDirection == Direction.Left) newAbsoluteRotation += 90;
+			else if (fromDirection == Direction.Right) newAbsoluteRotation -= 90;
+			else if (fromDirection == Direction.None) newAbsoluteRotation = -90;
 			break;
 		case Direction.None:
 			Debug.Log("uhhh this guy has no direction");
 			break;
 		}
 		
+		if (direction_ == toDirection) {
+			if (owner.rotatingContainer.rotation != newAbsoluteRotation) {
+				if (directionState == DirectionState.Moving) return;	
+			}
+		}
+		
+		if (directionState == DirectionState.Moving) {
+			List<AbstractTween> tweens = Go.tweensWithId(currentTweenID);
+			if (tweens != null && tweens.Count > 0) {
+				foreach (AbstractTween tween in tweens) tween.destroy();
+			}
+		}
+		
+		currentAbsoluteRotation_ = newAbsoluteRotation;
+		directionState = DirectionState.Moving;
+		owner.isBeingControlledByDirectionComponent = true;
+		direction_ = toDirection;
+
 		if (instantly) {
 			owner.rotatingContainer.rotation = currentAbsoluteRotation_;
 			HandleDoneMovingToDirection(null);
