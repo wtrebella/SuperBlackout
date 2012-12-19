@@ -13,7 +13,7 @@ public class SBSittableComponent : SBAbstractComponent {
 	
 	public void SeatDrinker(SBDrinker drinker) {
 		if (currentDrinker != null) Debug.Log("you tried to sit on me you fucking piece of shit fucking cunthole!");
-		
+
 		currentDrinker = drinker;
 		currentDrinker.VelocityComponent().Reset();
 		currentDrinker.currentSittableComponent = this;

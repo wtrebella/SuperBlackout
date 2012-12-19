@@ -5,7 +5,7 @@ public class SBDrinker : SBEntity, AnimationInterface {
 	public SBSittableComponent currentSittableComponent;
 	public bool isActuallySitting = false;
 	public bool isInSitStandTransition = false;
-	public bool hasDrink = false;
+	public bool isDrinking = false;
 	public SBDrink currentDrink;
 
 	private float totalRotationSinceSatDown = 0;
@@ -38,6 +38,10 @@ public class SBDrinker : SBEntity, AnimationInterface {
 		AddComponent(new SBTimerComponent());
 		AddComponent(new SBDirectionComponent());
 		AddComponent(new SBVelocityComponent());
+	}
+	
+	public bool HasDrink() {
+		return currentDrink != null;	
 	}
 	
 	public void Sit() {
@@ -82,20 +86,48 @@ public class SBDrinker : SBEntity, AnimationInterface {
 	}
 	
 	public void TakeDrink(SBDrink drink) {
-		hasDrink = true;
+		if (HasDrink()) {
+			Debug.Log("already have drink, can't take another until you finish the first! what are you, a drunk?");
+			return;
+		}
+		
 		currentDrink = drink;
 		currentDrink.x = 20f;
 		currentDrink.y = -40f;
 		rotatingContainer.AddChild(currentDrink);
 	}
 	
-	public void DrinkDrink() {
-		hasDrink = false;
+	public void StartDrinkingDrink() {
+		if (!HasDrink()) {
+			Debug.Log("doesn't have a drink to drink!");
+			return;
+		}
+		
+		ProgressBarComponent().progressBar.percent = 1;
+		isDrinking = true;
+		TimerComponent().Reset();
+		TimerComponent().Start();
+	}
+	
+	public void HandleFinishedDrinkingDrink() {
 		rotatingContainer.RemoveChild(currentDrink);
+		ProgressBarComponent().progressBar.isVisible = false;
+		currentDrink = null;
+		isDrinking = false;
+		currentSittableComponent.EjectDrinker();
 	}
 	
 	override public void HandleUpdate() {
-		if (!isActuallySitting && !isInSitStandTransition) {
+		base.HandleUpdate();
+
+		if (isInSitStandTransition) return;
+		
+		if (isDrinking) { // is sitting in a special chair
+			ProgressBarComponent().progressBar.percent = 1.0f - (TimerComponent().timer / SBConfig.DRINK_DRINK_TIME);
+			if (ProgressBarComponent().progressBar.percent == 0) HandleFinishedDrinkingDrink();
+		}
+		
+		else if (!isActuallySitting) { // is walking around
 			float curVel = Mathf.Max(Mathf.Abs(VelocityComponent().xVelocity), Mathf.Abs(VelocityComponent().yVelocity));
 	
 			if (curVel == 0) {
@@ -109,7 +141,5 @@ public class SBDrinker : SBEntity, AnimationInterface {
 				}
 			}
 		}
-		
-		base.HandleUpdate();
 	}
 }

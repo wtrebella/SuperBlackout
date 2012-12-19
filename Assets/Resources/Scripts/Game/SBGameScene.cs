@@ -45,7 +45,7 @@ public class SBGameScene : FStage {
 		specialBarStools.Add(specialBarStool2);
 		AddChild(specialBarStool2);
 		
-		drinker1 = new SBDrinker("drinker1");
+		drinker1 = new SBDrinker("drinker 1");
 		drinker1.tag = 1;
 		drinker1.x = 100f;
 		drinker1.y = Futile.screen.height - SBConfig.TOP_UI_HEIGHT - 100f;
@@ -56,7 +56,7 @@ public class SBGameScene : FStage {
 		drinkers.Add(drinker1);
 		AddChild(drinker1);
 
-		drinker2 = new SBDrinker("drinker2");
+		drinker2 = new SBDrinker("drinker 2");
 		drinker2.tag = 2;
 		drinker2.x = Futile.screen.width - 100f;
 		drinker2.y = 100f;
@@ -178,7 +178,7 @@ public class SBGameScene : FStage {
 	
 	public void UpdateDrinkerBarstoolRelations() {
 		foreach (SBDrinker drinker in drinkers) {			
-			if (drinker.hasDrink) {
+			if (drinker.HasDrink()) {
 				foreach (SBBarStool specialBarStool in specialBarStools) {
 					if (!specialBarStool.GetGlobalSitTriggerRect().CheckIntersect(drinker.SpriteComponent().GetGlobalRect()) ||
 						!specialBarStool.SittableComponent().CanSeatDrinker(drinker)) continue;
@@ -207,10 +207,8 @@ public class SBGameScene : FStage {
 		// === temp ===
 		
 		foreach (SBDrinker drinker in drinkers) {
-			if (drinker.hasDrink) {
-				if (Input.GetKeyDown(KeyCode.Space)) {
-					drinker.DrinkDrink();
-				}
+			if (drinker.HasDrink() && !drinker.isDrinking && drinker.isActuallySitting && drinker.currentSittableComponent.isSpecial) {
+				drinker.StartDrinkingDrink();
 			}
 		}
 		// === temp ===

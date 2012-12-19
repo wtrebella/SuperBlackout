@@ -34,7 +34,7 @@ public class SBProgressBar : FContainer {
 	}
 	
 	public float percent {
-		get {return percent;}
+		get {return percent_;}
 		set {
 			percent_ = value;
 			if (percent_ < 0) percent_ = 0;

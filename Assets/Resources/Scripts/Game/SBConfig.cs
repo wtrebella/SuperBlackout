@@ -18,6 +18,8 @@ public static class SBConfig {
 	public const float TOP_UI_HEIGHT = 60f;
 	public const float BORDER_WIDTH = 30f;
 	public const float DRINK_WAIT_TIME = 4.0f;
+	public const float DRINK_DRINK_TIME = 4.0f;
+	
 	
 	public const KeyCode JOYSTICK_1_RIGHT = KeyCode.RightArrow;
 	public const KeyCode JOYSTICK_1_LEFT = KeyCode.LeftArrow;
