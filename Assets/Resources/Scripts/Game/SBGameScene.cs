@@ -10,6 +10,9 @@ public class SBGameScene : FStage {
 	public SBBar bar;
 	public List<SBEntity> drinkers;
 	public List<SBBarStool> specialBarStools;
+	public SBHudLayer hudLayer;
+	public KeyCode lastKeyPressed1 = KeyCode.None;
+	public KeyCode lastKeyPressed2 = KeyCode.None;
 	
 	private static int frameCount_ = 0;
 	
@@ -66,6 +69,9 @@ public class SBGameScene : FStage {
 		//drinker2.SpriteComponent().sprite.color = new Color(1.0f, 0.3f, 0.5f, 1.0f);
 		drinkers.Add(drinker2);
 		AddChild(drinker2);
+		
+		hudLayer = new SBHudLayer();
+		AddChild(hudLayer);
 	}
 	
 	public override void HandleAddedToStage() {
@@ -78,20 +84,94 @@ public class SBGameScene : FStage {
 		Futile.instance.SignalUpdate -= HandleUpdate;
 	}
 	
-	public void HandleKeyInput() {		
-		if (Input.GetKey(SBConfig.JOYSTICK_1_DOWN)) {
+	public bool KeyIsOnlyJoystickKeyBeingHeld(KeyCode keyCode, int player) {
+		if (!Input.GetKey(keyCode)) return false;
+		
+		if (player == 1) {
+			if (keyCode == SBConfig.JOYSTICK_1_DOWN) {
+				return !Input.GetKey(SBConfig.JOYSTICK_1_UP) &&
+					!Input.GetKey(SBConfig.JOYSTICK_1_RIGHT) &&	
+					!Input.GetKey(SBConfig.JOYSTICK_1_LEFT);
+			}
+			
+			else if (keyCode == SBConfig.JOYSTICK_1_UP) {
+				return !Input.GetKey(SBConfig.JOYSTICK_1_RIGHT) &&	
+					!Input.GetKey(SBConfig.JOYSTICK_1_DOWN) &&
+					!Input.GetKey(SBConfig.JOYSTICK_1_LEFT);
+			}
+			
+			else if (keyCode == SBConfig.JOYSTICK_1_RIGHT) {
+				return !Input.GetKey(SBConfig.JOYSTICK_1_UP) &&
+					!Input.GetKey(SBConfig.JOYSTICK_1_DOWN) &&
+					!Input.GetKey(SBConfig.JOYSTICK_1_LEFT);
+			}
+			
+			else if (keyCode == SBConfig.JOYSTICK_1_LEFT) {
+				return !Input.GetKey(SBConfig.JOYSTICK_1_UP) &&
+					!Input.GetKey(SBConfig.JOYSTICK_1_RIGHT) &&	
+					!Input.GetKey(SBConfig.JOYSTICK_1_DOWN);
+			}
+			
+			else return false;
+		}
+		
+		else if (player == 2) {
+			if (keyCode == SBConfig.JOYSTICK_2_DOWN) {
+				return !Input.GetKey(SBConfig.JOYSTICK_2_UP) &&
+					!Input.GetKey(SBConfig.JOYSTICK_2_RIGHT) &&	
+					!Input.GetKey(SBConfig.JOYSTICK_2_LEFT);
+			}
+			
+			else if (keyCode == SBConfig.JOYSTICK_2_UP) {
+				return !Input.GetKey(SBConfig.JOYSTICK_2_RIGHT) &&	
+					!Input.GetKey(SBConfig.JOYSTICK_2_DOWN) &&
+					!Input.GetKey(SBConfig.JOYSTICK_2_LEFT);
+			}
+			
+			else if (keyCode == SBConfig.JOYSTICK_2_RIGHT) {
+				return !Input.GetKey(SBConfig.JOYSTICK_2_UP) &&
+					!Input.GetKey(SBConfig.JOYSTICK_2_DOWN) &&
+					!Input.GetKey(SBConfig.JOYSTICK_2_LEFT);
+			}
+			
+			else if (keyCode == SBConfig.JOYSTICK_2_LEFT) {
+				return !Input.GetKey(SBConfig.JOYSTICK_2_UP) &&
+					!Input.GetKey(SBConfig.JOYSTICK_2_RIGHT) &&	
+					!Input.GetKey(SBConfig.JOYSTICK_2_DOWN);
+			}
+			
+			else return false;
+		}
+		
+		return false;
+	}
+	
+	public void HandleKeyInput() {
+		if (Input.GetKeyDown(SBConfig.JOYSTICK_1_DOWN) || KeyIsOnlyJoystickKeyBeingHeld(SBConfig.JOYSTICK_1_DOWN, 1)) lastKeyPressed1 = SBConfig.JOYSTICK_1_DOWN;
+		else if (Input.GetKeyDown(SBConfig.JOYSTICK_1_UP) || KeyIsOnlyJoystickKeyBeingHeld(SBConfig.JOYSTICK_1_UP, 1)) lastKeyPressed1 = SBConfig.JOYSTICK_1_UP;
+		else if (Input.GetKeyDown(SBConfig.JOYSTICK_1_RIGHT) || KeyIsOnlyJoystickKeyBeingHeld(SBConfig.JOYSTICK_1_RIGHT, 1)) lastKeyPressed1 = SBConfig.JOYSTICK_1_RIGHT;
+		else if (Input.GetKeyDown(SBConfig.JOYSTICK_1_LEFT) || KeyIsOnlyJoystickKeyBeingHeld(SBConfig.JOYSTICK_1_LEFT, 1)) lastKeyPressed1 = SBConfig.JOYSTICK_1_LEFT;
+				
+		if (Input.GetKeyDown(SBConfig.JOYSTICK_2_DOWN) || KeyIsOnlyJoystickKeyBeingHeld(SBConfig.JOYSTICK_2_DOWN, 2)) lastKeyPressed2 = SBConfig.JOYSTICK_2_DOWN;
+		else if (Input.GetKeyDown(SBConfig.JOYSTICK_2_UP) || KeyIsOnlyJoystickKeyBeingHeld(SBConfig.JOYSTICK_2_UP, 2)) lastKeyPressed2 = SBConfig.JOYSTICK_2_UP;
+		else if (Input.GetKeyDown(SBConfig.JOYSTICK_2_RIGHT) || KeyIsOnlyJoystickKeyBeingHeld(SBConfig.JOYSTICK_2_RIGHT, 2)) lastKeyPressed2 = SBConfig.JOYSTICK_2_RIGHT;
+		else if (Input.GetKeyDown(SBConfig.JOYSTICK_2_LEFT) || KeyIsOnlyJoystickKeyBeingHeld(SBConfig.JOYSTICK_2_LEFT, 2)) lastKeyPressed2 = SBConfig.JOYSTICK_2_LEFT;
+		
+		if (Input.GetKey(SBConfig.JOYSTICK_1_DOWN) && lastKeyPressed1 == SBConfig.JOYSTICK_1_DOWN) {
 			if (!drinker1.isActuallySitting) {
 				drinker1.VelocityComponent().accelerationDirection = Direction.Down;
 				drinker1.DirectionComponent().FaceDirection(Direction.Down);
 			}
 		}
-		else if (Input.GetKey(SBConfig.JOYSTICK_1_UP)) {
+		
+		else if (Input.GetKey(SBConfig.JOYSTICK_1_UP) && lastKeyPressed1 == SBConfig.JOYSTICK_1_UP) {
 			if (!drinker1.isActuallySitting) {
 				drinker1.VelocityComponent().accelerationDirection = Direction.Up;
 				drinker1.DirectionComponent().FaceDirection(Direction.Up);
 			}
 		}
-		else if (Input.GetKey(SBConfig.JOYSTICK_1_RIGHT)) {
+		
+		else if (Input.GetKey(SBConfig.JOYSTICK_1_RIGHT) && lastKeyPressed1 == SBConfig.JOYSTICK_1_RIGHT) {
 			if (drinker1.isActuallySitting) {
 				drinker1.RotateInChair(650 * Time.fixedDeltaTime);
 				drinker1.currentSittableComponent.owner.rotatingContainer.rotation += 650 * Time.fixedDeltaTime;
@@ -101,7 +181,8 @@ public class SBGameScene : FStage {
 				drinker1.DirectionComponent().FaceDirection(Direction.Right);
 			}
 		}
-		else if (Input.GetKey(SBConfig.JOYSTICK_1_LEFT)) {
+		
+		else if (Input.GetKey(SBConfig.JOYSTICK_1_LEFT) && lastKeyPressed1 == SBConfig.JOYSTICK_1_LEFT) {
 			if (drinker1.isActuallySitting) {
 				drinker1.RotateInChair(-650 * Time.fixedDeltaTime);
 				drinker1.currentSittableComponent.owner.rotatingContainer.rotation -= 650 * Time.fixedDeltaTime;
@@ -113,19 +194,19 @@ public class SBGameScene : FStage {
 		}
 		else drinker1.VelocityComponent().accelerationDirection = Direction.None;
 		
-		if (Input.GetKey(SBConfig.JOYSTICK_2_DOWN)) {
+		if (Input.GetKey(SBConfig.JOYSTICK_2_DOWN) && lastKeyPressed2 == SBConfig.JOYSTICK_2_DOWN) {
 			if (!drinker2.isActuallySitting) {
 				drinker2.VelocityComponent().accelerationDirection = Direction.Down;
 				drinker2.DirectionComponent().FaceDirection(Direction.Down);
 			}
 		}
-		else if (Input.GetKey(SBConfig.JOYSTICK_2_UP)) {
+		else if (Input.GetKey(SBConfig.JOYSTICK_2_UP) && lastKeyPressed2 == SBConfig.JOYSTICK_2_UP) {
 			if (!drinker2.isActuallySitting) {
 				drinker2.VelocityComponent().accelerationDirection = Direction.Up;
 				drinker2.DirectionComponent().FaceDirection(Direction.Up);
 			}
 		}
-		else if (Input.GetKey(SBConfig.JOYSTICK_2_RIGHT)) {
+		else if (Input.GetKey(SBConfig.JOYSTICK_2_RIGHT) && lastKeyPressed2 == SBConfig.JOYSTICK_2_RIGHT) {
 			if (drinker2.isActuallySitting) {
 				drinker2.RotateInChair(650 * Time.fixedDeltaTime);
 				drinker2.currentSittableComponent.owner.rotatingContainer.rotation += 650 * Time.fixedDeltaTime;
@@ -135,7 +216,7 @@ public class SBGameScene : FStage {
 				drinker2.DirectionComponent().FaceDirection(Direction.Right);
 			}
 		}
-		else if (Input.GetKey(SBConfig.JOYSTICK_2_LEFT)) {
+		else if (Input.GetKey(SBConfig.JOYSTICK_2_LEFT) && lastKeyPressed2 == SBConfig.JOYSTICK_2_LEFT) {
 			if (drinker2.isActuallySitting) {
 				drinker2.RotateInChair(-650 * Time.fixedDeltaTime);
 				drinker2.currentSittableComponent.owner.rotatingContainer.rotation -= 650 * Time.fixedDeltaTime;

@@ -1,16 +1,16 @@
 {"frames": {
 
-"SilkscreenSmall.png":
+"Silkscreen.png":
 {
-	"frame": {"x":2,"y":2,"w":250,"h":90},
+	"frame": {"x":2,"y":2,"w":498,"h":452},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":2,"y":1,"w":250,"h":90},
-	"sourceSize": {"w":256,"h":128}
+	"spriteSourceSize": {"x":2,"y":1,"w":498,"h":452},
+	"sourceSize": {"w":512,"h":512}
 },
 "bar.psd":
 {
-	"frame": {"x":252,"y":184,"w":192,"h":192},
+	"frame": {"x":2,"y":586,"w":192,"h":192},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":192,"h":192},
@@ -18,7 +18,7 @@
 },
 "barStool.psd":
 {
-	"frame": {"x":460,"y":132,"w":48,"h":48},
+	"frame": {"x":460,"y":578,"w":48,"h":48},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":48,"h":48},
@@ -26,7 +26,7 @@
 },
 "bathroomBottom.psd":
 {
-	"frame": {"x":2,"y":94,"w":248,"h":120},
+	"frame": {"x":252,"y":456,"w":248,"h":120},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":8,"w":248,"h":120},
@@ -34,7 +34,7 @@
 },
 "bathroomTop.psd":
 {
-	"frame": {"x":254,"y":2,"w":248,"h":128},
+	"frame": {"x":2,"y":456,"w":248,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":248,"h":128},
@@ -42,7 +42,7 @@
 },
 "bladderBar.psd":
 {
-	"frame": {"x":252,"y":132,"w":206,"h":50},
+	"frame": {"x":252,"y":578,"w":206,"h":50},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":206,"h":50},
@@ -50,7 +50,7 @@
 },
 "borderBarPieceCurved.psd":
 {
-	"frame": {"x":2,"y":378,"w":120,"h":120},
+	"frame": {"x":2,"y":780,"w":120,"h":120},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":120,"h":120},
@@ -58,7 +58,7 @@
 },
 "borderBarPieceStraight.psd":
 {
-	"frame": {"x":460,"y":182,"w":32,"h":120},
+	"frame": {"x":460,"y":628,"w":32,"h":120},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":120},
@@ -66,7 +66,7 @@
 },
 "drink.psd":
 {
-	"frame": {"x":446,"y":304,"w":32,"h":32},
+	"frame": {"x":196,"y":586,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -74,7 +74,7 @@
 },
 "drinkerIdle.png":
 {
-	"frame": {"x":288,"y":378,"w":80,"h":96},
+	"frame": {"x":196,"y":630,"w":80,"h":96},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":16,"y":8,"w":80,"h":96},
@@ -82,7 +82,7 @@
 },
 "drinkerLeftFront.png":
 {
-	"frame": {"x":206,"y":388,"w":80,"h":96},
+	"frame": {"x":206,"y":750,"w":80,"h":96},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":16,"y":8,"w":80,"h":96},
@@ -90,7 +90,7 @@
 },
 "drinkerRightFront.png":
 {
-	"frame": {"x":124,"y":388,"w":80,"h":96},
+	"frame": {"x":174,"y":878,"w":80,"h":96},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":16,"y":8,"w":80,"h":96},
@@ -98,31 +98,31 @@
 },
 "drinkerSitting.png":
 {
-	"frame": {"x":124,"y":216,"w":88,"h":96},
-	"rotated": true,
+	"frame": {"x":2,"y":902,"w":88,"h":96},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":16,"y":8,"w":88,"h":96},
 	"sourceSize": {"w":112,"h":112}
 },
 "drinkerSittingTrans0.png":
 {
-	"frame": {"x":124,"y":306,"w":80,"h":96},
-	"rotated": true,
+	"frame": {"x":124,"y":780,"w":80,"h":96},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":16,"y":8,"w":80,"h":96},
 	"sourceSize": {"w":112,"h":112}
 },
 "drinkerSittingTrans1.png":
 {
-	"frame": {"x":2,"y":216,"w":80,"h":96},
-	"rotated": true,
+	"frame": {"x":92,"y":902,"w":80,"h":96},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":16,"y":8,"w":80,"h":96},
 	"sourceSize": {"w":112,"h":112}
 },
 "square.psd":
 {
-	"frame": {"x":504,"y":2,"w":2,"h":2},
+	"frame": {"x":502,"y":2,"w":2,"h":2},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":2,"h":2},
@@ -133,8 +133,8 @@
 	"version": "1.0",
 	"image": "MainSheet-sixPack.png",
 	"format": "RGBA8888",
-	"size": {"w":512,"h":512},
+	"size": {"w":512,"h":1024},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:f5c763913b32f9a493c9acc51da5b3fd$"
+	"smartupdate": "$TexturePacker:SmartUpdate:9b1c688f300d2deb043c40bc15dbbd4b$"
 }
 }
