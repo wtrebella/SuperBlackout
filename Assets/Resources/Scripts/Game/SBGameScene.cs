@@ -71,6 +71,8 @@ public class SBGameScene : FStage {
 		AddChild(drinker2);
 		
 		hudLayer = new SBHudLayer();
+		drinker1.SignalFinishedDrink += hudLayer.HandleDrinkerFinishedDrink;
+		drinker2.SignalFinishedDrink += hudLayer.HandleDrinkerFinishedDrink;
 		AddChild(hudLayer);
 	}
 	

@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public class SBTimerComponent : SBAbstractComponent {
+	private bool isRunning_ = false;
 	private float timer_ = 0;
 	
 	public SBTimerComponent() {
@@ -14,7 +15,9 @@ public class SBTimerComponent : SBAbstractComponent {
 	}
 	
 	public void Start() {
-		Futile.instance.SignalUpdate += HandleUpdate;
+		isRunning_ = true;
+		Debug.Log("start");
+		//Futile.instance.SignalUpdate += HandleUpdate;
 	}
 	
 	public void Restart() {
@@ -28,10 +31,16 @@ public class SBTimerComponent : SBAbstractComponent {
 	}
 	
 	public void Pause() {
-		Futile.instance.SignalUpdate -= HandleUpdate;
+		isRunning_ = false;
+		//Futile.instance.SignalUpdate -= HandleUpdate;
 	}
 	
+	static int blah = 0;
+	
 	override public void HandleUpdate() {
+		if (!isRunning_) return;
+		Debug.Log(blah++);
+
 		base.HandleUpdate();
 		timer_ += Time.fixedDeltaTime;
 	}

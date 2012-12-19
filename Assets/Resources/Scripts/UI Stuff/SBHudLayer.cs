@@ -27,4 +27,14 @@ public class SBHudLayer : FContainer {
 		AddChild(drinkCountLabel1);
 		AddChild(drinkCountLabel2);
 	}
+	
+	public void HandleDrinkerFinishedDrink(SBDrinker drinker) {
+		if (drinker.tag == 1) {
+			drinkCountLabel1.text = string.Format("Drinks: {0}", drinker.drinkCount);
+		}
+		
+		else if (drinker.tag == 2) {
+			drinkCountLabel2.text = string.Format("Drinks: {0}", drinker.drinkCount);
+		}
+	}
 }

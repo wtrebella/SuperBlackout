@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 public class SBDrinker : SBEntity, AnimationInterface {	
 	public SBSittableComponent currentSittableComponent;
@@ -7,7 +8,9 @@ public class SBDrinker : SBEntity, AnimationInterface {
 	public bool isInSitStandTransition = false;
 	public bool isDrinking = false;
 	public SBDrink currentDrink;
-
+	public event Action<SBDrinker> SignalFinishedDrink;
+	
+	private int drinkCount_ = 0;
 	private float totalRotationSinceSatDown = 0;
 	
 	public SBDrinker(string name) : base(name) {		
@@ -105,8 +108,7 @@ public class SBDrinker : SBEntity, AnimationInterface {
 		
 		ProgressBarComponent().progressBar.percent = 1;
 		isDrinking = true;
-		TimerComponent().Reset();
-		TimerComponent().Start();
+		TimerComponent().Restart();
 	}
 	
 	public void HandleFinishedDrinkingDrink() {
@@ -115,6 +117,9 @@ public class SBDrinker : SBEntity, AnimationInterface {
 		currentDrink = null;
 		isDrinking = false;
 		currentSittableComponent.EjectDrinker();
+		drinkCount_++;
+		TimerComponent().Stop();
+		if (SignalFinishedDrink != null) SignalFinishedDrink(this);
 	}
 	
 	override public void HandleUpdate() {
@@ -123,8 +128,12 @@ public class SBDrinker : SBEntity, AnimationInterface {
 		if (isInSitStandTransition) return;
 		
 		if (isDrinking) { // is sitting in a special chair
-			ProgressBarComponent().progressBar.percent = 1.0f - (TimerComponent().timer / SBConfig.DRINK_DRINK_TIME);
-			if (ProgressBarComponent().progressBar.percent == 0) HandleFinishedDrinkingDrink();
+			currentDrink.percentLeft = 1.0f - (TimerComponent().timer / SBConfig.DRINK_DRINK_TIME);
+			ProgressBarComponent().progressBar.percent = currentDrink.percentLeft;
+			if (currentDrink.percentLeft <= 0) {
+				currentDrink.percentLeft = 0;
+				HandleFinishedDrinkingDrink();
+			}
 		}
 		
 		else if (!isActuallySitting) { // is walking around
@@ -141,5 +150,13 @@ public class SBDrinker : SBEntity, AnimationInterface {
 				}
 			}
 		}
+	}
+	
+	public int drinkCount {
+		get {return drinkCount_;}
+		/*set {
+			drinkCount_ = value;
+			if (SignalFinishedDrink != null) SignalFinishedDrink(this);
+		}*/
 	}
 }

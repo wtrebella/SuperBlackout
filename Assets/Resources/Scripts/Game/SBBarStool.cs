@@ -19,6 +19,8 @@ public class SBBarStool : SBEntity {
 	}
 	
 	override public void HandleUpdate() {
+		base.HandleUpdate();
+		
 		if (SittableComponent().currentDrinker == null) return;
 		
 		if (SittableComponent().currentDrinker.isActuallySitting) {
