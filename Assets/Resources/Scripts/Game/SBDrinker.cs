@@ -24,13 +24,13 @@ public class SBDrinker : SBEntity, AnimationInterface {
 			"drinkerIdle.png",
 			"drinkerSittingTrans0.png",
 			"drinkerSittingTrans1.png",
-			"drinkerSitting.png"}, 0.1f, false);
+			"drinkerSitting.png"}, 0.05f, false);
 		
 		WTMain.animationManager.AddAnimation("drinkerStandTransition", new string[] {
 			"drinkerSitting.png",
 			"drinkerSittingTrans1.png",
 			"drinkerSittingTrans0.png",
-			"drinkerIdle.png"}, 0.1f, false);
+			"drinkerIdle.png"}, 0.05f, false);
 		
 		sc.StartAnimation(WTMain.animationManager.AnimationForName("drinkerWalk"));
 		AddComponent(sc);

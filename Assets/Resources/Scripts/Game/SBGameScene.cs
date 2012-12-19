@@ -5,8 +5,11 @@ using System.Collections.Generic;
 public class SBGameScene : FStage {
 	public SBDrinker drinker1;
 	public SBDrinker drinker2;
+	public SBBarStool specialBarStool1;
+	public SBBarStool specialBarStool2;
 	public SBBar bar;
 	public List<SBEntity> drinkers;
+	public List<SBBarStool> specialBarStools;
 	
 	private static int frameCount_ = 0;
 	
@@ -22,11 +25,26 @@ public class SBGameScene : FStage {
 		AddChild(bar);
 				
 		drinkers = new List<SBEntity>();
+		specialBarStools = new List<SBBarStool>();
+		
+		specialBarStool1 = new SBBarStool("special bar stool 1", new Color(0.3f, 0.5f, 1.0f, 1.0f));
+		specialBarStool1.x = 100f;
+		specialBarStool1.y = 100f;
+		specialBarStool1.ProgressBarComponent().progressBar.isVisible = false;
+		specialBarStools.Add(specialBarStool1);
+		AddChild(specialBarStool1);
+		
+		specialBarStool2 = new SBBarStool("special bar stool 2", new Color(1.0f, 0.3f, 0.5f, 1.0f));
+		specialBarStool2.x = Futile.screen.width - 100f;
+		specialBarStool2.y = Futile.screen.height - SBConfig.TOP_UI_HEIGHT - 100f;
+		specialBarStool2.ProgressBarComponent().progressBar.isVisible = false;
+		specialBarStools.Add(specialBarStool2);
+		AddChild(specialBarStool2);
 		
 		drinker1 = new SBDrinker("drinker1");
 		drinker1.tag = 1;
 		drinker1.x = 100f;
-		drinker1.y = 100f;
+		drinker1.y = Futile.screen.height - SBConfig.TOP_UI_HEIGHT - 100f;
 		drinker1.ProgressBarComponent().progressBar.isVisible = false;
 		drinker1.DirectionComponent().FaceDirection(Direction.Right, true);
 		//drinker1.SpriteComponent().sprite.color = new Color(0.3f, 0.5f, 1.0f, 1.0f);
@@ -36,7 +54,7 @@ public class SBGameScene : FStage {
 		drinker2 = new SBDrinker("drinker2");
 		drinker2.tag = 2;
 		drinker2.x = Futile.screen.width - 100f;
-		drinker2.y = Futile.screen.height - SBConfig.TOP_UI_HEIGHT - 100f;
+		drinker2.y = 100f;
 		drinker2.ProgressBarComponent().progressBar.isVisible = false;
 		drinker2.DirectionComponent().FaceDirection(Direction.Left, true);
 		//drinker2.SpriteComponent().sprite.color = new Color(1.0f, 0.3f, 0.5f, 1.0f);
@@ -153,12 +171,21 @@ public class SBGameScene : FStage {
 	}
 	
 	public void UpdateDrinkerBarstoolRelations() {
-		foreach (SBDrinker drinker in drinkers) {
-			if (drinker.hasDrink) continue;
-			SBBarStool barStool = bar.BarStoolThatIntersectsWithGlobalRect(drinker.SpriteComponent().GetGlobalRect());
-			if (barStool != null && barStool.SittableComponent().currentDrinker == null && !drinker.isBeingControlledBySittableComponent) {
-				barStool.SittableComponent().SeatDrinker(drinker);
-				return;
+		foreach (SBDrinker drinker in drinkers) {			
+			if (drinker.hasDrink) {
+				foreach (SBBarStool specialBarStool in specialBarStools) {
+					if (specialBarStool.SittableComponent().currentDrinker != null || drinker.isBeingControlledBySittableComponent) continue;
+					
+					if (specialBarStool.GetGlobalSitTriggerRect().CheckIntersect(drinker.SpriteComponent().GetGlobalRect())) {
+						specialBarStool.SittableComponent().SeatDrinker(drinker);
+					}
+				}	
+			}
+			else {
+				SBBarStool barStool = bar.BarStoolThatIntersectsWithGlobalRect(drinker.SpriteComponent().GetGlobalRect());
+				if (barStool != null && barStool.SittableComponent().currentDrinker == null && !drinker.isBeingControlledBySittableComponent) {
+					barStool.SittableComponent().SeatDrinker(drinker);
+				}
 			}
 		}
 	}
