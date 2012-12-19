@@ -3,8 +3,10 @@ using System.Collections;
 
 public class SBSittableComponent : SBAbstractComponent {
 	public SBDrinker currentDrinker;
+	public bool isSpecial;
 
-	public SBSittableComponent() {
+	public SBSittableComponent(bool isSpecial = false) {
+		this.isSpecial = isSpecial;
 		name = "sittable component";
 		componentType = ComponentType.Sittable;
 	}
@@ -23,10 +25,20 @@ public class SBSittableComponent : SBAbstractComponent {
 			.onComplete(HandleDrinkerFinishedSittingDown));
 	}
 	
+	public bool CanSeatDrinker(SBDrinker drinker) {
+		bool canSit = currentDrinker == null && !drinker.isBeingControlledBySittableComponent;
+		if (isSpecial) canSit = canSit && owner.tag == drinker.tag;
+		
+		return canSit;
+	}
+	
 	public void HandleDrinkerFinishedSittingDown(AbstractTween tween) {
-		owner.ProgressBarComponent().progressBar.isVisible = true;
-		owner.ProgressBarComponent().progressBar.percent = 1;
-		owner.TimerComponent().Restart();
+		if (!isSpecial) { // only use the timer when they're waiting at the bar, not their own chair
+			owner.ProgressBarComponent().progressBar.isVisible = true;
+			owner.ProgressBarComponent().progressBar.percent = 1;
+			owner.TimerComponent().Restart();
+		}
+		
 		currentDrinker.Sit();
 	}
 	

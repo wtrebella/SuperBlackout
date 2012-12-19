@@ -30,14 +30,18 @@ public class SBGameScene : FStage {
 		specialBarStool1 = new SBBarStool("special bar stool 1", new Color(0.3f, 0.5f, 1.0f, 1.0f));
 		specialBarStool1.x = 100f;
 		specialBarStool1.y = 100f;
+		specialBarStool1.tag = 1;
 		specialBarStool1.ProgressBarComponent().progressBar.isVisible = false;
+		specialBarStool1.SittableComponent().isSpecial = true;
 		specialBarStools.Add(specialBarStool1);
 		AddChild(specialBarStool1);
 		
 		specialBarStool2 = new SBBarStool("special bar stool 2", new Color(1.0f, 0.3f, 0.5f, 1.0f));
 		specialBarStool2.x = Futile.screen.width - 100f;
 		specialBarStool2.y = Futile.screen.height - SBConfig.TOP_UI_HEIGHT - 100f;
+		specialBarStool2.tag = 2;
 		specialBarStool2.ProgressBarComponent().progressBar.isVisible = false;
+		specialBarStool2.SittableComponent().isSpecial = true;
 		specialBarStools.Add(specialBarStool2);
 		AddChild(specialBarStool2);
 		
@@ -46,6 +50,7 @@ public class SBGameScene : FStage {
 		drinker1.x = 100f;
 		drinker1.y = Futile.screen.height - SBConfig.TOP_UI_HEIGHT - 100f;
 		drinker1.ProgressBarComponent().progressBar.isVisible = false;
+		drinker1.ProgressBarComponent().progressBar.y += 60f;
 		drinker1.DirectionComponent().FaceDirection(Direction.Right, true);
 		//drinker1.SpriteComponent().sprite.color = new Color(0.3f, 0.5f, 1.0f, 1.0f);
 		drinkers.Add(drinker1);
@@ -56,6 +61,7 @@ public class SBGameScene : FStage {
 		drinker2.x = Futile.screen.width - 100f;
 		drinker2.y = 100f;
 		drinker2.ProgressBarComponent().progressBar.isVisible = false;
+		drinker2.ProgressBarComponent().progressBar.y -= 60f;
 		drinker2.DirectionComponent().FaceDirection(Direction.Left, true);
 		//drinker2.SpriteComponent().sprite.color = new Color(1.0f, 0.3f, 0.5f, 1.0f);
 		drinkers.Add(drinker2);
@@ -174,18 +180,16 @@ public class SBGameScene : FStage {
 		foreach (SBDrinker drinker in drinkers) {			
 			if (drinker.hasDrink) {
 				foreach (SBBarStool specialBarStool in specialBarStools) {
-					if (specialBarStool.SittableComponent().currentDrinker != null || drinker.isBeingControlledBySittableComponent) continue;
-					
-					if (specialBarStool.GetGlobalSitTriggerRect().CheckIntersect(drinker.SpriteComponent().GetGlobalRect())) {
-						specialBarStool.SittableComponent().SeatDrinker(drinker);
-					}
+					if (!specialBarStool.GetGlobalSitTriggerRect().CheckIntersect(drinker.SpriteComponent().GetGlobalRect()) ||
+						!specialBarStool.SittableComponent().CanSeatDrinker(drinker)) continue;
+						
+					specialBarStool.SittableComponent().SeatDrinker(drinker);
 				}	
 			}
 			else {
 				SBBarStool barStool = bar.BarStoolThatIntersectsWithGlobalRect(drinker.SpriteComponent().GetGlobalRect());
-				if (barStool != null && barStool.SittableComponent().currentDrinker == null && !drinker.isBeingControlledBySittableComponent) {
-					barStool.SittableComponent().SeatDrinker(drinker);
-				}
+				if (barStool == null || !barStool.SittableComponent().CanSeatDrinker(drinker)) continue;
+				barStool.SittableComponent().SeatDrinker(drinker);
 			}
 		}
 	}

@@ -34,7 +34,7 @@ public class SBDrinker : SBEntity, AnimationInterface {
 		
 		sc.StartAnimation(WTMain.animationManager.AnimationForName("drinkerWalk"));
 		AddComponent(sc);
-		AddComponent(new SBProgressBarComponent(0, 45f, 65f, 10f, Color.green, ProgressBarType.FillLeftToRight));
+		AddComponent(new SBProgressBarComponent(0, 0, 65f, 10f, Color.green, ProgressBarType.FillLeftToRight));
 		AddComponent(new SBTimerComponent());
 		AddComponent(new SBDirectionComponent());
 		AddComponent(new SBVelocityComponent());
@@ -47,6 +47,7 @@ public class SBDrinker : SBEntity, AnimationInterface {
 		sitAnim.animationDelegate = this;
 		SpriteComponent().StartAnimation(sitAnim);
 		isInSitStandTransition = true;
+		if (currentSittableComponent.isSpecial) ProgressBarComponent().progressBar.isVisible = true;
 	}
 	
 	public void Stand() {
@@ -60,6 +61,7 @@ public class SBDrinker : SBEntity, AnimationInterface {
 		standAnim.animationDelegate = this;
 		SpriteComponent().StartAnimation(standAnim);
 		isInSitStandTransition = true;
+		ProgressBarComponent().progressBar.isVisible = false;
 	}
 	
 	public void RotateInChair(float deltaRotation) {
