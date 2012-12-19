@@ -16,7 +16,6 @@ public class SBTimerComponent : SBAbstractComponent {
 	
 	public void Start() {
 		isRunning_ = true;
-		Debug.Log("start");
 		//Futile.instance.SignalUpdate += HandleUpdate;
 	}
 	
@@ -34,13 +33,10 @@ public class SBTimerComponent : SBAbstractComponent {
 		isRunning_ = false;
 		//Futile.instance.SignalUpdate -= HandleUpdate;
 	}
-	
-	static int blah = 0;
-	
+		
 	override public void HandleUpdate() {
 		if (!isRunning_) return;
-		Debug.Log(blah++);
-
+		
 		base.HandleUpdate();
 		timer_ += Time.fixedDeltaTime;
 	}

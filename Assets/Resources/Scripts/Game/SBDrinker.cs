@@ -7,6 +7,8 @@ public class SBDrinker : SBEntity, AnimationInterface {
 	public bool isActuallySitting = false;
 	public bool isInSitStandTransition = false;
 	public bool isDrinking = false;
+	public float drinkAmountInBladder = 0;
+	public float drinkAmountInBodyButNotBladder = 0;
 	public SBDrink currentDrink;
 	public event Action<SBDrinker> SignalFinishedDrink;
 	
@@ -118,6 +120,7 @@ public class SBDrinker : SBEntity, AnimationInterface {
 		isDrinking = false;
 		currentSittableComponent.EjectDrinker();
 		drinkCount_++;
+		drinkAmountInBodyButNotBladder += 1;
 		TimerComponent().Stop();
 		if (SignalFinishedDrink != null) SignalFinishedDrink(this);
 	}
@@ -148,6 +151,13 @@ public class SBDrinker : SBEntity, AnimationInterface {
 				if (SpriteComponent().currentAnimation.frameDuration < SpriteComponent().currentAnimation.minFrameDuration) {
 					SpriteComponent().currentAnimation.frameDuration = SpriteComponent().currentAnimation.minFrameDuration;	
 				}
+			}
+			
+			if (drinkAmountInBodyButNotBladder > 0) {
+				float drinkTransferQuantity = SBConfig.BLADDER_FILL_CONSTANT * Time.fixedDeltaTime;
+				drinkTransferQuantity = Math.Min(drinkTransferQuantity, drinkAmountInBodyButNotBladder);
+				drinkAmountInBodyButNotBladder -= drinkTransferQuantity;
+				drinkAmountInBladder += drinkTransferQuantity;
 			}
 		}
 	}
