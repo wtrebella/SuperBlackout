@@ -11,6 +11,7 @@ public class SBDrinker : SBEntity, AnimationInterface {
 	public float drinkAmountInBodyButNotBladder = 0;
 	public SBDrink currentDrink;
 	public event Action<SBDrinker> SignalFinishedDrink;
+	public bool isReceivingDrink = false;
 	
 	private int drinkCount_ = 0;
 	private float totalRotationSinceSatDown = 0;
@@ -96,10 +97,22 @@ public class SBDrinker : SBEntity, AnimationInterface {
 			return;
 		}
 		
+		isReceivingDrink = true;
 		currentDrink = drink;
-		currentDrink.x = 20f;
-		currentDrink.y = -40f;
+		Vector2 newPos = rotatingContainer.LocalToLocal(currentDrink.container, new Vector2(currentDrink.x, currentDrink.y));
+		currentDrink.RemoveFromContainer();
+		currentDrink.x = newPos.x;
+		currentDrink.y = newPos.y;
 		rotatingContainer.AddChild(currentDrink);
+		Go.to(currentDrink, 0.5f, new TweenConfig()
+			.floatProp("x", 20f)
+			.floatProp("y", -40f)
+			.onComplete(HandleActuallyReceivedDrink));
+	}
+	
+	public void HandleActuallyReceivedDrink(AbstractTween tween) {
+		currentSittableComponent.EjectDrinker();
+		isReceivingDrink = false;
 	}
 	
 	public void StartDrinkingDrink() {
@@ -111,15 +124,28 @@ public class SBDrinker : SBEntity, AnimationInterface {
 		ProgressBarComponent().progressBar.percent = 1;
 		isDrinking = true;
 		TimerComponent().Restart();
+		Go.to(currentDrink, 0.8f, new TweenConfig()
+			.floatProp("x", 23f)
+			.floatProp("y", -10f));
 	}
 	
 	public void HandleFinishedDrinkingDrink() {
+		drinkCount_++;
+		
+		Vector2 newPos = rotatingContainer.LocalToGlobal(new Vector2(currentDrink.x, currentDrink.y));
 		rotatingContainer.RemoveChild(currentDrink);
+		currentDrink.x = newPos.x;
+		currentDrink.y = newPos.y;
+		WTMain.currentScene.AddChild(currentDrink);
+		Vector2 goalPos = SBConfig.EmptyGlassPosition(drinkCount_, tag);
+		Go.to(currentDrink, 0.5f, new TweenConfig()
+			.floatProp("x", goalPos.x)
+			.floatProp("y", goalPos.y));
+		
 		ProgressBarComponent().progressBar.isVisible = false;
 		currentDrink = null;
 		isDrinking = false;
 		currentSittableComponent.EjectDrinker();
-		drinkCount_++;
 		drinkAmountInBodyButNotBladder += 1;
 		TimerComponent().Stop();
 		if (SignalFinishedDrink != null) SignalFinishedDrink(this);

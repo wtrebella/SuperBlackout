@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class SBGameScene : FStage {
+public class SBGameScene : FStage, FSingleTouchableInterface {
 	public SBDrinker drinker1;
 	public SBDrinker drinker2;
 	public SBBarStool specialBarStool1;
@@ -79,11 +79,13 @@ public class SBGameScene : FStage {
 	public override void HandleAddedToStage() {
 		base.HandleAddedToStage();
 		Futile.instance.SignalUpdate += HandleUpdate;
+		Futile.touchManager.AddSingleTouchTarget(this);
 	}
 	
 	public override void HandleRemovedFromStage() {
 		base.HandleRemovedFromStage();
 		Futile.instance.SignalUpdate -= HandleUpdate;
+		Futile.touchManager.AddSingleTouchTarget(this);
 	}
 	
 	public bool KeyIsOnlyJoystickKeyBeingHeld(KeyCode keyCode, int player) {
@@ -175,8 +177,10 @@ public class SBGameScene : FStage {
 		
 		else if (Input.GetKey(SBConfig.JOYSTICK_1_RIGHT) && lastKeyPressed1 == SBConfig.JOYSTICK_1_RIGHT) {
 			if (drinker1.isActuallySitting) {
-				drinker1.RotateInChair(650 * Time.fixedDeltaTime);
-				drinker1.currentSittableComponent.owner.rotatingContainer.rotation += 650 * Time.fixedDeltaTime;
+				if (!drinker1.isReceivingDrink) {
+					drinker1.RotateInChair(650 * Time.fixedDeltaTime);
+					drinker1.currentSittableComponent.owner.rotatingContainer.rotation += 650 * Time.fixedDeltaTime;
+				}
 			}
 			else {
 				drinker1.VelocityComponent().accelerationDirection = Direction.Right;
@@ -186,8 +190,10 @@ public class SBGameScene : FStage {
 		
 		else if (Input.GetKey(SBConfig.JOYSTICK_1_LEFT) && lastKeyPressed1 == SBConfig.JOYSTICK_1_LEFT) {
 			if (drinker1.isActuallySitting) {
-				drinker1.RotateInChair(-650 * Time.fixedDeltaTime);
-				drinker1.currentSittableComponent.owner.rotatingContainer.rotation -= 650 * Time.fixedDeltaTime;
+				if (!drinker1.isReceivingDrink) {
+					drinker1.RotateInChair(-650 * Time.fixedDeltaTime);
+					drinker1.currentSittableComponent.owner.rotatingContainer.rotation -= 650 * Time.fixedDeltaTime;
+				}
 			}
 			else {
 				drinker1.VelocityComponent().accelerationDirection = Direction.Left;
@@ -210,8 +216,10 @@ public class SBGameScene : FStage {
 		}
 		else if (Input.GetKey(SBConfig.JOYSTICK_2_RIGHT) && lastKeyPressed2 == SBConfig.JOYSTICK_2_RIGHT) {
 			if (drinker2.isActuallySitting) {
-				drinker2.RotateInChair(650 * Time.fixedDeltaTime);
-				drinker2.currentSittableComponent.owner.rotatingContainer.rotation += 650 * Time.fixedDeltaTime;
+				if (!drinker2.isReceivingDrink) {
+					drinker2.RotateInChair(650 * Time.fixedDeltaTime);
+					drinker2.currentSittableComponent.owner.rotatingContainer.rotation += 650 * Time.fixedDeltaTime;
+				}
 			}
 			else {
 				drinker2.VelocityComponent().accelerationDirection = Direction.Right;
@@ -220,8 +228,10 @@ public class SBGameScene : FStage {
 		}
 		else if (Input.GetKey(SBConfig.JOYSTICK_2_LEFT) && lastKeyPressed2 == SBConfig.JOYSTICK_2_LEFT) {
 			if (drinker2.isActuallySitting) {
-				drinker2.RotateInChair(-650 * Time.fixedDeltaTime);
-				drinker2.currentSittableComponent.owner.rotatingContainer.rotation -= 650 * Time.fixedDeltaTime;
+				if (!drinker2.isReceivingDrink) {
+					drinker2.RotateInChair(-650 * Time.fixedDeltaTime);
+					drinker2.currentSittableComponent.owner.rotatingContainer.rotation -= 650 * Time.fixedDeltaTime;
+				}
 			}
 			else {
 				drinker2.VelocityComponent().accelerationDirection = Direction.Left;
@@ -295,5 +305,26 @@ public class SBGameScene : FStage {
 			}
 		}
 		// === temp ===
-	}	
+	}
+	
+	public bool HandleSingleTouchBegan(FTouch touch) {
+		SBDrink drink = new SBDrink("drink");
+		drink.x = touch.position.x;
+		drink.y = touch.position.y;
+		Debug.Log("x: " + drink.x + " y: " + drink.y);
+		AddChild(drink);
+		return true;
+	}
+	
+	public void HandleSingleTouchMoved(FTouch touch) {
+		
+	}
+	
+	public void HandleSingleTouchEnded(FTouch touch) {
+		
+	}
+	
+	public void HandleSingleTouchCanceled(FTouch touch) {
+		
+	}
 }
