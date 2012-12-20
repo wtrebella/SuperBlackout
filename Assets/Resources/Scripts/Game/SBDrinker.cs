@@ -11,8 +11,9 @@ public class SBDrinker : SBEntity, AnimationInterface {
 	public float drinkAmountInBodyButNotBladder = 0;
 	public SBDrink currentDrink;
 	public event Action<SBDrinker> SignalFinishedDrink;
+	public event Action<SBDrinker> SignalBladderChanged;
 	public bool isReceivingDrink = false;
-	
+
 	private int drinkCount_ = 0;
 	private float totalRotationSinceSatDown = 0;
 	
@@ -178,21 +179,18 @@ public class SBDrinker : SBEntity, AnimationInterface {
 					SpriteComponent().currentAnimation.frameDuration = SpriteComponent().currentAnimation.minFrameDuration;	
 				}
 			}
-			
-			if (drinkAmountInBodyButNotBladder > 0) {
-				float drinkTransferQuantity = 1.0f / SBConfig.BLADDER_FILL_TIME * Time.fixedDeltaTime;
-				drinkTransferQuantity = Math.Min(drinkTransferQuantity, drinkAmountInBodyButNotBladder);
-				drinkAmountInBodyButNotBladder -= drinkTransferQuantity;
-				drinkAmountInBladder += drinkTransferQuantity;
-			}
+		}
+		
+		if (drinkAmountInBodyButNotBladder > 0) {
+			float drinkTransferQuantity = 1.0f / SBConfig.BLADDER_FILL_TIME * Time.fixedDeltaTime;
+			drinkTransferQuantity = Math.Min(drinkTransferQuantity, drinkAmountInBodyButNotBladder);
+			drinkAmountInBodyButNotBladder -= drinkTransferQuantity;
+			drinkAmountInBladder += drinkTransferQuantity;
+			if (SignalBladderChanged != null) SignalBladderChanged(this);
 		}
 	}
 	
 	public int drinkCount {
 		get {return drinkCount_;}
-		/*set {
-			drinkCount_ = value;
-			if (SignalFinishedDrink != null) SignalFinishedDrink(this);
-		}*/
 	}
 }

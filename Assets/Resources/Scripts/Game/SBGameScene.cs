@@ -73,6 +73,8 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		hudLayer = new SBHudLayer();
 		drinker1.SignalFinishedDrink += hudLayer.HandleDrinkerFinishedDrink;
 		drinker2.SignalFinishedDrink += hudLayer.HandleDrinkerFinishedDrink;
+		drinker1.SignalBladderChanged += hudLayer.HandleBladderChanged;
+		drinker2.SignalBladderChanged += hudLayer.HandleBladderChanged;
 		AddChild(hudLayer);
 	}
 	

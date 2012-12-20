@@ -12,8 +12,8 @@ public class SBHudLayer : FContainer {
 		drinkCountLabel1 = new FLabel("Silkscreen", "Drinks: 0");
 		drinkCountLabel2 = new FLabel("Silkscreen", "Drinks: 0");
 		
-		bladderBar1 = new SBBladderBar();
-		bladderBar2 = new SBBladderBar();
+		bladderBar1 = new SBBladderBar(1);
+		bladderBar2 = new SBBladderBar(2);
 		
 		drinkCountLabel1.scale = drinkCountLabel2.scale = 0.75f;
 		
@@ -42,6 +42,24 @@ public class SBHudLayer : FContainer {
 		
 		AddChild(bladderBar1);
 		AddChild(bladderBar2);
+		
+		for (int i = 0; i < 7; i++) {
+			string name;
+			float alpha;
+			if (i < 4) {
+				name = "uiDrink.psd";
+				alpha = 1;
+			}
+			else {
+				name = "uiDrinkBW.psd";
+				alpha = 0.5f;
+			}
+			FSprite drinky = new FSprite(name);
+			drinky.x = Futile.screen.halfWidth - 150f + i * 8 * 7;
+			drinky.y = Futile.screen.height - SBConfig.TOP_UI_HEIGHT / 2f;
+			drinky.alpha = alpha;
+			AddChild(drinky);
+		}
 	}
 	
 	public void HandleDrinkerFinishedDrink(SBDrinker drinker) {
@@ -51,6 +69,16 @@ public class SBHudLayer : FContainer {
 		
 		else if (drinker.tag == 2) {
 			drinkCountLabel2.text = string.Format("Drinks: {0}", drinker.drinkCount);
+		}
+	}
+	
+	public void HandleBladderChanged(SBDrinker drinker) {
+		if (drinker.tag == 1) {
+			bladderBar1.percent = drinker.drinkAmountInBladder / SBConfig.MAX_BLADDER_CAPACITY;
+		}
+		
+		else if (drinker.tag == 2) {
+			bladderBar2.percent = drinker.drinkAmountInBladder / SBConfig.MAX_BLADDER_CAPACITY;	
 		}
 	}
 }
