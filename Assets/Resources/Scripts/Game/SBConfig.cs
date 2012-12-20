@@ -20,7 +20,7 @@ public static class SBConfig {
 	public const float DRINK_WAIT_TIME = 4.0f;
 	public const float DRINK_DRINK_TIME = 4.0f;
 	public const float MAX_BLADDER_CAPACITY = 3.0f;	
-	public const float BLADDER_FILL_CONSTANT = 1.0f / 4.0f; // takes denominator seconds to fill one drink in bladder
+	public const float BLADDER_FILL_TIME = 4.0f; // per drink
 		
 	public const KeyCode JOYSTICK_1_RIGHT = KeyCode.G;
 	public const KeyCode JOYSTICK_1_LEFT = KeyCode.D;

@@ -180,7 +180,7 @@ public class SBDrinker : SBEntity, AnimationInterface {
 			}
 			
 			if (drinkAmountInBodyButNotBladder > 0) {
-				float drinkTransferQuantity = SBConfig.BLADDER_FILL_CONSTANT * Time.fixedDeltaTime;
+				float drinkTransferQuantity = 1.0f / SBConfig.BLADDER_FILL_TIME * Time.fixedDeltaTime;
 				drinkTransferQuantity = Math.Min(drinkTransferQuantity, drinkAmountInBodyButNotBladder);
 				drinkAmountInBodyButNotBladder -= drinkTransferQuantity;
 				drinkAmountInBladder += drinkTransferQuantity;
