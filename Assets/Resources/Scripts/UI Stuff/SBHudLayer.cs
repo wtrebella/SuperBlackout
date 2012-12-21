@@ -12,6 +12,14 @@ public class SBHudLayer : FContainer {
 	SBDrinkCounter drinkCounter2;
 	
 	public SBHudLayer() {
+		FSprite background = WTSquareMaker.Square(Futile.screen.width, SBConfig.TOP_UI_HEIGHT);
+		background.anchorX = 0;
+		background.anchorY = 1;
+		background.x = 0;
+		background.y = Futile.screen.height;
+		background.color = new Color(0.32f, 0.32f, 0.32f, 1.0f);
+		AddChild(background);
+		
 		/*drinkCountLabel1.scale = drinkCountLabel2.scale = 0.75f;
 		drinkCountLabel1 = new FLabel("Silkscreen", "Drinks: 0");
 		drinkCountLabel2 = new FLabel("Silkscreen", "Drinks: 0");
@@ -64,6 +72,7 @@ public class SBHudLayer : FContainer {
 		}
 		
 		else if (drinker.tag == 2) {
+			Debug.Log(drinker.drinkAmountInBladder);
 			bladderBar2.percent = drinker.drinkAmountInBladder / SBConfig.MAX_BLADDER_CAPACITY;	
 		}
 	}

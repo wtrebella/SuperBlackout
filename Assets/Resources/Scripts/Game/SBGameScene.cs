@@ -245,7 +245,7 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 	
 	public void UpdateDrinkerPositions() {
 		foreach (SBDrinker drinker in drinkers) {
-			if (drinker.isBeingControlledBySittableComponent) continue;
+			if (drinker.isBeingControlledBySittableComponent || drinker.isInBathroom || drinker.isLeavingBathroom) continue;
 			
 			float newX = drinker.x + Time.fixedDeltaTime * drinker.VelocityComponent().xVelocity;
 			float newY = drinker.y + Time.fixedDeltaTime * drinker.VelocityComponent().yVelocity;
@@ -254,16 +254,18 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 			
 			Rect leftWallRect = new Rect(0, 0, SBConfig.BORDER_WIDTH + borderPadding, Futile.screen.height);
 			Rect rightWallRect = new Rect(Futile.screen.width - SBConfig.BORDER_WIDTH - borderPadding, 0, SBConfig.BORDER_WIDTH + borderPadding, Futile.screen.height);
-			Rect bottomLeftWallRect = new Rect(0, 0, Futile.screen.halfWidth - SBConfig.BATHROOM_WIDTH / 2f - bathroomPadding, SBConfig.BORDER_WIDTH + borderPadding);
-			Rect bottomRightWallRect = new Rect(Futile.screen.halfWidth + SBConfig.BATHROOM_WIDTH / 2f + bathroomPadding, 0, Futile.screen.halfWidth - SBConfig.BATHROOM_WIDTH / 2f - bathroomPadding, SBConfig.BORDER_WIDTH + borderPadding);
-			Rect topWallRect = new Rect(0, Futile.screen.height - SBConfig.TOP_UI_HEIGHT - SBConfig.BORDER_WIDTH - borderPadding, Futile.screen.width, SBConfig.BORDER_WIDTH + borderPadding);
+			Rect bottomLeftWallRect = new Rect(0, -300, Futile.screen.halfWidth - SBConfig.BATHROOM_WIDTH / 2f - bathroomPadding, SBConfig.BORDER_WIDTH + borderPadding + 300);
+			Rect bottomRightWallRect = new Rect(Futile.screen.halfWidth + SBConfig.BATHROOM_WIDTH / 2f + bathroomPadding, -300, Futile.screen.halfWidth - SBConfig.BATHROOM_WIDTH / 2f - bathroomPadding, SBConfig.BORDER_WIDTH + borderPadding + 300);
+			Rect topLeftWallRect = new Rect(0, Futile.screen.height - SBConfig.TOP_UI_HEIGHT - borderPadding, Futile.screen.halfWidth - SBConfig.BATHROOM_WIDTH / 2f - bathroomPadding, SBConfig.BORDER_WIDTH + borderPadding + 300);
+			Rect topRightWallRect = new Rect(Futile.screen.halfWidth + SBConfig.BATHROOM_WIDTH / 2f + bathroomPadding, Futile.screen.height - SBConfig.TOP_UI_HEIGHT - borderPadding, Futile.screen.halfWidth - SBConfig.BATHROOM_WIDTH / 2f - bathroomPadding, SBConfig.BORDER_WIDTH + borderPadding + 300);
 			
 			Vector2 updatedPoint;
 			updatedPoint = bar.CollideComponent().PointToAvoidCollidingFixedRectWithMovingEntity(leftWallRect, drinker, newX, newY);
 			updatedPoint = bar.CollideComponent().PointToAvoidCollidingFixedRectWithMovingEntity(rightWallRect, drinker, updatedPoint.x, updatedPoint.y);
 			updatedPoint = bar.CollideComponent().PointToAvoidCollidingFixedRectWithMovingEntity(bottomLeftWallRect, drinker, updatedPoint.x, updatedPoint.y);
 			updatedPoint = bar.CollideComponent().PointToAvoidCollidingFixedRectWithMovingEntity(bottomRightWallRect, drinker, updatedPoint.x, updatedPoint.y);
-			updatedPoint = bar.CollideComponent().PointToAvoidCollidingFixedRectWithMovingEntity(topWallRect, drinker, updatedPoint.x, updatedPoint.y);
+			updatedPoint = bar.CollideComponent().PointToAvoidCollidingFixedRectWithMovingEntity(topLeftWallRect, drinker, updatedPoint.x, updatedPoint.y);
+			updatedPoint = bar.CollideComponent().PointToAvoidCollidingFixedRectWithMovingEntity(topRightWallRect, drinker, updatedPoint.x, updatedPoint.y);
 			updatedPoint = bar.CollideComponent().PointToAvoidCollidingFixedRectWithMovingEntity(bar.SpriteComponent().GetGlobalRect().CloneWithExpansion(-10f), drinker, updatedPoint.x, updatedPoint.y);
 			
 			drinker.x = updatedPoint.x;
@@ -289,11 +291,39 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		}
 	}
 	
+	public void UpdateDrinkerBathroomRelations() {
+		foreach (SBDrinker drinker in drinkers) {
+			if (drinker.isInBathroom) {
+				if (drinker.drinkAmountInBladder <= 0) {
+					drinker.isInBathroom = false;
+					drinker.isLeavingBathroom = true;
+					if (drinker.y < Futile.screen.halfHeight) {
+						Go.to(drinker, 0.5f, new TweenConfig()
+							.floatProp("x", Futile.screen.halfWidth)
+							.floatProp("y", 100f)
+							.onComplete(SBDrinker.HandleDoneLeavingBathroom));
+					}
+					else {
+						Go.to(drinker, 0.5f, new TweenConfig()
+							.floatProp("x", Futile.screen.halfWidth)
+							.floatProp("y", Futile.screen.height - SBConfig.TOP_UI_HEIGHT - 100f)
+							.onComplete(SBDrinker.HandleDoneLeavingBathroom));
+					}
+				}
+			}
+			else if (!drinker.isLeavingBathroom) {
+				if (drinker.y < -drinker.SpriteComponent().sprite.height / 2f) drinker.isInBathroom = true;
+				if (drinker.y > Futile.screen.height - SBConfig.TOP_UI_HEIGHT + drinker.SpriteComponent().sprite.height / 2f) drinker.isInBathroom = true;
+			}
+		}
+	}
+	
 	public void HandleUpdate() {
 		if (frameCount_++ < 5) return;
 		
 		HandleKeyInput();
 		UpdateDrinkerPositions();
+		UpdateDrinkerBathroomRelations();
 		UpdateDrinkerBarstoolRelations();
 		bar.HandleUpdate();
 		drinker1.HandleUpdate();
@@ -310,11 +340,6 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 	}
 	
 	public bool HandleSingleTouchBegan(FTouch touch) {
-		SBDrink drink = new SBDrink("drink");
-		drink.x = touch.position.x;
-		drink.y = touch.position.y;
-		Debug.Log("x: " + drink.x + " y: " + drink.y);
-		AddChild(drink);
 		return true;
 	}
 	

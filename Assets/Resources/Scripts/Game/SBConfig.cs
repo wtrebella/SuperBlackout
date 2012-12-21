@@ -21,6 +21,7 @@ public static class SBConfig {
 	public const float DRINK_DRINK_TIME = 4.0f;
 	public const float MAX_BLADDER_CAPACITY = 3.0f;	
 	public const float BLADDER_FILL_TIME = 4.0f; // per drink
+	public const float PEE_TIME = 1.0f; // per drink
 	public const int DRINKS_TO_WIN = 7;
 		
 	public const KeyCode JOYSTICK_1_RIGHT = KeyCode.G;

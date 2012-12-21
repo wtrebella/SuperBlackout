@@ -6,8 +6,10 @@ public class SBDrinker : SBEntity, AnimationInterface {
 	public SBSittableComponent currentSittableComponent;
 	public bool isActuallySitting = false;
 	public bool isInSitStandTransition = false;
+	public bool isInBathroom = false;
+	public bool isLeavingBathroom = false;
 	public bool isDrinking = false;
-	public float drinkAmountInBladder = 0;
+	private float drinkAmountInBladder_ = 0;
 	public float drinkAmountInBodyButNotBladder = 0;
 	public SBDrink currentDrink;
 	public event Action<SBDrinker> SignalFinishedDrink;
@@ -181,11 +183,32 @@ public class SBDrinker : SBEntity, AnimationInterface {
 			}
 		}
 		
-		if (drinkAmountInBodyButNotBladder > 0) {
-			float drinkTransferQuantity = 1.0f / SBConfig.BLADDER_FILL_TIME * Time.fixedDeltaTime;
-			drinkTransferQuantity = Math.Min(drinkTransferQuantity, drinkAmountInBodyButNotBladder);
-			drinkAmountInBodyButNotBladder -= drinkTransferQuantity;
-			drinkAmountInBladder += drinkTransferQuantity;
+		if (!isLeavingBathroom) {
+			if (isInBathroom) {
+				float drinkTransferQuantity = 1.0f / SBConfig.PEE_TIME * Time.fixedDeltaTime;
+				drinkTransferQuantity = Math.Min(drinkTransferQuantity, this.drinkAmountInBladder);
+				this.drinkAmountInBladder -= drinkTransferQuantity;
+			}
+			else if (drinkAmountInBodyButNotBladder > 0) {
+				float drinkTransferQuantity = 1.0f / SBConfig.BLADDER_FILL_TIME * Time.fixedDeltaTime;
+				drinkTransferQuantity = Math.Min(drinkTransferQuantity, drinkAmountInBodyButNotBladder);
+				drinkAmountInBodyButNotBladder -= drinkTransferQuantity;
+				this.drinkAmountInBladder += drinkTransferQuantity;
+			}			
+		}
+	}
+	
+	public static void HandleDoneLeavingBathroom(AbstractTween tween) {
+		SBDrinker drinker = (tween as Tween).target as SBDrinker;
+		drinker.isLeavingBathroom = false;
+		drinker.VelocityComponent().xVelocity = 0;
+		drinker.VelocityComponent().yVelocity = 0;
+	}
+		
+	public float drinkAmountInBladder {
+		get {return drinkAmountInBladder_;}
+		set {
+			drinkAmountInBladder_ = value;
 			if (SignalBladderChanged != null) SignalBladderChanged(this);
 		}
 	}
