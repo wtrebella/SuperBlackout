@@ -14,6 +14,7 @@ public class SBDrinker : SBEntity, AnimationInterface {
 	public SBDrink currentDrink;
 	public event Action<SBDrinker> SignalFinishedDrink;
 	public event Action<SBDrinker> SignalBladderChanged;
+	public event Action<SBDrinker> SignalPissedHimself;
 	public bool isReceivingDrink = false;
 
 	private int drinkCount_ = 0;
@@ -210,6 +211,7 @@ public class SBDrinker : SBEntity, AnimationInterface {
 		set {
 			drinkAmountInBladder_ = value;
 			if (SignalBladderChanged != null) SignalBladderChanged(this);
+			if (drinkAmountInBladder_ >= SBConfig.MAX_BLADDER_CAPACITY && SignalPissedHimself != null) SignalPissedHimself(this);
 		}
 	}
 	

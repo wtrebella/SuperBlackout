@@ -10,6 +10,7 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 	public SBBar bar;
 	public List<SBEntity> drinkers;
 	public List<SBBarStool> specialBarStools;
+	public bool isGameOver = false;
 	public SBHudLayer hudLayer;
 	public KeyCode lastKeyPressed1 = KeyCode.None;
 	public KeyCode lastKeyPressed2 = KeyCode.None;
@@ -73,8 +74,12 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		hudLayer = new SBHudLayer();
 		drinker1.SignalFinishedDrink += hudLayer.HandleDrinkerFinishedDrink;
 		drinker2.SignalFinishedDrink += hudLayer.HandleDrinkerFinishedDrink;
+		drinker1.SignalFinishedDrink += HandleDrinkerFinishedDrink;
+		drinker2.SignalFinishedDrink += HandleDrinkerFinishedDrink;
 		drinker1.SignalBladderChanged += hudLayer.HandleBladderChanged;
 		drinker2.SignalBladderChanged += hudLayer.HandleBladderChanged;
+		drinker1.SignalPissedHimself += HandleDrinkerPissedHimself;
+		drinker2.SignalPissedHimself += HandleDrinkerPissedHimself;
 		AddChild(hudLayer);
 	}
 	
@@ -318,8 +323,29 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		}
 	}
 	
+	public void HandleDrinkerPissedHimself(SBDrinker drinker) {
+		isGameOver = true;
+		FLabel label = new FLabel("Silkscreen", string.Format(drinker.name + " pissed himself!"));
+		label.color = Color.black;
+		label.x = Futile.screen.halfWidth;
+		label.y = Futile.screen.height * 0.75f;
+		AddChild(label);;
+	}
+	
+	public void HandleDrinkerFinishedDrink(SBDrinker drinker) {
+		if (drinker.drinkCount >= SBConfig.DRINKS_TO_WIN) {
+			isGameOver = true;
+			FLabel label = new FLabel("Silkscreen", string.Format(drinker.name + " blacked out!"));
+			label.color = Color.black;
+			label.x = Futile.screen.halfWidth;
+			label.y = Futile.screen.height * 0.75f;
+			AddChild(label);
+		}
+	}
+	
 	public void HandleUpdate() {
 		if (frameCount_++ < 5) return;
+		if (isGameOver) return;
 		
 		HandleKeyInput();
 		UpdateDrinkerPositions();

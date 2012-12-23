@@ -72,7 +72,6 @@ public class SBHudLayer : FContainer {
 		}
 		
 		else if (drinker.tag == 2) {
-			Debug.Log(drinker.drinkAmountInBladder);
 			bladderBar2.percent = drinker.drinkAmountInBladder / SBConfig.MAX_BLADDER_CAPACITY;	
 		}
 	}
