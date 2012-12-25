@@ -7,6 +7,9 @@ public class SBVelocityComponent : SBAbstractComponent {
 	
 	public Direction accelerationDirection = Direction.None;
 	
+	public Direction xCurrentDrunkLean = Direction.None;
+	public Direction yCurrentDrunkLean = Direction.Up;
+	
 	public SBVelocityComponent() {
 		componentType = ComponentType.Velocity;
 		name = "velocity component";
@@ -15,7 +18,8 @@ public class SBVelocityComponent : SBAbstractComponent {
 	override public void HandleUpdate() {
 		base.HandleUpdate();
 		UpdateAcceleration();
-		UpdateDeceleration();		
+		UpdateDeceleration();
+		UpdateDrunkAdjustments();
 	}
 	
 	public void Reset() {
@@ -36,46 +40,26 @@ public class SBVelocityComponent : SBAbstractComponent {
 	public void UpdateAcceleration() {	
 		float accelAmt = Time.fixedDeltaTime * SBConfig.DRINKER_ACCELERATION_CONSTANT;
 		
-		if (OwnerDrinkCount() == 0) {
-			switch (accelerationDirection) {
-			case Direction.Left:
-				xVelocity -= accelAmt;
-				break;
-			case Direction.Right:
-				xVelocity += accelAmt;
-				break;
-			case Direction.Down:
-				yVelocity -= accelAmt;
-				break;
-			case Direction.Up:
-				yVelocity += accelAmt;
-				break;
-			case Direction.None:
-				break;
-			}
-		}
-		
-		else {
-			switch (accelerationDirection) {
-			case Direction.Left:
-				xVelocity -= accelAmt;
-				yVelocity -= accelAmt / 2f;
-				break;
-			case Direction.Right:
-				xVelocity += accelAmt;
-				yVelocity += accelAmt / 2f;
-				break;
-			case Direction.Down:
-				yVelocity -= accelAmt;
-				xVelocity -= accelAmt / 2f;
-				break;
-			case Direction.Up:
-				yVelocity += accelAmt;
-				xVelocity += accelAmt / 2f;
-				break;
-			case Direction.None:
-				break;
-			}	
+		switch (accelerationDirection) {
+		case Direction.Left:
+			xVelocity -= accelAmt;
+			xCurrentDrunkLean = Direction.Left;
+			break;
+		case Direction.Right:
+			xVelocity += accelAmt;
+			xCurrentDrunkLean = Direction.Right;
+			break;
+		case Direction.Down:
+			yVelocity -= accelAmt;
+			yCurrentDrunkLean = Direction.Down;
+			break;
+		case Direction.Up:
+			yVelocity += accelAmt;
+			yCurrentDrunkLean = Direction.Up;
+			break;
+		case Direction.None:
+			//xCurrentDrunkLean = yCurrentDrunkLean = Direction.None;
+			break;
 		}
 		
 		if (xVelocity < -SBConfig.DRINKER_MAX_VELOCITY) xVelocity = -SBConfig.DRINKER_MAX_VELOCITY;
@@ -101,6 +85,24 @@ public class SBVelocityComponent : SBAbstractComponent {
 		
 		if (accelerationDirection == Direction.Left || accelerationDirection == Direction.Right) xVelocity = xVelPrev;
 		if (accelerationDirection == Direction.Down || accelerationDirection == Direction.Up) yVelocity = yVelPrev;
+	}
+	
+	private void UpdateDrunkAdjustments() {
+		if (OwnerDrinkCount() == 0) {
+			Debug.Log(xCurrentDrunkLean);
+			
+			float amt = 75f;
+						
+			if (accelerationDirection == Direction.Up || accelerationDirection == Direction.Down) {
+				if (xCurrentDrunkLean == Direction.Right) xVelocity += amt;
+				else if (xCurrentDrunkLean == Direction.Left) xVelocity -= amt;
+			}
+			
+			if (accelerationDirection == Direction.Right || accelerationDirection == Direction.Left) {
+				if (yCurrentDrunkLean == Direction.Up) yVelocity += amt;
+				else if (yCurrentDrunkLean == Direction.Down) yVelocity -= amt;
+			}
+		}
 		
 		frameCount++;
 	}

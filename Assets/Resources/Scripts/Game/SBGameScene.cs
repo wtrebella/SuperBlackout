@@ -251,7 +251,6 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 	public void UpdateDrinkerPositions() {
 		foreach (SBDrinker drinker in drinkers) {
 			if (drinker.isBeingControlledBySittableComponent || drinker.isInBathroom || drinker.isLeavingBathroom) continue;
-			if (drinker.tag == 2) Debug.Log(drinker.VelocityComponent().yVelocity);
 			float newX = drinker.x + Time.fixedDeltaTime * drinker.VelocityComponent().xVelocity;
 			float newY = drinker.y + Time.fixedDeltaTime * drinker.VelocityComponent().yVelocity;
 			float bathroomPadding = 30f;
