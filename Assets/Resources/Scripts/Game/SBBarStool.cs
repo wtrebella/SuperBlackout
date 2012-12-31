@@ -15,7 +15,7 @@ public class SBBarStool : SBEntity {
 	}
 	
 	public Rect GetGlobalSitTriggerRect() {
-		return SpriteComponent().GetGlobalRect().CloneWithExpansion(15f);
+		return SpriteComponent().GetGlobalRect().CloneWithExpansion(10f);
 	}
 	
 	override public void HandleUpdate() {

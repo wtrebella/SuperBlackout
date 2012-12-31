@@ -7,9 +7,14 @@ public class SBVelocityComponent : SBAbstractComponent {
 	
 	public Direction accelerationDirection = Direction.None;
 	
-	public Direction xCurrentDrunkLean = Direction.None;
-	public Direction yCurrentDrunkLean = Direction.Up;
+	public Direction xDrunkLean = Direction.Left;
+	public Direction yDrunkLean = Direction.Down;
 	
+	public float maxDrunkLeanVelocity = SBConfig.BASE_DRUNK_LEAN_MAX_VELOCITY;
+	public float drunkLeanMultiplier = 1f;
+	
+	//public int debugDrinkCount = 0;
+		
 	public SBVelocityComponent() {
 		componentType = ComponentType.Velocity;
 		name = "velocity component";
@@ -30,11 +35,29 @@ public class SBVelocityComponent : SBAbstractComponent {
 	public void ResetX() {
 		xVelocity = 0;
 		if (accelerationDirection == Direction.Left || accelerationDirection == Direction.Right) accelerationDirection = Direction.None;
+				
+		if (xDrunkLean == Direction.Right) {
+			xDrunkLean = Direction.Left;
+			xVelocity = -50f;
+		}
+		else if (xDrunkLean == Direction.Left) {
+			xDrunkLean = Direction.Right;
+			xVelocity = 50f;
+		}
 	}
 	
 	public void ResetY() {
 		yVelocity = 0;
 		if (accelerationDirection == Direction.Up || accelerationDirection == Direction.Down) accelerationDirection = Direction.None;
+		
+		if (yDrunkLean == Direction.Up) {
+			yDrunkLean = Direction.Down;
+			yVelocity = -50f;
+		}
+		else if (yDrunkLean == Direction.Down) {
+			yDrunkLean = Direction.Up;
+			yVelocity = 50f;
+		}
 	}
 		
 	public void UpdateAcceleration() {	
@@ -43,34 +66,28 @@ public class SBVelocityComponent : SBAbstractComponent {
 		switch (accelerationDirection) {
 		case Direction.Left:
 			xVelocity -= accelAmt;
-			xCurrentDrunkLean = Direction.Left;
 			break;
 		case Direction.Right:
 			xVelocity += accelAmt;
-			xCurrentDrunkLean = Direction.Right;
 			break;
 		case Direction.Down:
 			yVelocity -= accelAmt;
-			yCurrentDrunkLean = Direction.Down;
 			break;
 		case Direction.Up:
 			yVelocity += accelAmt;
-			yCurrentDrunkLean = Direction.Up;
 			break;
 		case Direction.None:
-			//xCurrentDrunkLean = yCurrentDrunkLean = Direction.None;
 			break;
 		}
 		
-		if (xVelocity < -SBConfig.DRINKER_MAX_VELOCITY) xVelocity = -SBConfig.DRINKER_MAX_VELOCITY;
-		if (xVelocity > SBConfig.DRINKER_MAX_VELOCITY) xVelocity = SBConfig.DRINKER_MAX_VELOCITY;
-		if (yVelocity < -SBConfig.DRINKER_MAX_VELOCITY) yVelocity = -SBConfig.DRINKER_MAX_VELOCITY;
-		if (yVelocity > SBConfig.DRINKER_MAX_VELOCITY) yVelocity = SBConfig.DRINKER_MAX_VELOCITY;
-
+		float curMaxVelocity = SBConfig.DRINKER_MAX_VELOCITY * (SBConfig.MIN_SLOW_DOWN_EFFECT + (1.0f - SBConfig.MIN_SLOW_DOWN_EFFECT) * ((6.0f - OwnerDrinkCount()) / 6.0f));
+		
+		if (xVelocity < -curMaxVelocity) xVelocity = -curMaxVelocity;
+		if (xVelocity > curMaxVelocity) xVelocity = curMaxVelocity;
+		if (yVelocity < -curMaxVelocity) yVelocity = -curMaxVelocity;
+		if (yVelocity > curMaxVelocity) yVelocity = curMaxVelocity;
 	}
-	
-	static int frameCount = 0;
-	
+		
 	public void UpdateDeceleration() {
 		float decelAmt = Time.fixedDeltaTime * SBConfig.DRINKER_ACCELERATION_CONSTANT;
 		
@@ -86,28 +103,70 @@ public class SBVelocityComponent : SBAbstractComponent {
 		if (accelerationDirection == Direction.Left || accelerationDirection == Direction.Right) xVelocity = xVelPrev;
 		if (accelerationDirection == Direction.Down || accelerationDirection == Direction.Up) yVelocity = yVelPrev;
 	}
-	
+
 	private void UpdateDrunkAdjustments() {
-		if (OwnerDrinkCount() == 0) {
-			Debug.Log(xCurrentDrunkLean);
-			
-			float amt = 75f;
-						
-			if (accelerationDirection == Direction.Up || accelerationDirection == Direction.Down) {
-				if (xCurrentDrunkLean == Direction.Right) xVelocity += amt;
-				else if (xCurrentDrunkLean == Direction.Left) xVelocity -= amt;
+		if (OwnerDrinkCount() == 0) return;
+
+		RefreshDrunkLeanValues();
+				
+		float rand = RXRandom.Float();
+		float likelihoodOfVariation = SBConfig.BASE_LIKELIHOOD_OF_VARIATION * OwnerDrinkCount();
+		float randomizedMaxDrunkLeanVelocity = maxDrunkLeanVelocity;
+		
+		if (rand < likelihoodOfVariation) randomizedMaxDrunkLeanVelocity *= Random.Range(0.2f, 0.7f);
+				
+		if (accelerationDirection == Direction.Up || accelerationDirection == Direction.Down) {
+			if (xDrunkLean == Direction.Right && xVelocity < randomizedMaxDrunkLeanVelocity) {
+				xVelocity += SBConfig.BASE_DRUNK_LEAN_VELOCITY_ADDER * drunkLeanMultiplier;
+				if (xVelocity >= randomizedMaxDrunkLeanVelocity) {
+					xVelocity = randomizedMaxDrunkLeanVelocity;
+					xDrunkLean = Direction.Left;
+				}
+			}
+			else if (xDrunkLean == Direction.Left && xVelocity > -randomizedMaxDrunkLeanVelocity) {
+				xVelocity -= SBConfig.BASE_DRUNK_LEAN_VELOCITY_ADDER * drunkLeanMultiplier;
+				if (xVelocity <= -randomizedMaxDrunkLeanVelocity) {
+					xVelocity = -randomizedMaxDrunkLeanVelocity;
+					xDrunkLean = Direction.Right;
+				}
 			}
 			
-			if (accelerationDirection == Direction.Right || accelerationDirection == Direction.Left) {
-				if (yCurrentDrunkLean == Direction.Up) yVelocity += amt;
-				else if (yCurrentDrunkLean == Direction.Down) yVelocity -= amt;
+			if (RXRandom.Float() < SBConfig.BASE_LIKELIHOOD_OF_TURN_AROUND * OwnerDrinkCount()) {
+				yVelocity *= -1;
+				yVelocity *= OwnerDrinkCount() * 0.15f + Random.Range(0, 0.2f);
 			}
 		}
 		
-		frameCount++;
+		if (accelerationDirection == Direction.Right || accelerationDirection == Direction.Left) {
+			if (yDrunkLean == Direction.Up && yVelocity < randomizedMaxDrunkLeanVelocity) {
+				yVelocity += SBConfig.BASE_DRUNK_LEAN_VELOCITY_ADDER * drunkLeanMultiplier;
+				if (yVelocity >= randomizedMaxDrunkLeanVelocity) {
+					yVelocity = randomizedMaxDrunkLeanVelocity;
+					yDrunkLean = Direction.Down;
+				}
+			}
+			else if (yDrunkLean == Direction.Down && yVelocity > -randomizedMaxDrunkLeanVelocity) {
+				yVelocity -= SBConfig.BASE_DRUNK_LEAN_VELOCITY_ADDER * drunkLeanMultiplier;
+				if (yVelocity <= -randomizedMaxDrunkLeanVelocity) {
+					yVelocity = -randomizedMaxDrunkLeanVelocity;
+					yDrunkLean = Direction.Up;
+				}
+			}
+			
+			if (RXRandom.Float() < SBConfig.BASE_LIKELIHOOD_OF_TURN_AROUND * OwnerDrinkCount()) {
+				xVelocity *= -1;
+				xVelocity *= OwnerDrinkCount() * 0.15f + Random.Range(0, 0.2f);
+			}
+		}
 	}
 	
+	public void RefreshDrunkLeanValues() {
+		maxDrunkLeanVelocity = Mathf.Max(SBConfig.BASE_DRUNK_LEAN_MAX_VELOCITY, SBConfig.BASE_DRUNK_LEAN_MAX_VELOCITY * SBConfig.DRUNK_LEAN_MAX_VELOCITY_MULTIPLIER * OwnerDrinkCount());
+		drunkLeanMultiplier = Mathf.Max(1.0f, SBConfig.DRUNK_LEAN_MULTIPLIER_MULTIPLIER * OwnerDrinkCount());
+	}
+		
 	private int OwnerDrinkCount() {
+		//return debugDrinkCount;
 		return (owner as SBDrinker).drinkCount;	
 	}
 }

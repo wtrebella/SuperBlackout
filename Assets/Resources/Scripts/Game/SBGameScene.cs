@@ -343,6 +343,14 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 	}
 	
 	public void HandleUpdate() {
+		/*if (Input.GetKeyDown(KeyCode.Alpha0)) drinker2.VelocityComponent().debugDrinkCount = 0;
+		if (Input.GetKeyDown(KeyCode.Alpha1)) drinker2.VelocityComponent().debugDrinkCount = 1;
+		if (Input.GetKeyDown(KeyCode.Alpha2)) drinker2.VelocityComponent().debugDrinkCount = 2;
+		if (Input.GetKeyDown(KeyCode.Alpha3)) drinker2.VelocityComponent().debugDrinkCount = 3;
+		if (Input.GetKeyDown(KeyCode.Alpha4)) drinker2.VelocityComponent().debugDrinkCount = 4;
+		if (Input.GetKeyDown(KeyCode.Alpha5)) drinker2.VelocityComponent().debugDrinkCount = 5;
+		if (Input.GetKeyDown(KeyCode.Alpha6)) drinker2.VelocityComponent().debugDrinkCount = 6;*/
+		
 		if (frameCount_++ < 5) return;
 		if (isGameOver) return;
 		

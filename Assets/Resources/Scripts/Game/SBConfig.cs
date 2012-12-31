@@ -11,9 +11,9 @@ public enum Direction {
 
 public static class SBConfig {
 	public const float BATHROOM_WIDTH = 248f;
-	public const float DRINKER_MAX_VELOCITY = 800f;
-	public const float DRINKER_ACCELERATION_CONSTANT = 800f;
-	public const float DRINKER_MIN_FRAME_DURATION = 0.1f;
+	public const float DRINKER_MAX_VELOCITY = 300f;
+	public const float DRINKER_ACCELERATION_CONSTANT = 400f;
+	public const float DRINKER_MIN_FRAME_DURATION = 0.2f;
 	public const float DRINKER_MAX_FRAME_DURATION = 0.4f;
 	public const float TOP_UI_HEIGHT = 60f;
 	public const float BORDER_WIDTH = 30f;
@@ -23,6 +23,15 @@ public static class SBConfig {
 	public const float BLADDER_FILL_TIME = 4.0f; // per drink
 	public const float PEE_TIME = 1.0f; // per drink
 	public const int DRINKS_TO_WIN = 7;
+	
+	// drunk adjustment stuff
+	public const float BASE_DRUNK_LEAN_VELOCITY_ADDER = 15f;
+	public const float BASE_LIKELIHOOD_OF_VARIATION = 0.15f;
+	public const float BASE_DRUNK_LEAN_MAX_VELOCITY = 200;
+	public const float BASE_LIKELIHOOD_OF_TURN_AROUND = 0.0015f;
+	public const float DRUNK_LEAN_MAX_VELOCITY_MULTIPLIER = 1f;
+	public const float DRUNK_LEAN_MULTIPLIER_MULTIPLIER = 1f;
+	public const float MIN_SLOW_DOWN_EFFECT = 0.8f;
 		
 	public const KeyCode JOYSTICK_1_RIGHT = KeyCode.G;
 	public const KeyCode JOYSTICK_1_LEFT = KeyCode.D;

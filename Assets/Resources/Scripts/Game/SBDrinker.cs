@@ -152,6 +152,7 @@ public class SBDrinker : SBEntity, AnimationInterface {
 		currentSittableComponent.EjectDrinker();
 		drinkAmountInBodyButNotBladder += 1;
 		TimerComponent().Stop();
+		VelocityComponent().RefreshDrunkLeanValues();
 		if (SignalFinishedDrink != null) SignalFinishedDrink(this);
 	}
 	
