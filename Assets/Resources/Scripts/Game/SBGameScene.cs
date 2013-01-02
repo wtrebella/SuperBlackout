@@ -255,6 +255,24 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 			}
 		}
 		else drinker2.VelocityComponent().accelerationDirection = Direction.None;
+		
+		SBDrinker punchableDrinker = null;
+		
+		if (Input.GetKeyDown(SBConfig.ATTACK_BUTTON_1)) {			
+			if (drinker1.SpriteComponent(1).GetGlobalRectWithExpansion(-25).CheckIntersect(drinker2.SpriteComponent(1).GetGlobalRectWithExpansion(-25))) {
+				punchableDrinker = drinker2;
+			}
+			
+			drinker1.PunchDrinker(punchableDrinker);
+		}
+			
+		if (Input.GetKeyDown(SBConfig.ATTACK_BUTTON_2)) {
+			if (drinker2.SpriteComponent(1).GetGlobalRectWithExpansion(-25).CheckIntersect(drinker1.SpriteComponent(1).GetGlobalRectWithExpansion(-25))) {
+				punchableDrinker = drinker1;
+			}
+			
+			drinker2.PunchDrinker(punchableDrinker);
+		}
 	}
 	
 	public void UpdateDrinkerPositions() {
@@ -283,25 +301,6 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 			
 			drinker.x = updatedPoint.x;
 			drinker.y = updatedPoint.y;
-		}
-		
-		if (drinker1.SpriteComponent(1).GetGlobalRectWithExpansion(-25).CheckIntersect(drinker2.SpriteComponent(1).GetGlobalRectWithExpansion(-25))) {
-			if (Input.GetKeyDown(SBConfig.ATTACK_BUTTON_1)) {
-				if (drinker2.HasDrink()) {
-					drinker2.currentDrink.RemoveFromContainer();
-					drinker2.currentDrink = null;
-				}
-			}
-			
-			if (Input.GetKeyDown(SBConfig.ATTACK_BUTTON_2)) {
-				if (drinker1.HasDrink()) {
-					drinker1.currentDrink.RemoveFromContainer();
-					drinker1.currentDrink = null;
-				}
-			}
-			
-			/*drinker1.SpriteComponent(1).sprite.color = Color.red;
-			drinker2.SpriteComponent(1).sprite.color = Color.blue;*/
 		}
 	}
 	
@@ -412,9 +411,7 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		}*/
 		
 		if (frameCount_++ < 5) return;
-		
-		if (drinker2.SpriteComponent(0).isAnimating) Debug.Log(drinker2.SpriteComponent(0).currentAnimation.animationTimer);
-		
+				
 		if (!isGameOver) {
 			HandleKeyInput();
 			UpdateDrinkerPositions();

@@ -7,7 +7,7 @@ interface ComponentInterface {
 	void HandleComponentRemoved(SBAbstractComponent component);
 }
 
-public class SBEntity : FContainer, ComponentInterface {
+public class SBEntity : FContainer, ComponentInterface, AnimationInterface {
 	public bool isBeingControlledBySittableComponent = false;
 	public bool isBeingControlledByDirectionComponent = false;
 	public FContainer rotatingContainer;
@@ -95,6 +95,10 @@ public class SBEntity : FContainer, ComponentInterface {
 			SBProgressBarComponent pbc = component as SBProgressBarComponent;
 			RemoveChild(pbc.progressBar);	
 		}
+	}
+	
+	virtual public void AnimationDone(WTAnimation animation) {
+		
 	}
 	
 	virtual public void HandleUpdate() {

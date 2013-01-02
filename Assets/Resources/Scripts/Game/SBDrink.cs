@@ -23,4 +23,23 @@ public class SBDrink : SBEntity {
 			SpriteComponent(1).sprite.alpha = percentLeft_;
 		}
 	}
+	
+	public void Spill() {
+		RemoveComponent(SpriteComponent(0));
+		RemoveComponent(SpriteComponent(1));
+		
+		SBSpriteComponent sc = new SBSpriteComponent("glassSpill0.png", false);
+		sc.name = string.Format("spill sprite", this.name);
+		sc.sprite.anchorX = 0;
+		sc.sprite.rotation = Random.Range(0, 359);
+		AddComponent(sc);
+		
+		sc.StartAnimation(WTMain.animationManager.AnimationForName("drinkSpill"));
+		
+		Futile.instance.SignalUpdate += sc.HandleUpdate;
+	}
+	
+	override public void AnimationDone(WTAnimation animation) {
+		Futile.instance.SignalUpdate -= SpriteComponent(0).HandleUpdate;	
+	}
 }

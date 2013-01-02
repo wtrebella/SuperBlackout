@@ -18,7 +18,7 @@
 },
 "barStool.psd":
 {
-	"frame": {"x":960,"y":174,"w":48,"h":48},
+	"frame": {"x":884,"y":420,"w":48,"h":48},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":48,"h":48},
@@ -50,7 +50,7 @@
 },
 "borderBarPieceCurved.psd":
 {
-	"frame": {"x":502,"y":448,"w":120,"h":120},
+	"frame": {"x":502,"y":310,"w":120,"h":120},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":120,"h":120},
@@ -58,7 +58,7 @@
 },
 "borderBarPieceStraight.psd":
 {
-	"frame": {"x":704,"y":216,"w":32,"h":120},
+	"frame": {"x":704,"y":282,"w":32,"h":120},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":120},
@@ -66,7 +66,7 @@
 },
 "drink.psd":
 {
-	"frame": {"x":838,"y":468,"w":32,"h":32},
+	"frame": {"x":698,"y":536,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -74,7 +74,7 @@
 },
 "drinkerIdle.png":
 {
-	"frame": {"x":624,"y":452,"w":80,"h":96},
+	"frame": {"x":732,"y":508,"w":80,"h":96},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":16,"y":8,"w":80,"h":96},
@@ -82,7 +82,7 @@
 },
 "drinkerLeftFront.png":
 {
-	"frame": {"x":926,"y":420,"w":80,"h":96},
+	"frame": {"x":600,"y":502,"w":80,"h":96},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":16,"y":8,"w":80,"h":96},
@@ -90,23 +90,23 @@
 },
 "drinkerRightFront.png":
 {
-	"frame": {"x":844,"y":370,"w":80,"h":96},
-	"rotated": false,
+	"frame": {"x":502,"y":432,"w":80,"h":96},
+	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":16,"y":8,"w":80,"h":96},
 	"sourceSize": {"w":112,"h":112}
 },
 "drinkerSitting.png":
 {
-	"frame": {"x":746,"y":370,"w":88,"h":96},
-	"rotated": true,
+	"frame": {"x":934,"y":402,"w":88,"h":96},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":16,"y":8,"w":88,"h":96},
 	"sourceSize": {"w":112,"h":112}
 },
 "drinkerSittingTrans0.png":
 {
-	"frame": {"x":940,"y":322,"w":80,"h":96},
+	"frame": {"x":940,"y":304,"w":80,"h":96},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":16,"y":8,"w":80,"h":96},
@@ -114,7 +114,7 @@
 },
 "drinkerSittingTrans1.png":
 {
-	"frame": {"x":940,"y":224,"w":80,"h":96},
+	"frame": {"x":940,"y":206,"w":80,"h":96},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":16,"y":8,"w":80,"h":96},
@@ -122,11 +122,43 @@
 },
 "glass.psd":
 {
-	"frame": {"x":804,"y":460,"w":32,"h":32},
+	"frame": {"x":698,"y":502,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
 	"sourceSize": {"w":32,"h":32}
+},
+"glassSpill0.png":
+{
+	"frame": {"x":884,"y":470,"w":56,"h":32},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":64,"w":56,"h":32},
+	"sourceSize": {"w":136,"h":160}
+},
+"glassSpill1.png":
+{
+	"frame": {"x":704,"y":132,"w":64,"h":40},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":64,"w":64,"h":40},
+	"sourceSize": {"w":136,"h":160}
+},
+"glassSpill2.png":
+{
+	"frame": {"x":960,"y":124,"w":80,"h":56},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":56,"w":80,"h":56},
+	"sourceSize": {"w":136,"h":160}
+},
+"glassSpill3.png":
+{
+	"frame": {"x":918,"y":500,"w":112,"h":104},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":32,"w":112,"h":104},
+	"sourceSize": {"w":136,"h":160}
 },
 "pee0.png":
 {
@@ -138,7 +170,7 @@
 },
 "pee1.png":
 {
-	"frame": {"x":960,"y":124,"w":48,"h":48},
+	"frame": {"x":884,"y":370,"w":48,"h":48},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":96,"y":96,"w":48,"h":48},
@@ -146,23 +178,23 @@
 },
 "pee2.png":
 {
-	"frame": {"x":722,"y":460,"w":80,"h":72},
-	"rotated": false,
+	"frame": {"x":624,"y":310,"w":80,"h":72},
+	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":80,"y":80,"w":80,"h":72},
 	"sourceSize": {"w":240,"h":240}
 },
 "pee3.png":
 {
-	"frame": {"x":648,"y":338,"w":112,"h":96},
-	"rotated": true,
+	"frame": {"x":624,"y":404,"w":112,"h":96},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":64,"y":72,"w":112,"h":96},
 	"sourceSize": {"w":240,"h":240}
 },
 "pee4.png":
 {
-	"frame": {"x":502,"y":310,"w":144,"h":136},
+	"frame": {"x":738,"y":370,"w":144,"h":136},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":48,"y":48,"w":144,"h":136},
@@ -186,7 +218,7 @@
 },
 "uiDrink.psd":
 {
-	"frame": {"x":704,"y":174,"w":40,"h":40},
+	"frame": {"x":704,"y":240,"w":40,"h":40},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":40,"h":40},
@@ -194,7 +226,7 @@
 },
 "uiDrinkBW.psd":
 {
-	"frame": {"x":704,"y":132,"w":40,"h":40},
+	"frame": {"x":704,"y":198,"w":40,"h":40},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":40,"h":40},
@@ -207,6 +239,6 @@
 	"format": "RGBA8888",
 	"size": {"w":1024,"h":1024},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:6f41af0bf386a5209f62ae42b8157788$"
+	"smartupdate": "$TexturePacker:SmartUpdate:eb7f9caf4b85a53830eebbbf040d034c$"
 }
 }

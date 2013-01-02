@@ -32,6 +32,7 @@ public class SBSpriteComponent : SBAbstractComponent {
 	public void StartAnimation(WTAnimation animation) {
 		currentAnimation = animation;
 		isAnimating = true;
+		currentAnimation.animationDelegate = owner;
 	}
 	
 	public void RestartAnimation() {
@@ -66,7 +67,7 @@ public class SBSpriteComponent : SBAbstractComponent {
 		base.HandleUpdate();
 		
 		if (!isAnimating || currentAnimation == null) return;
-		
+
 		currentAnimation.HandleUpdateWithSprite(sprite);	
 	}
 }

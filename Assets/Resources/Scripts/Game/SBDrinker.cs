@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System;
 
-public class SBDrinker : SBEntity, AnimationInterface {	
+public class SBDrinker : SBEntity {	
 	public SBSittableComponent currentSittableComponent;
 	public bool isActuallySitting = false;
 	public bool isInSitStandTransition = false;
@@ -24,32 +24,6 @@ public class SBDrinker : SBEntity, AnimationInterface {
 		SBSpriteComponent sc = new SBSpriteComponent("drinkerIdle.png", true);
 		sc.name = string.Format("{0} sprite", this.name);
 		
-		WTMain.animationManager.AddAnimation("drinkerWalk", new string[] {
-			"drinkerIdle.png",
-			"drinkerLeftFront.png",
-			"drinkerIdle.png",
-			"drinkerRightFront.png"}, 0.05f, 0.4f, true);
-		
-		WTMain.animationManager.AddAnimation("drinkerSitTransition", new string[] {
-			"drinkerIdle.png",
-			"drinkerSittingTrans0.png",
-			"drinkerSittingTrans1.png",
-			"drinkerSitting.png"}, 0.05f, false);
-		
-		WTMain.animationManager.AddAnimation("drinkerStandTransition", new string[] {
-			"drinkerSitting.png",
-			"drinkerSittingTrans1.png",
-			"drinkerSittingTrans0.png",
-			"drinkerIdle.png"}, 0.05f, false);
-		
-		WTMain.animationManager.AddAnimation("pee", new string[] {
-			"pee0.png",
-			"pee1.png",
-			"pee2.png",
-			"pee3.png",
-			"pee4.png",
-			"pee5.png"}, 0.15f, false);
-		
 		SBSpriteComponent peeSc = new SBSpriteComponent("pee0.png", true);
 		peeSc.name = string.Format("pee sprite component");
 		peeSc.sprite.color = Color.yellow;
@@ -57,8 +31,9 @@ public class SBDrinker : SBEntity, AnimationInterface {
 		peeSc.sprite.alpha = 0.75f;
 		AddComponent(peeSc);
 		
-		sc.StartAnimation(WTMain.animationManager.AnimationForName("drinkerWalk"));
 		AddComponent(sc);
+		sc.StartAnimation(WTMain.animationManager.AnimationForName("drinkerWalk"));
+
 		AddComponent(new SBProgressBarComponent(0, 0, 65f, 10f, Color.green, ProgressBarType.FillLeftToRight));
 		AddComponent(new SBTimerComponent());
 		AddComponent(new SBDirectionComponent());
@@ -73,7 +48,6 @@ public class SBDrinker : SBEntity, AnimationInterface {
 		isActuallySitting = true;
 		SpriteComponent(1).StopAnimation();
 		WTAnimation sitAnim = WTMain.animationManager.AnimationForName("drinkerSitTransition");
-		sitAnim.animationDelegate = this;
 		SpriteComponent(1).StartAnimation(sitAnim);
 		isInSitStandTransition = true;
 		if (currentSittableComponent.isSpecial) ProgressBarComponent().progressBar.isVisible = true;
@@ -87,7 +61,6 @@ public class SBDrinker : SBEntity, AnimationInterface {
 		rotatingContainer.rotation -= total360sSinceSat * 360;
 		isActuallySitting = false;
 		WTAnimation standAnim = WTMain.animationManager.AnimationForName("drinkerStandTransition");
-		standAnim.animationDelegate = this;
 		SpriteComponent(1).StartAnimation(standAnim);
 		isInSitStandTransition = true;
 		ProgressBarComponent().progressBar.isVisible = false;
@@ -99,7 +72,7 @@ public class SBDrinker : SBEntity, AnimationInterface {
 		rotatingContainer.rotation += deltaRotation;
 	}
 		
-	public void AnimationDone(WTAnimation animation) {
+	override public void AnimationDone(WTAnimation animation) {
 		if (animation.name == "pee") {
 			SpriteComponent(0).PauseAnimation();
 		}
@@ -220,6 +193,25 @@ public class SBDrinker : SBEntity, AnimationInterface {
 		}
 	}
 	
+	public void PunchDrinker(SBDrinker drinker) {
+		if (drinker != null) {
+			if (drinker.HasDrink()) {
+				FContainer mainContainer = this.container;
+				
+				SBDrink otherDrinkersDrink = drinker.currentDrink;
+				drinker.currentDrink = null;
+				Vector2 globalPos = drinker.rotatingContainer.LocalToGlobal(new Vector2(otherDrinkersDrink.x, otherDrinkersDrink.y));
+				otherDrinkersDrink.RemoveFromContainer();
+				otherDrinkersDrink.x = globalPos.x;
+				otherDrinkersDrink.y = globalPos.y;
+				otherDrinkersDrink.Spill();
+				mainContainer.AddChild(otherDrinkersDrink);
+				mainContainer.AddChild(this);
+				mainContainer.AddChild(drinker);
+			}
+		}
+	}
+	
 	public static void HandleDoneLeavingBathroom(AbstractTween tween) {
 		SBDrinker drinker = (tween as Tween).target as SBDrinker;
 		drinker.isLeavingBathroom = false;
@@ -237,7 +229,6 @@ public class SBDrinker : SBEntity, AnimationInterface {
 				SpriteComponent(1).StopAnimation();
 				SpriteComponent(0).sprite.isVisible = true;
 				WTAnimation peeAnim = WTMain.animationManager.AnimationForName("pee");
-				peeAnim.animationDelegate = this;
 				SpriteComponent(0).StartAnimation(peeAnim);
 				SignalPissedHimself(this);
 			}
