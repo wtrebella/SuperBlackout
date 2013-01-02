@@ -15,6 +15,8 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 	public KeyCode lastKeyPressed1 = KeyCode.None;
 	public KeyCode lastKeyPressed2 = KeyCode.None;
 	
+	//FLabel tempLogLabel;
+	
 	private static int frameCount_ = 0;
 	
 	public SBGameScene(bool addToFutileOnInit) : base("") {
@@ -81,6 +83,13 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		drinker1.SignalPissedHimself += HandleDrinkerPissedHimself;
 		drinker2.SignalPissedHimself += HandleDrinkerPissedHimself;
 		AddChild(hudLayer);
+		
+		/*tempLogLabel = new FLabel("Silkscreen", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+		tempLogLabel.color = Color.black;
+		tempLogLabel.x = 400f;
+		tempLogLabel.y = Futile.screen.halfHeight;
+		tempLogLabel.scale = 0.35f;
+		AddChild(tempLogLabel);*/
 	}
 	
 	public override void HandleAddedToStage() {
@@ -343,13 +352,45 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 	}
 	
 	public void HandleUpdate() {
-		/*if (Input.GetKeyDown(KeyCode.Alpha0)) drinker2.VelocityComponent().debugDrinkCount = 0;
-		if (Input.GetKeyDown(KeyCode.Alpha1)) drinker2.VelocityComponent().debugDrinkCount = 1;
-		if (Input.GetKeyDown(KeyCode.Alpha2)) drinker2.VelocityComponent().debugDrinkCount = 2;
-		if (Input.GetKeyDown(KeyCode.Alpha3)) drinker2.VelocityComponent().debugDrinkCount = 3;
-		if (Input.GetKeyDown(KeyCode.Alpha4)) drinker2.VelocityComponent().debugDrinkCount = 4;
-		if (Input.GetKeyDown(KeyCode.Alpha5)) drinker2.VelocityComponent().debugDrinkCount = 5;
-		if (Input.GetKeyDown(KeyCode.Alpha6)) drinker2.VelocityComponent().debugDrinkCount = 6;*/
+		/*bool debugPressed = false;
+		if (Input.GetKeyDown(KeyCode.Alpha0)) {
+			drinker2.VelocityComponent().debugDrinkCount = 0;
+			debugPressed = true;
+		}
+		if (Input.GetKeyDown(KeyCode.Alpha1)) {
+			drinker2.VelocityComponent().debugDrinkCount = 1;
+			debugPressed = true;
+		}
+		if (Input.GetKeyDown(KeyCode.Alpha2)) {
+			drinker2.VelocityComponent().debugDrinkCount = 2;
+			debugPressed = true;
+		}
+		if (Input.GetKeyDown(KeyCode.Alpha3)) {
+			drinker2.VelocityComponent().debugDrinkCount = 3;
+			debugPressed = true;
+		}
+		if (Input.GetKeyDown(KeyCode.Alpha4)) {
+			drinker2.VelocityComponent().debugDrinkCount = 4;
+			debugPressed = true;
+		}
+		if (Input.GetKeyDown(KeyCode.Alpha5)) {
+			drinker2.VelocityComponent().debugDrinkCount = 5;
+			debugPressed = true;
+		}
+		if (Input.GetKeyDown(KeyCode.Alpha6)) {
+			drinker2.VelocityComponent().debugDrinkCount = 6;
+			debugPressed = true;
+		}
+		
+		if (debugPressed) {
+			drinker2.VelocityComponent().RefreshDrunkLeanValues();
+			tempLogLabel.text = string.Format("maxDrunkLeanVelocity: " + drinker2.VelocityComponent().maxDrunkLeanVelocity + "\n" +
+				"drunkLeanVelocityAdder: " + drinker2.VelocityComponent().drunkLeanVelocityAdder + "\n" +
+				"likelihoodOfDrunkLeanVariation: " + drinker2.VelocityComponent().likelihoodOfDrunkLeanVariation + "\n" +
+				"likelihoodOfDrunkStall: " + drinker2.VelocityComponent().likelihoodOfDrunkStall + "\n" +
+				"strengthOfDrunkStall: " + drinker2.VelocityComponent().strengthOfDrunkStall + "\n" +
+				"slowDownEffect: " + drinker2.VelocityComponent().slowDownEffect + "\n");
+		}*/
 		
 		if (frameCount_++ < 5) return;
 		if (isGameOver) return;

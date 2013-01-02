@@ -34,9 +34,9 @@ public class SBHudLayer : FContainer {
 		AddChild(drinkCountLabel2);*/
 		
 		float xPadding = 12f;
-		float extraRightSideXPadding = 10f;
-		float yPadding = 4f;
-		float bladderBarEdgeThickness = 8f;
+		//float extraRightSideXPadding = 10f;
+		//float yPadding = 4f;
+		//float bladderBarEdgeThickness = 8f;
 		
 		drinkCounter1 = new SBDrinkCounter(SBConfig.DRINKS_TO_WIN);
 		drinkCounter2 = new SBDrinkCounter(SBConfig.DRINKS_TO_WIN);

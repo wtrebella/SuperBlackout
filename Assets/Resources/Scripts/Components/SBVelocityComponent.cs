@@ -10,8 +10,12 @@ public class SBVelocityComponent : SBAbstractComponent {
 	public Direction xDrunkLean = Direction.Left;
 	public Direction yDrunkLean = Direction.Down;
 	
-	public float maxDrunkLeanVelocity = SBConfig.BASE_DRUNK_LEAN_MAX_VELOCITY;
-	public float drunkLeanMultiplier = 1f;
+	public float maxDrunkLeanVelocity;
+	public float drunkLeanVelocityAdder;
+	public float likelihoodOfDrunkLeanVariation;
+	public float likelihoodOfDrunkStall;
+	public float strengthOfDrunkStall;
+	public float slowDownEffect;
 	
 	//public int debugDrinkCount = 0;
 		
@@ -80,7 +84,7 @@ public class SBVelocityComponent : SBAbstractComponent {
 			break;
 		}
 		
-		float curMaxVelocity = SBConfig.DRINKER_MAX_VELOCITY * (SBConfig.MIN_SLOW_DOWN_EFFECT + (1.0f - SBConfig.MIN_SLOW_DOWN_EFFECT) * ((6.0f - OwnerDrinkCount()) / 6.0f));
+		float curMaxVelocity = SBConfig.DRINKER_MAX_VELOCITY * (slowDownEffect + (1.0f - slowDownEffect) * ((6.0f - OwnerDrinkCount()) / 6.0f));
 		
 		if (xVelocity < -curMaxVelocity) xVelocity = -curMaxVelocity;
 		if (xVelocity > curMaxVelocity) xVelocity = curMaxVelocity;
@@ -106,63 +110,110 @@ public class SBVelocityComponent : SBAbstractComponent {
 
 	private void UpdateDrunkAdjustments() {
 		if (OwnerDrinkCount() == 0) return;
-
-		RefreshDrunkLeanValues();
 				
 		float rand = RXRandom.Float();
-		float likelihoodOfVariation = SBConfig.BASE_LIKELIHOOD_OF_VARIATION * OwnerDrinkCount();
+		
 		float randomizedMaxDrunkLeanVelocity = maxDrunkLeanVelocity;
 		
-		if (rand < likelihoodOfVariation) randomizedMaxDrunkLeanVelocity *= Random.Range(0.2f, 0.7f);
+		if (rand < likelihoodOfDrunkLeanVariation) randomizedMaxDrunkLeanVelocity *= Random.Range(0.2f, 0.7f);
 				
 		if (accelerationDirection == Direction.Up || accelerationDirection == Direction.Down) {
-			if (xDrunkLean == Direction.Right && xVelocity < randomizedMaxDrunkLeanVelocity) {
-				xVelocity += SBConfig.BASE_DRUNK_LEAN_VELOCITY_ADDER * drunkLeanMultiplier;
+			if (xDrunkLean == Direction.Right) {
+				xVelocity += drunkLeanVelocityAdder;
 				if (xVelocity >= randomizedMaxDrunkLeanVelocity) {
 					xVelocity = randomizedMaxDrunkLeanVelocity;
 					xDrunkLean = Direction.Left;
 				}
 			}
-			else if (xDrunkLean == Direction.Left && xVelocity > -randomizedMaxDrunkLeanVelocity) {
-				xVelocity -= SBConfig.BASE_DRUNK_LEAN_VELOCITY_ADDER * drunkLeanMultiplier;
+			else if (xDrunkLean == Direction.Left) {
+				xVelocity -= drunkLeanVelocityAdder;
 				if (xVelocity <= -randomizedMaxDrunkLeanVelocity) {
 					xVelocity = -randomizedMaxDrunkLeanVelocity;
 					xDrunkLean = Direction.Right;
 				}
 			}
 			
-			if (RXRandom.Float() < SBConfig.BASE_LIKELIHOOD_OF_TURN_AROUND * OwnerDrinkCount()) {
-				yVelocity *= -1;
-				yVelocity *= OwnerDrinkCount() * 0.15f + Random.Range(0, 0.2f);
+			if (RXRandom.Float() < likelihoodOfDrunkStall) {
+				yVelocity -= yVelocity * strengthOfDrunkStall * 2 * Random.Range(0.8f, 1.2f);
 			}
 		}
 		
 		if (accelerationDirection == Direction.Right || accelerationDirection == Direction.Left) {
-			if (yDrunkLean == Direction.Up && yVelocity < randomizedMaxDrunkLeanVelocity) {
-				yVelocity += SBConfig.BASE_DRUNK_LEAN_VELOCITY_ADDER * drunkLeanMultiplier;
+			if (yDrunkLean == Direction.Up) {
+				yVelocity += drunkLeanVelocityAdder;
 				if (yVelocity >= randomizedMaxDrunkLeanVelocity) {
 					yVelocity = randomizedMaxDrunkLeanVelocity;
 					yDrunkLean = Direction.Down;
 				}
 			}
-			else if (yDrunkLean == Direction.Down && yVelocity > -randomizedMaxDrunkLeanVelocity) {
-				yVelocity -= SBConfig.BASE_DRUNK_LEAN_VELOCITY_ADDER * drunkLeanMultiplier;
+			else if (yDrunkLean == Direction.Down) {
+				yVelocity -= drunkLeanVelocityAdder;
 				if (yVelocity <= -randomizedMaxDrunkLeanVelocity) {
 					yVelocity = -randomizedMaxDrunkLeanVelocity;
 					yDrunkLean = Direction.Up;
 				}
 			}
 			
-			if (RXRandom.Float() < SBConfig.BASE_LIKELIHOOD_OF_TURN_AROUND * OwnerDrinkCount()) {
-				xVelocity *= -1;
-				xVelocity *= OwnerDrinkCount() * 0.15f + Random.Range(0, 0.2f);
+			if (RXRandom.Float() < likelihoodOfDrunkStall) {
+				xVelocity -= xVelocity * strengthOfDrunkStall * 2 * Random.Range(0.8f, 1.2f);
 			}
 		}
 	}
 	
 	public void RefreshDrunkLeanValues() {
-		maxDrunkLeanVelocity = Mathf.Max(SBConfig.BASE_DRUNK_LEAN_MAX_VELOCITY, SBConfig.BASE_DRUNK_LEAN_MAX_VELOCITY * SBConfig.DRUNK_LEAN_MAX_VELOCITY_MULTIPLIER * OwnerDrinkCount());
-		drunkLeanMultiplier = Mathf.Max(1.0f, SBConfig.DRUNK_LEAN_MULTIPLIER_MULTIPLIER * OwnerDrinkCount());
+		switch (OwnerDrinkCount()) {
+		case 1:
+			maxDrunkLeanVelocity = 200f;
+			drunkLeanVelocityAdder = 15f;
+			likelihoodOfDrunkLeanVariation = 0.15f;
+			likelihoodOfDrunkStall = 0.005f;
+			strengthOfDrunkStall = 0.2f;
+			slowDownEffect = 0.95f;
+			break;
+		case 2:
+			maxDrunkLeanVelocity = 300f;
+			drunkLeanVelocityAdder = 20f;
+			likelihoodOfDrunkLeanVariation = 0.2f;
+			likelihoodOfDrunkStall = 0.006f;
+			strengthOfDrunkStall = 0.3f;
+			slowDownEffect = 0.9f;
+			break;
+		case 3:
+			maxDrunkLeanVelocity = 400f;
+			drunkLeanVelocityAdder = 25f;
+			likelihoodOfDrunkLeanVariation = 0.25f;
+			likelihoodOfDrunkStall = 0.007f;
+			strengthOfDrunkStall = 0.4f;
+			slowDownEffect = 0.85f;
+			break;
+		case 4:
+			maxDrunkLeanVelocity = 700f;
+			drunkLeanVelocityAdder = 30f;
+			likelihoodOfDrunkLeanVariation = 0.3f;
+			likelihoodOfDrunkStall = 0.008f;
+			strengthOfDrunkStall = 0.5f;
+			slowDownEffect = 0.8f;
+			break;
+		case 5:
+			maxDrunkLeanVelocity = 900f;
+			drunkLeanVelocityAdder = 40f;
+			likelihoodOfDrunkLeanVariation = 0.37f;
+			likelihoodOfDrunkStall = 0.009f;
+			strengthOfDrunkStall = 0.6f;
+			slowDownEffect = 0.75f;
+			break;
+		case 6:
+			maxDrunkLeanVelocity = 1000f;
+			drunkLeanVelocityAdder = 50f;
+			likelihoodOfDrunkLeanVariation = 0.5f;
+			likelihoodOfDrunkStall = 0.01f;
+			strengthOfDrunkStall = 1.0f;
+			slowDownEffect = 0.7f;
+			break;
+		default:
+			break;
+		}
+		
 	}
 		
 	private int OwnerDrinkCount() {
