@@ -12,8 +12,10 @@ public class SBCollideComponent : SBAbstractComponent {
 		float xDelta = newX - entity.x;
 		float yDelta = newY - entity.y;
 		
-		Rect preMovedSpriteRect = entity.SpriteComponent().GetGlobalRect();
-		Rect postMovedSpriteRect = entity.SpriteComponent().GetGlobalRectWithOffset(xDelta, yDelta);
+		int index = entity.spriteComponents.Count - 1;
+		
+		Rect preMovedSpriteRect = entity.SpriteComponent(index).GetGlobalRect();
+		Rect postMovedSpriteRect = entity.SpriteComponent(index).GetGlobalRectWithOffset(xDelta, yDelta);
 		
 		if (!postMovedSpriteRect.CheckIntersect(fixedRect)) {
 			return new Vector2(newX, newY);

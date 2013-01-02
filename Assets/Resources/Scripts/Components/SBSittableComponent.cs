@@ -20,8 +20,8 @@ public class SBSittableComponent : SBAbstractComponent {
 		currentDrinker.isBeingControlledBySittableComponent = true;
 		
 		Go.to(currentDrinker, 0.3f, new TweenConfig()
-			.floatProp("x", this.owner.SpriteComponent().GetGlobalPosition().x)
-			.floatProp("y", this.owner.SpriteComponent().GetGlobalPosition().y)
+			.floatProp("x", this.owner.SpriteComponent(0).GetGlobalPosition().x)
+			.floatProp("y", this.owner.SpriteComponent(0).GetGlobalPosition().y)
 			.onComplete(HandleDrinkerFinishedSittingDown));
 	}
 	

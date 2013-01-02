@@ -52,12 +52,19 @@ public class SBSpriteComponent : SBAbstractComponent {
 		Rect globalRect = GetGlobalRect();
 		return globalRect.CloneAndOffset(xOffset, yOffset);
 	}
+	
+	public Rect GetGlobalRectWithExpansion(float expansion) {
+		Rect globalRect = GetGlobalRect();
+		return globalRect.CloneWithExpansion(expansion);
+	}
 		
 	public Vector2 GetGlobalPosition() {
 		return sprite.container.LocalToGlobal(new Vector2(sprite.x, sprite.y));
 	}
 	
 	override public void HandleUpdate() {
+		base.HandleUpdate();
+		
 		if (!isAnimating || currentAnimation == null) return;
 		
 		currentAnimation.HandleUpdateWithSprite(sprite);	

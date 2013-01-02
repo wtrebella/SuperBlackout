@@ -279,10 +279,29 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 			updatedPoint = bar.CollideComponent().PointToAvoidCollidingFixedRectWithMovingEntity(bottomRightWallRect, drinker, updatedPoint.x, updatedPoint.y);
 			updatedPoint = bar.CollideComponent().PointToAvoidCollidingFixedRectWithMovingEntity(topLeftWallRect, drinker, updatedPoint.x, updatedPoint.y);
 			updatedPoint = bar.CollideComponent().PointToAvoidCollidingFixedRectWithMovingEntity(topRightWallRect, drinker, updatedPoint.x, updatedPoint.y);
-			updatedPoint = bar.CollideComponent().PointToAvoidCollidingFixedRectWithMovingEntity(bar.SpriteComponent().GetGlobalRect().CloneWithExpansion(-10f), drinker, updatedPoint.x, updatedPoint.y);
+			updatedPoint = bar.CollideComponent().PointToAvoidCollidingFixedRectWithMovingEntity(bar.SpriteComponent(0).GetGlobalRect().CloneWithExpansion(-10f), drinker, updatedPoint.x, updatedPoint.y);
 			
 			drinker.x = updatedPoint.x;
 			drinker.y = updatedPoint.y;
+		}
+		
+		if (drinker1.SpriteComponent(1).GetGlobalRectWithExpansion(-25).CheckIntersect(drinker2.SpriteComponent(1).GetGlobalRectWithExpansion(-25))) {
+			if (Input.GetKeyDown(SBConfig.ATTACK_BUTTON_1)) {
+				if (drinker2.HasDrink()) {
+					drinker2.currentDrink.RemoveFromContainer();
+					drinker2.currentDrink = null;
+				}
+			}
+			
+			if (Input.GetKeyDown(SBConfig.ATTACK_BUTTON_2)) {
+				if (drinker1.HasDrink()) {
+					drinker1.currentDrink.RemoveFromContainer();
+					drinker1.currentDrink = null;
+				}
+			}
+			
+			/*drinker1.SpriteComponent(1).sprite.color = Color.red;
+			drinker2.SpriteComponent(1).sprite.color = Color.blue;*/
 		}
 	}
 	
@@ -290,14 +309,14 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		foreach (SBDrinker drinker in drinkers) {			
 			if (drinker.HasDrink()) {
 				foreach (SBBarStool specialBarStool in specialBarStools) {
-					if (!specialBarStool.GetGlobalSitTriggerRect().CheckIntersect(drinker.SpriteComponent().GetGlobalRect()) ||
+					if (!specialBarStool.GetGlobalSitTriggerRect().CheckIntersect(drinker.SpriteComponent(1).GetGlobalRect()) ||
 						!specialBarStool.SittableComponent().CanSeatDrinker(drinker)) continue;
 						
 					specialBarStool.SittableComponent().SeatDrinker(drinker);
 				}	
 			}
 			else {
-				SBBarStool barStool = bar.BarStoolThatIntersectsWithGlobalRect(drinker.SpriteComponent().GetGlobalRect());
+				SBBarStool barStool = bar.BarStoolThatIntersectsWithGlobalRect(drinker.SpriteComponent(1).GetGlobalRect());
 				if (barStool == null || !barStool.SittableComponent().CanSeatDrinker(drinker)) continue;
 				barStool.SittableComponent().SeatDrinker(drinker);
 			}
@@ -325,8 +344,8 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 				}
 			}
 			else if (!drinker.isLeavingBathroom) {
-				if (drinker.y < -drinker.SpriteComponent().sprite.height / 2f) drinker.isInBathroom = true;
-				if (drinker.y > Futile.screen.height - SBConfig.TOP_UI_HEIGHT + drinker.SpriteComponent().sprite.height / 2f) drinker.isInBathroom = true;
+				if (drinker.y < -drinker.SpriteComponent(1).sprite.height / 2f) drinker.isInBathroom = true;
+				if (drinker.y > Futile.screen.height - SBConfig.TOP_UI_HEIGHT + drinker.SpriteComponent(1).sprite.height / 2f) drinker.isInBathroom = true;
 			}
 		}
 	}
@@ -393,24 +412,24 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		}*/
 		
 		if (frameCount_++ < 5) return;
-		if (isGameOver) return;
 		
-		HandleKeyInput();
-		UpdateDrinkerPositions();
-		UpdateDrinkerBathroomRelations();
-		UpdateDrinkerBarstoolRelations();
-		bar.HandleUpdate();
+		if (drinker2.SpriteComponent(0).isAnimating) Debug.Log(drinker2.SpriteComponent(0).currentAnimation.animationTimer);
+		
+		if (!isGameOver) {
+			HandleKeyInput();
+			UpdateDrinkerPositions();
+			UpdateDrinkerBathroomRelations();
+			UpdateDrinkerBarstoolRelations();
+			bar.HandleUpdate();
+		}
 		drinker1.HandleUpdate();
 		drinker2.HandleUpdate();
-		
-		// === temp ===
-		
+				
 		foreach (SBDrinker drinker in drinkers) {
 			if (drinker.HasDrink() && !drinker.isDrinking && drinker.isActuallySitting && drinker.currentSittableComponent.isSpecial) {
 				drinker.StartDrinkingDrink();
 			}
 		}
-		// === temp ===
 	}
 	
 	public bool HandleSingleTouchBegan(FTouch touch) {

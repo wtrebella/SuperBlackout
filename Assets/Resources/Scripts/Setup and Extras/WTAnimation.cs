@@ -53,10 +53,10 @@ public class WTAnimation {
 	
 	public void HandleUpdateWithSprite(FSprite sprite) {
 		animationTimer += Time.fixedDeltaTime;
-		
 		if (animationTimer >= frameDuration) {
 			animationTimer = 0;
 			frameIndex++;
+			
 			if (isLooping) {
 				frameIndex = frameIndex % spriteFrames.Length;
 			}
@@ -66,6 +66,7 @@ public class WTAnimation {
 					return;
 				}
 			}
+			
 			sprite.element = spriteFrames[frameIndex];
 		}
 	}

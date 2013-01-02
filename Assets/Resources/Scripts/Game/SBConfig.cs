@@ -19,7 +19,7 @@ public static class SBConfig {
 	public const float BORDER_WIDTH = 30f;
 	public const float DRINK_WAIT_TIME = 4.0f;
 	public const float DRINK_DRINK_TIME = 4.0f;
-	public const float MAX_BLADDER_CAPACITY = 3.0f;	
+	public const float MAX_BLADDER_CAPACITY = 2.5f;	
 	public const float BLADDER_FILL_TIME = 4.0f; // per drink
 	public const float PEE_TIME = 1.0f; // per drink
 	public const int DRINKS_TO_WIN = 7;
@@ -33,15 +33,18 @@ public static class SBConfig {
 	public const float DRUNK_LEAN_MULTIPLIER_MULTIPLIER = 1f;
 	public const float MIN_SLOW_DOWN_EFFECT = 0.8f;*/
 		
-	public const KeyCode JOYSTICK_1_RIGHT = KeyCode.G;
-	public const KeyCode JOYSTICK_1_LEFT = KeyCode.D;
-	public const KeyCode JOYSTICK_1_UP = KeyCode.R;
-	public const KeyCode JOYSTICK_1_DOWN = KeyCode.F;
+	public const KeyCode ATTACK_BUTTON_1 = KeyCode.C;
+	public const KeyCode ATTACK_BUTTON_2 = KeyCode.J;
 	
-	public const KeyCode JOYSTICK_2_RIGHT = KeyCode.RightArrow;
-	public const KeyCode JOYSTICK_2_LEFT = KeyCode.LeftArrow;
-	public const KeyCode JOYSTICK_2_DOWN = KeyCode.DownArrow;
-	public const KeyCode JOYSTICK_2_UP = KeyCode.UpArrow;
+	public const KeyCode JOYSTICK_2_RIGHT = KeyCode.G;
+	public const KeyCode JOYSTICK_2_LEFT = KeyCode.D;
+	public const KeyCode JOYSTICK_2_UP = KeyCode.R;
+	public const KeyCode JOYSTICK_2_DOWN = KeyCode.F;
+	
+	public const KeyCode JOYSTICK_1_RIGHT = KeyCode.RightArrow;
+	public const KeyCode JOYSTICK_1_LEFT = KeyCode.LeftArrow;
+	public const KeyCode JOYSTICK_1_DOWN = KeyCode.DownArrow;
+	public const KeyCode JOYSTICK_1_UP = KeyCode.UpArrow;
 	
 	public static Vector2 EmptyGlassPosition(int drinkNum, int playerNum) {
 		float x1 = 28f;

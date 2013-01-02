@@ -12,7 +12,7 @@ public class SBEntity : FContainer, ComponentInterface {
 	public bool isBeingControlledByDirectionComponent = false;
 	public FContainer rotatingContainer;
 	List<SBAbstractComponent> components;
-	List<SBSpriteComponent> spriteComponents;
+	public List<SBSpriteComponent> spriteComponents;
 	public string name;
 	public int tag = -1;
 	
@@ -52,7 +52,7 @@ public class SBEntity : FContainer, ComponentInterface {
 		return ComponentForType(ComponentType.Sittable) as SBSittableComponent;	
 	}
 	
-	public SBSpriteComponent SpriteComponent(int spriteComponentIndex = 0) {
+	public SBSpriteComponent SpriteComponent(int spriteComponentIndex) {
 		return spriteComponents[spriteComponentIndex];	
 	}
 	

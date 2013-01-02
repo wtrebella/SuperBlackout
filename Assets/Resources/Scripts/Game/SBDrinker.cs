@@ -20,7 +20,7 @@ public class SBDrinker : SBEntity, AnimationInterface {
 	private int drinkCount_ = 0;
 	private float totalRotationSinceSatDown = 0;
 	
-	public SBDrinker(string name) : base(name) {		
+	public SBDrinker(string name) : base(name) {
 		SBSpriteComponent sc = new SBSpriteComponent("drinkerIdle.png", true);
 		sc.name = string.Format("{0} sprite", this.name);
 		
@@ -42,6 +42,21 @@ public class SBDrinker : SBEntity, AnimationInterface {
 			"drinkerSittingTrans0.png",
 			"drinkerIdle.png"}, 0.05f, false);
 		
+		WTMain.animationManager.AddAnimation("pee", new string[] {
+			"pee0.png",
+			"pee1.png",
+			"pee2.png",
+			"pee3.png",
+			"pee4.png",
+			"pee5.png"}, 0.15f, false);
+		
+		SBSpriteComponent peeSc = new SBSpriteComponent("pee0.png", true);
+		peeSc.name = string.Format("pee sprite component");
+		peeSc.sprite.color = Color.yellow;
+		peeSc.sprite.isVisible = false;
+		peeSc.sprite.alpha = 0.75f;
+		AddComponent(peeSc);
+		
 		sc.StartAnimation(WTMain.animationManager.AnimationForName("drinkerWalk"));
 		AddComponent(sc);
 		AddComponent(new SBProgressBarComponent(0, 0, 65f, 10f, Color.green, ProgressBarType.FillLeftToRight));
@@ -56,10 +71,10 @@ public class SBDrinker : SBEntity, AnimationInterface {
 	
 	public void Sit() {
 		isActuallySitting = true;
-		SpriteComponent().StopAnimation();
+		SpriteComponent(1).StopAnimation();
 		WTAnimation sitAnim = WTMain.animationManager.AnimationForName("drinkerSitTransition");
 		sitAnim.animationDelegate = this;
-		SpriteComponent().StartAnimation(sitAnim);
+		SpriteComponent(1).StartAnimation(sitAnim);
 		isInSitStandTransition = true;
 		if (currentSittableComponent.isSpecial) ProgressBarComponent().progressBar.isVisible = true;
 	}
@@ -73,7 +88,7 @@ public class SBDrinker : SBEntity, AnimationInterface {
 		isActuallySitting = false;
 		WTAnimation standAnim = WTMain.animationManager.AnimationForName("drinkerStandTransition");
 		standAnim.animationDelegate = this;
-		SpriteComponent().StartAnimation(standAnim);
+		SpriteComponent(1).StartAnimation(standAnim);
 		isInSitStandTransition = true;
 		ProgressBarComponent().progressBar.isVisible = false;
 	}
@@ -85,13 +100,18 @@ public class SBDrinker : SBEntity, AnimationInterface {
 	}
 		
 	public void AnimationDone(WTAnimation animation) {
-		SpriteComponent().PauseAnimation();	
-		if (animation.name == "drinkerStandTransition") {
-			SpriteComponent().StartAnimation(WTMain.animationManager.AnimationForName("drinkerWalk"));
-			isInSitStandTransition = false;
+		if (animation.name == "pee") {
+			SpriteComponent(0).PauseAnimation();
 		}
-		else if (animation.name == "drinkerSitTransition") {
-			isInSitStandTransition = false;
+		else {
+			SpriteComponent(1).PauseAnimation();	
+			if (animation.name == "drinkerStandTransition") {
+				SpriteComponent(1).StartAnimation(WTMain.animationManager.AnimationForName("drinkerWalk"));
+				isInSitStandTransition = false;
+			}
+			else if (animation.name == "drinkerSitTransition") {
+				isInSitStandTransition = false;
+			}
 		}
 	}
 	
@@ -174,13 +194,13 @@ public class SBDrinker : SBEntity, AnimationInterface {
 			float curVel = Mathf.Max(Mathf.Abs(VelocityComponent().xVelocity), Mathf.Abs(VelocityComponent().yVelocity));
 	
 			if (curVel == 0) {
-				SpriteComponent().currentAnimation.frameDuration = 1000;
-				SpriteComponent().ResetAnimation();
+				SpriteComponent(1).currentAnimation.frameDuration = 1000;
+				SpriteComponent(1).ResetAnimation();
 			}
 			else {
-				SpriteComponent().currentAnimation.frameDuration = (1 - curVel / SBConfig.DRINKER_MAX_VELOCITY) * SpriteComponent().currentAnimation.maxFrameDuration;
-				if (SpriteComponent().currentAnimation.frameDuration < SpriteComponent().currentAnimation.minFrameDuration) {
-					SpriteComponent().currentAnimation.frameDuration = SpriteComponent().currentAnimation.minFrameDuration;	
+				SpriteComponent(1).currentAnimation.frameDuration = (1 - curVel / SBConfig.DRINKER_MAX_VELOCITY) * SpriteComponent(1).currentAnimation.maxFrameDuration;
+				if (SpriteComponent(1).currentAnimation.frameDuration < SpriteComponent(1).currentAnimation.minFrameDuration) {
+					SpriteComponent(1).currentAnimation.frameDuration = SpriteComponent(1).currentAnimation.minFrameDuration;	
 				}
 			}
 		}
@@ -191,7 +211,7 @@ public class SBDrinker : SBEntity, AnimationInterface {
 				drinkTransferQuantity = Math.Min(drinkTransferQuantity, this.drinkAmountInBladder);
 				this.drinkAmountInBladder -= drinkTransferQuantity;
 			}
-			else if (drinkAmountInBodyButNotBladder > 0) {
+			else if (drinkAmountInBodyButNotBladder > 0 && this.drinkAmountInBladder < SBConfig.MAX_BLADDER_CAPACITY) {
 				float drinkTransferQuantity = 1.0f / SBConfig.BLADDER_FILL_TIME * Time.fixedDeltaTime;
 				drinkTransferQuantity = Math.Min(drinkTransferQuantity, drinkAmountInBodyButNotBladder);
 				drinkAmountInBodyButNotBladder -= drinkTransferQuantity;
@@ -211,8 +231,16 @@ public class SBDrinker : SBEntity, AnimationInterface {
 		get {return drinkAmountInBladder_;}
 		set {
 			drinkAmountInBladder_ = value;
+		
 			if (SignalBladderChanged != null) SignalBladderChanged(this);
-			if (drinkAmountInBladder_ >= SBConfig.MAX_BLADDER_CAPACITY && SignalPissedHimself != null) SignalPissedHimself(this);
+			if (drinkAmountInBladder_ >= SBConfig.MAX_BLADDER_CAPACITY && SignalPissedHimself != null) {
+				SpriteComponent(1).StopAnimation();
+				SpriteComponent(0).sprite.isVisible = true;
+				WTAnimation peeAnim = WTMain.animationManager.AnimationForName("pee");
+				peeAnim.animationDelegate = this;
+				SpriteComponent(0).StartAnimation(peeAnim);
+				SignalPissedHimself(this);
+			}
 		}
 	}
 	
