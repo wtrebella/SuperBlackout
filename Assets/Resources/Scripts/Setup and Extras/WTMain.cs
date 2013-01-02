@@ -61,6 +61,9 @@ public class WTMain : MonoBehaviour {
 			"glassSpill2.png",
 			"glassSpill3.png"}, 0.08f, false);
 		
+		animationManager.AddAnimation("punch", new string[] {
+			"drinkerPunching.png"}, 0.05f, false);
+		
 		SwitchToScene(SceneType.GameScene);
 	}
 	

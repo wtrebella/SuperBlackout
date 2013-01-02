@@ -74,13 +74,21 @@
 },
 "drinkerIdle.png":
 {
+	"frame": {"x":830,"y":528,"w":80,"h":96},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":16,"y":8,"w":80,"h":96},
+	"sourceSize": {"w":112,"h":112}
+},
+"drinkerLeftFront.png":
+{
 	"frame": {"x":732,"y":508,"w":80,"h":96},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":16,"y":8,"w":80,"h":96},
 	"sourceSize": {"w":112,"h":112}
 },
-"drinkerLeftFront.png":
+"drinkerPunching.png":
 {
 	"frame": {"x":600,"y":502,"w":80,"h":96},
 	"rotated": true,
@@ -239,6 +247,6 @@
 	"format": "RGBA8888",
 	"size": {"w":1024,"h":1024},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:eb7f9caf4b85a53830eebbbf040d034c$"
+	"smartupdate": "$TexturePacker:SmartUpdate:304a69fede335d9328eee598c6f46da6$"
 }
 }

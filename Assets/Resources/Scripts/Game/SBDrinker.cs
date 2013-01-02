@@ -16,6 +16,7 @@ public class SBDrinker : SBEntity {
 	public event Action<SBDrinker> SignalBladderChanged;
 	public event Action<SBDrinker> SignalPissedHimself;
 	public bool isReceivingDrink = false;
+	public bool isPunching = false;
 
 	private int drinkCount_ = 0;
 	private float totalRotationSinceSatDown = 0;
@@ -72,9 +73,13 @@ public class SBDrinker : SBEntity {
 		rotatingContainer.rotation += deltaRotation;
 	}
 		
-	override public void AnimationDone(WTAnimation animation) {
+	override public void AnimationDone(WTAnimation animation) {		
 		if (animation.name == "pee") {
 			SpriteComponent(0).PauseAnimation();
+		}
+		else if (animation.name == "punch") {
+			isPunching = false;
+			SpriteComponent(1).StartAnimation(WTMain.animationManager.AnimationForName("drinkerWalk"));
 		}
 		else {
 			SpriteComponent(1).PauseAnimation();	
@@ -151,7 +156,7 @@ public class SBDrinker : SBEntity {
 	
 	override public void HandleUpdate() {
 		base.HandleUpdate();
-
+		
 		if (isInSitStandTransition) return;
 		
 		if (isDrinking) { // is sitting in a special chair
@@ -163,9 +168,9 @@ public class SBDrinker : SBEntity {
 			}
 		}
 		
-		else if (!isActuallySitting) { // is walking around
+		else if (!isActuallySitting && !isPunching) { // is walking around
 			float curVel = Mathf.Max(Mathf.Abs(VelocityComponent().xVelocity), Mathf.Abs(VelocityComponent().yVelocity));
-	
+						
 			if (curVel == 0) {
 				SpriteComponent(1).currentAnimation.frameDuration = 1000;
 				SpriteComponent(1).ResetAnimation();
@@ -194,6 +199,13 @@ public class SBDrinker : SBEntity {
 	}
 	
 	public void PunchDrinker(SBDrinker drinker) {
+		if (isPunching || isInBathroom || isActuallySitting || isBeingControlledBySittableComponent || isDrinking || isReceivingDrink) return;
+
+		isPunching = true;
+		
+		//SpriteComponent(1).sprite.element = Futile.atlasManager.GetElementWithName("drinkerPunching.png");
+		SpriteComponent(1).StartAnimation(WTMain.animationManager.AnimationForName("punch"));
+		
 		if (drinker != null) {
 			if (drinker.HasDrink()) {
 				FContainer mainContainer = this.container;
@@ -206,8 +218,6 @@ public class SBDrinker : SBEntity {
 				otherDrinkersDrink.y = globalPos.y;
 				otherDrinkersDrink.Spill();
 				mainContainer.AddChild(otherDrinkersDrink);
-				mainContainer.AddChild(this);
-				mainContainer.AddChild(drinker);
 			}
 		}
 	}
@@ -228,8 +238,7 @@ public class SBDrinker : SBEntity {
 			if (drinkAmountInBladder_ >= SBConfig.MAX_BLADDER_CAPACITY && SignalPissedHimself != null) {
 				SpriteComponent(1).StopAnimation();
 				SpriteComponent(0).sprite.isVisible = true;
-				WTAnimation peeAnim = WTMain.animationManager.AnimationForName("pee");
-				SpriteComponent(0).StartAnimation(peeAnim);
+				SpriteComponent(0).StartAnimation(WTMain.animationManager.AnimationForName("pee"));
 				SignalPissedHimself(this);
 			}
 		}

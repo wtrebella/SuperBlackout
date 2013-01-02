@@ -7,6 +7,7 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 	public SBDrinker drinker2;
 	public SBBarStool specialBarStool1;
 	public SBBarStool specialBarStool2;
+	public SBBorderLayer borderLayer;
 	public SBBar bar;
 	public List<SBEntity> drinkers;
 	public List<SBBarStool> specialBarStools;
@@ -84,12 +85,21 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		drinker2.SignalPissedHimself += HandleDrinkerPissedHimself;
 		AddChild(hudLayer);
 		
+		borderLayer = new SBBorderLayer();
+		AddChild(borderLayer);
+		
 		/*tempLogLabel = new FLabel("Silkscreen", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 		tempLogLabel.color = Color.black;
 		tempLogLabel.x = 400f;
 		tempLogLabel.y = Futile.screen.halfHeight;
 		tempLogLabel.scale = 0.35f;
 		AddChild(tempLogLabel);*/
+	}
+	
+	public void RefreshZOrders() {
+		AddChild(drinker1);
+		AddChild(drinker2);
+		AddChild(borderLayer);
 	}
 	
 	public override void HandleAddedToStage() {
