@@ -27,8 +27,6 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		AddChild(backgroundLayer);
 			
 		bar = new SBBar();
-		bar.x = Futile.screen.halfWidth;
-		bar.y = Futile.screen.halfHeight;
 		AddChild(bar);
 				
 		drinkers = new List<SBEntity>();
@@ -45,7 +43,7 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		
 		specialBarStool2 = new SBBarStool("special bar stool 2", new Color(1.0f, 0.3f, 0.5f, 1.0f));
 		specialBarStool2.x = Futile.screen.width - 100f;
-		specialBarStool2.y = Futile.screen.height - SBConfig.TOP_UI_HEIGHT - 100f;
+		specialBarStool2.y = 100f;
 		specialBarStool2.tag = 2;
 		specialBarStool2.ProgressBarComponent().progressBar.isVisible = false;
 		specialBarStool2.SittableComponent().isSpecial = true;
@@ -54,22 +52,24 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		
 		drinker1 = new SBDrinker("drinker 1");
 		drinker1.tag = 1;
-		drinker1.x = 100f;
-		drinker1.y = Futile.screen.height - SBConfig.TOP_UI_HEIGHT - 100f;
+		drinker1.SpriteComponent(1).sprite.color = new Color(0.3f, 0.5f, 1.0f, 1.0f);
+		drinker1.x = Futile.screen.halfWidth - 100f;
+		drinker1.y = (Futile.screen.height - SBConfig.TOP_UI_HEIGHT) / 2f;
 		drinker1.ProgressBarComponent().progressBar.isVisible = false;
 		drinker1.ProgressBarComponent().progressBar.y += 60f;
-		drinker1.DirectionComponent().FaceDirection(Direction.Right, true);
+		drinker1.DirectionComponent().FaceDirection(Direction.Left, true);
 		//drinker1.SpriteComponent().sprite.color = new Color(0.3f, 0.5f, 1.0f, 1.0f);
 		drinkers.Add(drinker1);
 		AddChild(drinker1);
 
 		drinker2 = new SBDrinker("drinker 2");
 		drinker2.tag = 2;
-		drinker2.x = Futile.screen.width - 100f;
-		drinker2.y = 100f;
+		drinker2.SpriteComponent(1).sprite.color = new Color(1.0f, 0.3f, 0.5f, 1.0f);
+		drinker2.x = Futile.screen.halfWidth + 100f;
+		drinker2.y = (Futile.screen.height - SBConfig.TOP_UI_HEIGHT) / 2f;
 		drinker2.ProgressBarComponent().progressBar.isVisible = false;
 		drinker2.ProgressBarComponent().progressBar.y -= 60f;
-		drinker2.DirectionComponent().FaceDirection(Direction.Left, true);
+		drinker2.DirectionComponent().FaceDirection(Direction.Right, true);
 		//drinker2.SpriteComponent().sprite.color = new Color(1.0f, 0.3f, 0.5f, 1.0f);
 		drinkers.Add(drinker2);
 		AddChild(drinker2);
@@ -307,7 +307,8 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 			updatedPoint = bar.CollideComponent().PointToAvoidCollidingFixedRectWithMovingEntity(bottomRightWallRect, drinker, updatedPoint.x, updatedPoint.y);
 			updatedPoint = bar.CollideComponent().PointToAvoidCollidingFixedRectWithMovingEntity(topLeftWallRect, drinker, updatedPoint.x, updatedPoint.y);
 			updatedPoint = bar.CollideComponent().PointToAvoidCollidingFixedRectWithMovingEntity(topRightWallRect, drinker, updatedPoint.x, updatedPoint.y);
-			updatedPoint = bar.CollideComponent().PointToAvoidCollidingFixedRectWithMovingEntity(bar.SpriteComponent(0).GetGlobalRect().CloneWithExpansion(-10f), drinker, updatedPoint.x, updatedPoint.y);
+			updatedPoint = bar.CollideComponent().PointToAvoidCollidingFixedRectWithMovingEntity(bar.SpriteComponent(0).GetGlobalRect().CloneWithExpansion(-70f), drinker, updatedPoint.x, updatedPoint.y);
+			updatedPoint = bar.CollideComponent().PointToAvoidCollidingFixedRectWithMovingEntity(bar.SpriteComponent(1).GetGlobalRect().CloneWithExpansion(-70f), drinker, updatedPoint.x, updatedPoint.y);
 			
 			drinker.x = updatedPoint.x;
 			drinker.y = updatedPoint.y;

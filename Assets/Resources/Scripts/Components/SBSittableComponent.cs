@@ -27,7 +27,7 @@ public class SBSittableComponent : SBAbstractComponent {
 	
 	public bool CanSeatDrinker(SBDrinker drinker) {
 		bool canSit = currentDrinker == null && !drinker.isBeingControlledBySittableComponent;
-		if (isSpecial) canSit = canSit && owner.tag == drinker.tag;
+		canSit = canSit && owner.tag == drinker.tag;
 		
 		return canSit;
 	}

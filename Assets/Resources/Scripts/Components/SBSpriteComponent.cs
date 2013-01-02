@@ -31,7 +31,7 @@ public class SBSpriteComponent : SBAbstractComponent {
 	
 	public void StartAnimation(WTAnimation animation) {
 		if (currentAnimation != null) {
-			StopAnimation();
+			PauseAnimation();
 		}
 
 		currentAnimation = animation;
