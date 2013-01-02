@@ -10,14 +10,14 @@ public class SBBar : SBEntity {
 		sc.name = "bar sprite component 1";
 		sc.sprite.color = new Color(0.3f, 0.5f, 1.0f, 1.0f);
 		sc.sprite.x = Futile.screen.width - SBConfig.BORDER_WIDTH;
-		sc.sprite.y = Futile.screen.height - SBConfig.TOP_UI_HEIGHT - SBConfig.BORDER_WIDTH;
+		sc.sprite.y = SBConfig.BORDER_WIDTH;
 		AddComponent(sc);
 		
 		sc = new SBSpriteComponent("bar.psd", false);
 		sc.name = "bar sprite component 2";
 		sc.sprite.color = new Color(1.0f, 0.3f, 0.5f, 1.0f);
 		sc.sprite.x = SBConfig.BORDER_WIDTH;
-		sc.sprite.y = Futile.screen.height - SBConfig.TOP_UI_HEIGHT - SBConfig.BORDER_WIDTH;
+		sc.sprite.y = SBConfig.BORDER_WIDTH;
 		AddComponent(sc);
 
 		SBCollideComponent cc = new SBCollideComponent();
@@ -56,19 +56,19 @@ public class SBBar : SBEntity {
 		}*/
 		
 		SBBarStool barStool = new SBBarStool(string.Format("barStool1"), new Color(0.3f, 0.5f, 1.0f, 1.0f));
-		barStool.ProgressBarComponent().progressBar.y -= 45f;
+		barStool.ProgressBarComponent().progressBar.y += 45f;
 		barStool.ProgressBarComponent().progressBar.isVisible = false;
-		barStool.x = Futile.screen.width - 135f;;
-		barStool.y = (Futile.screen.height - SBConfig.TOP_UI_HEIGHT) - 135f;
+		barStool.x = Futile.screen.width - 135f;
+		barStool.y = 135f;
 		barStool.tag = 1;
 		barStools.Add(barStool);
 		AddChild(barStool);
 		
 		barStool = new SBBarStool(string.Format("barStool2"), new Color(1.0f, 0.3f, 0.5f, 1.0f));
-		barStool.ProgressBarComponent().progressBar.y -= 45f;
+		barStool.ProgressBarComponent().progressBar.y += 45f;
 		barStool.ProgressBarComponent().progressBar.isVisible = false;
 		barStool.x = 135f;
-		barStool.y = (Futile.screen.height - SBConfig.TOP_UI_HEIGHT) - 135f;
+		barStool.y = 135f;
 		barStool.tag = 2;
 		barStools.Add(barStool);
 		AddChild(barStool);
@@ -81,11 +81,11 @@ public class SBBar : SBEntity {
 				SBDrink drink = new SBDrink("drink");
 				if (barStool.tag == 1) {
 					drink.x = Futile.screen.width - SBConfig.BORDER_WIDTH;
-					drink.y = Futile.screen.height - SBConfig.TOP_UI_HEIGHT - SBConfig.BORDER_WIDTH;
+					drink.y = SBConfig.BORDER_WIDTH;
 				}
 				else if (barStool.tag == 2) {
 					drink.x = SBConfig.BORDER_WIDTH;
-					drink.y = Futile.screen.height - SBConfig.TOP_UI_HEIGHT - SBConfig.BORDER_WIDTH;
+					drink.y = SBConfig.BORDER_WIDTH;
 				}
 				AddChild(drink);
 				barStool.SittableComponent().currentDrinker.TakeDrink(drink);

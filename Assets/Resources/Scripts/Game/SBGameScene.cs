@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class SBGameScene : FStage, FSingleTouchableInterface {
 	public SBDrinker drinker1;
 	public SBDrinker drinker2;
+	public SBBackgroundLayer backgroundLayer;
 	public SBBarStool specialBarStool1;
 	public SBBarStool specialBarStool2;
 	public SBBorderLayer borderLayer;
@@ -23,7 +24,7 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 	public SBGameScene(bool addToFutileOnInit) : base("") {
 		if (addToFutileOnInit) Futile.AddStage(this);
 		
-		SBBackgroundLayer backgroundLayer = new SBBackgroundLayer();
+		backgroundLayer = new SBBackgroundLayer();
 		AddChild(backgroundLayer);
 			
 		bar = new SBBar();
@@ -34,7 +35,7 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		
 		specialBarStool1 = new SBBarStool("special bar stool 1", new Color(0.3f, 0.5f, 1.0f, 1.0f));
 		specialBarStool1.x = 100f;
-		specialBarStool1.y = 100f;
+		specialBarStool1.y = Futile.screen.height - SBConfig.TOP_UI_HEIGHT - 100f;
 		specialBarStool1.tag = 1;
 		specialBarStool1.ProgressBarComponent().progressBar.isVisible = false;
 		specialBarStool1.SittableComponent().isSpecial = true;
@@ -43,7 +44,7 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		
 		specialBarStool2 = new SBBarStool("special bar stool 2", new Color(1.0f, 0.3f, 0.5f, 1.0f));
 		specialBarStool2.x = Futile.screen.width - 100f;
-		specialBarStool2.y = 100f;
+		specialBarStool2.y = Futile.screen.height - SBConfig.TOP_UI_HEIGHT - 100f;
 		specialBarStool2.tag = 2;
 		specialBarStool2.ProgressBarComponent().progressBar.isVisible = false;
 		specialBarStool2.SittableComponent().isSpecial = true;
@@ -56,7 +57,7 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		drinker1.x = Futile.screen.halfWidth - 100f;
 		drinker1.y = (Futile.screen.height - SBConfig.TOP_UI_HEIGHT) / 2f;
 		drinker1.ProgressBarComponent().progressBar.isVisible = false;
-		drinker1.ProgressBarComponent().progressBar.y += 60f;
+		drinker1.ProgressBarComponent().progressBar.y += 45f;
 		drinker1.DirectionComponent().FaceDirection(Direction.Left, true);
 		//drinker1.SpriteComponent().sprite.color = new Color(0.3f, 0.5f, 1.0f, 1.0f);
 		drinkers.Add(drinker1);
@@ -68,7 +69,7 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		drinker2.x = Futile.screen.halfWidth + 100f;
 		drinker2.y = (Futile.screen.height - SBConfig.TOP_UI_HEIGHT) / 2f;
 		drinker2.ProgressBarComponent().progressBar.isVisible = false;
-		drinker2.ProgressBarComponent().progressBar.y -= 60f;
+		drinker2.ProgressBarComponent().progressBar.y += 45f;
 		drinker2.DirectionComponent().FaceDirection(Direction.Right, true);
 		//drinker2.SpriteComponent().sprite.color = new Color(1.0f, 0.3f, 0.5f, 1.0f);
 		drinkers.Add(drinker2);
@@ -437,6 +438,26 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		foreach (SBDrinker drinker in drinkers) {
 			if (drinker.HasDrink() && !drinker.isDrinking && drinker.isActuallySitting && drinker.currentSittableComponent.isSpecial) {
 				drinker.StartDrinkingDrink();
+			}
+		}
+		
+		if (SBConfig.HELP_LABELS_ON) {
+			if (drinker1.HasDrink()) {
+				backgroundLayer.player1DrinkHelpContainer.isVisible = true;
+				backgroundLayer.player1GetDrinkHelpContainer.isVisible = false;
+			}
+			else {
+				backgroundLayer.player1DrinkHelpContainer.isVisible = false;
+				backgroundLayer.player1GetDrinkHelpContainer.isVisible = true;
+			}
+			
+			if (drinker2.HasDrink()) {
+				backgroundLayer.player2DrinkHelpContainer.isVisible = true;
+				backgroundLayer.player2GetDrinkHelpContainer.isVisible = false;
+			}
+			else {
+				backgroundLayer.player2DrinkHelpContainer.isVisible = false;
+				backgroundLayer.player2GetDrinkHelpContainer.isVisible = true;
 			}
 		}
 	}

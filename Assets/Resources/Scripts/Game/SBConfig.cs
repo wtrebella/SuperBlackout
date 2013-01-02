@@ -10,6 +10,8 @@ public enum Direction {
 }
 
 public static class SBConfig {
+	public static bool HELP_LABELS_ON = true;
+	
 	public const float BATHROOM_WIDTH = 248f;
 	public const float DRINKER_MAX_VELOCITY = 500f;
 	public const float DRINKER_ACCELERATION_CONSTANT = 600f;
