@@ -22,7 +22,7 @@ public static class SBConfig {
 	public const float MAX_BLADDER_CAPACITY = 2.5f;	
 	public const float BLADDER_FILL_TIME = 4.0f; // per drink
 	public const float PEE_TIME = 1.0f; // per drink
-	public const int DRINKS_TO_WIN = 7;
+	public const int DRINKS_TO_WIN = 1;
 	
 	// drunk adjustment stuff
 	/*public const float BASE_DRUNK_LEAN_VELOCITY_ADDER = 15f;

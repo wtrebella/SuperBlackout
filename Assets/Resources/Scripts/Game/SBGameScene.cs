@@ -365,11 +365,12 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		label.color = Color.black;
 		label.x = Futile.screen.halfWidth;
 		label.y = Futile.screen.height * 0.75f;
-		AddChild(label);;
+		AddChild(label);
 	}
 	
 	public void HandleDrinkerFinishedDrink(SBDrinker drinker) {
 		if (drinker.drinkCount >= SBConfig.DRINKS_TO_WIN) {
+			drinker.SpriteComponent(1).StartAnimation(WTMain.animationManager.AnimationForName("drinkerPassOut"));
 			isGameOver = true;
 			FLabel label = new FLabel("Silkscreen", string.Format(drinker.name + " blacked out!"));
 			label.color = Color.black;

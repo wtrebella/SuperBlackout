@@ -64,6 +64,13 @@ public class WTMain : MonoBehaviour {
 		animationManager.AddAnimation("punch", new string[] {
 			"drinkerPunching.png"}, 0.05f, false);
 		
+		animationManager.AddAnimation("drinkerPassOut", new string[] {
+			"drinkerPassOut0.png",
+			"drinkerPassOut1.png",
+			"drinkerPassOut2.png",
+			"drinkerPassOut3.png",
+			"drinkerPassOut4.png"}, 0.04f, false);
+		
 		SwitchToScene(SceneType.GameScene);
 	}
 	
@@ -72,7 +79,5 @@ public class WTMain : MonoBehaviour {
 		
 		if (sceneType == SceneType.GameScene) currentScene = new SBGameScene(true);
 		if (sceneType == SceneType.None) currentScene = null;
-		
-		//if (currentScene != null) Futile.AddStage(currentScene);
 	}
 }
