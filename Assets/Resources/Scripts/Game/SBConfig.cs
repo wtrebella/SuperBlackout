@@ -64,19 +64,19 @@ public static class SBConfig {
 		if (playerNum == 1) {
 			switch (drinkNum) {
 			case 1:
-				return new Vector2(x1, y1);	
+				return new Vector2(x1, Futile.screen.height - TOP_UI_HEIGHT - y1);	
 			case 2:
-				return new Vector2(x2, y2);
+				return new Vector2(x2, Futile.screen.height - TOP_UI_HEIGHT - y2);
 			case 3:
-				return new Vector2(x3, y3);
+				return new Vector2(x3, Futile.screen.height - TOP_UI_HEIGHT - y3);
 			case 4:
-				return new Vector2(x4, y4);
+				return new Vector2(x4, Futile.screen.height - TOP_UI_HEIGHT - y4);
 			case 5:
-				return new Vector2(x5, y5);
+				return new Vector2(x5, Futile.screen.height - TOP_UI_HEIGHT - y5);
 			case 6:
-				return new Vector2(x6, y6);
+				return new Vector2(x6, Futile.screen.height - TOP_UI_HEIGHT - y6);
 			case 7:
-				return new Vector2(x7, y7);
+				return new Vector2(x7, Futile.screen.height - TOP_UI_HEIGHT - y7);
 			default:
 				return Vector2.zero;
 			}
