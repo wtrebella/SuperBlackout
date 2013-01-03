@@ -6,6 +6,7 @@ public class SBTitleScene : FStage {
 	FSprite blackout;
 	
 	bool introIsDone = false;
+	bool isSwitchingScenes = false;
 	
 	TweenChain tweenChain1;
 	TweenChain tweenChain2;
@@ -28,7 +29,7 @@ public class SBTitleScene : FStage {
 		float boardWidth = 200f;
 		float boardHeight = 20f;
 		float padding = 2f;
-		int boardRowCount = (int)(Futile.screen.height / boardHeight);
+		int boardRowCount = (int)(Futile.screen.height / boardHeight) + 1;
 		
 		for (int i = 0; i < boardRowCount; i++) {
 			float rowOffset = Random.Range(-boardWidth, 0);
@@ -45,8 +46,8 @@ public class SBTitleScene : FStage {
 			}
 		}
 		
-		helpLabel = new FLabel("Silkscreen", "Press SPACE or Q for help");
-		helpLabel.scale = 0.4f;
+		helpLabel = new FLabel("Silkscreen", "Press SPACE or Q for tutorial");
+		helpLabel.scale = 0.35f;
 		helpLabel.alpha = 0;
 		helpLabel.anchorY = 0;
 		helpLabel.anchorX = 1;
@@ -207,7 +208,7 @@ public class SBTitleScene : FStage {
 			tweenChain2.destroy();
 		}
 		
-		float duration = 0.7f;
+		float duration = 1.0f;
 		float amt = 800f;
 		EaseType easeType = EaseType.ExpoOut;
 		
@@ -262,7 +263,7 @@ public class SBTitleScene : FStage {
 	}
 	
 	public void HandleUpdate() {
-		if (!introIsDone) return;
+		if (!introIsDone || isSwitchingScenes) return;
 				
 		if (Input.GetKeyDown(KeyCode.Alpha1)) {
 			ready1.color = new Color(0, 0.8f, 0, 1.0f);
@@ -281,6 +282,9 @@ public class SBTitleScene : FStage {
 		
 		if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.V)) ToggleInGameHelp();
 		
-		if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Q)) WTMain.SwitchToScene(SceneType.HelpScene);
+		if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Q)) {
+			isSwitchingScenes = true;
+			WTMain.SwitchToScene(SceneType.HelpScene);
+		}
 	}
 }

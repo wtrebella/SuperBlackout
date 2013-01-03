@@ -21,7 +21,7 @@ public class SBHelpScene : FStage {
 		float boardWidth = 200f;
 		float boardHeight = 20f;
 		float padding = 2f;
-		int boardRowCount = (int)(Futile.screen.height / boardHeight);
+		int boardRowCount = (int)(Futile.screen.height / boardHeight) + 1;
 		
 		for (int i = 0; i < boardRowCount; i++) {
 			float rowOffset = Random.Range(-boardWidth, 0);
