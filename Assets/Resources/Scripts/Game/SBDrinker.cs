@@ -218,6 +218,7 @@ public class SBDrinker : SBEntity {
 				otherDrinkersDrink.y = globalPos.y;
 				otherDrinkersDrink.Spill();
 				mainContainer.AddChild(otherDrinkersDrink);
+				(mainContainer as SBGameScene).RefreshZOrders();
 			}
 		}
 	}

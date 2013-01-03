@@ -11,6 +11,18 @@ public class SBBackgroundLayer : FContainer {
 	public SBBackgroundLayer() {
 		MakeFloor();
 		
+		FSprite bathroom1 = new FSprite("bathroomTop.psd");
+		bathroom1.x = Futile.screen.halfWidth;
+		bathroom1.anchorY = 1;
+		bathroom1.y = Futile.screen.height - SBConfig.TOP_UI_HEIGHT;
+		AddChild(bathroom1);
+		
+		FSprite bathroom2 = new FSprite("bathroomBottom.psd");
+		bathroom2.x = Futile.screen.halfWidth;
+		bathroom2.anchorY = 0;
+		bathroom2.y = 0;
+		AddChild(bathroom2);	
+		
 		if (SBConfig.HELP_LABELS_ON) {
 			MakeHelpLabels();
 		}

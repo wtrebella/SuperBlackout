@@ -34,7 +34,7 @@ public class SBBorderLayer : FContainer {
 		for (int i = horizontalPieceCount / 2; i >= 0; i--) {
 			FSprite borderPiece = new FSprite("borderBarPieceStraight.psd");
 			borderPiece.anchorX = 0;
-			borderPiece.anchorY = 1;
+			borderPiece.anchorY = 0;
 			borderPiece.rotation = -90;
 			borderPiece.x = Futile.screen.halfWidth - SBConfig.BATHROOM_WIDTH / 2f - borderPieceWidth * i;
 			borderPiece.y = 0;
@@ -44,7 +44,7 @@ public class SBBorderLayer : FContainer {
 		for (int i = 0; i < horizontalPieceCount / 2f; i++) {
 			FSprite borderPiece = new FSprite("borderBarPieceStraight.psd");
 			borderPiece.anchorX = 0;
-			borderPiece.anchorY = 0;
+			borderPiece.anchorY = 1;
 			borderPiece.rotation = -90;
 			borderPiece.x = Futile.screen.halfWidth + SBConfig.BATHROOM_WIDTH / 2f + borderPieceWidth * i;
 			borderPiece.y = 0;
@@ -100,17 +100,5 @@ public class SBBorderLayer : FContainer {
 		corner4.x = 0;
 		corner4.y = 0;
 		AddChild(corner4);
-		
-		FSprite bathroom1 = new FSprite("bathroomTop.psd");
-		bathroom1.x = Futile.screen.halfWidth;
-		bathroom1.anchorY = 1;
-		bathroom1.y = Futile.screen.height - SBConfig.TOP_UI_HEIGHT;
-		AddChild(bathroom1);
-		
-		FSprite bathroom2 = new FSprite("bathroomBottom.psd");
-		bathroom2.x = Futile.screen.halfWidth;
-		bathroom2.anchorY = 0;
-		bathroom2.y = 0;
-		AddChild(bathroom2);	
 	}
 }
