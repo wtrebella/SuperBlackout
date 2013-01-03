@@ -10,12 +10,21 @@ public class SBTitleScene : FStage {
 	TweenChain tweenChain1;
 	TweenChain tweenChain2;
 	
+	bool player1Ready = false;
+	bool player2Ready = false;
+	
+	FLabel inGameHelp;
+	FLabel inGameHelpToggle;
+	
+	FLabel player1;
+	FLabel player2;
+	
+	FLabel ready1;
+	FLabel ready2;
+	
+	FLabel helpLabel;
+	
 	public SBTitleScene() : base("") {
-		FSprite background = new FSprite("splashBackground.png");
-		background.x = Futile.screen.halfWidth;
-		background.y = Futile.screen.halfHeight;
-		AddChild(background);
-		
 		float boardWidth = 200f;
 		float boardHeight = 20f;
 		float padding = 2f;
@@ -35,6 +44,89 @@ public class SBTitleScene : FStage {
 				AddChild(board);
 			}
 		}
+		
+		helpLabel = new FLabel("Silkscreen", "Press SPACE or Q for help");
+		helpLabel.scale = 0.4f;
+		helpLabel.alpha = 0;
+		helpLabel.anchorY = 0;
+		helpLabel.anchorX = 1;
+		helpLabel.x = Futile.screen.width - 30f;
+		helpLabel.y = 15f;
+		helpLabel.color = Color.black;
+		
+		Tween fadeOut = new Tween(helpLabel, 0.15f, new TweenConfig().floatProp("alpha", 0));
+		Tween fadeIn = new Tween(helpLabel, 0.15f, new TweenConfig().floatProp("alpha", 1));
+		
+		TweenChain chain = new TweenChain();
+		chain.setIterations(-1);
+		chain.appendDelay(0.3f);
+		chain.append(fadeOut);
+		chain.append(fadeIn);
+		Go.addTween(chain);
+		chain.play();
+		
+		AddChild(helpLabel);
+		
+		player1 = new FLabel("Silkscreen", "Player 1:");
+		player1.alpha = 0;
+		player1.color = Color.black;
+		player1.scale = 0.4f;
+		player1.anchorX = 0;
+		player1.anchorY = 1;
+		player1.x = 30f;
+		player1.y = Futile.screen.height - 20f;
+		AddChild(player1);
+		
+		player2 = new FLabel("Silkscreen", "Player 2:");
+		player2.alpha = 0;
+		player2.color = Color.black;
+		player2.scale = 0.4f;
+		player2.anchorX = 0;
+		player2.anchorY = 1;
+		player2.x = 30f;
+		player2.y = Futile.screen.height - 20f - 50f;
+		AddChild(player2);
+		
+		ready1 = new FLabel("Silkscreen", "Press 1 to join");
+		ready1.alpha = 0;
+		ready1.color = Color.red;
+		ready1.scale = 0.4f;
+		ready1.anchorX = 0;
+		ready1.anchorY = 1;
+		ready1.x = 250f;
+		ready1.y = Futile.screen.height - 20f;
+		AddChild(ready1);
+		
+		ready2 = new FLabel("Silkscreen", "Press 2 to join");
+		ready2.alpha = 0;
+		ready2.color = Color.red;
+		ready2.scale = 0.4f;
+		ready2.anchorX = 0;
+		ready2.anchorY = 1;
+		ready2.x = 250f;
+		ready2.y = Futile.screen.height - 20f - 50f;
+		AddChild(ready2);
+		
+		inGameHelp = new FLabel("Silkscreen", "In-Game Help (press X or V):");
+		inGameHelp.alpha = 0;
+		inGameHelp.color = Color.black;
+		inGameHelp.scale = 0.4f;
+		inGameHelp.anchorX = 1;
+		inGameHelp.anchorY = 1;
+		inGameHelp.x = Futile.screen.width - 100f;
+		inGameHelp.y = Futile.screen.height - 20f;
+		AddChild(inGameHelp);
+		
+		inGameHelpToggle = new FLabel("Silkscreen", "On");
+		inGameHelpToggle.alpha = 0;
+		inGameHelpToggle.color = new Color(0, 0.8f, 0, 1.0f);
+		inGameHelpToggle.scale = 0.4f;
+		inGameHelpToggle.anchorX = 1;
+		inGameHelpToggle.anchorY = 1;
+		inGameHelpToggle.x = Futile.screen.width - 30f;
+		inGameHelpToggle.y = Futile.screen.height - 25f;
+		AddChild(inGameHelpToggle);
+		RefreshInGameHelpToggle();
 		
 		float amt = 700f;
 		
@@ -68,6 +160,17 @@ public class SBTitleScene : FStage {
 			.onComplete(HandleWordFinishedComingIn));
 	}
 	
+	public void RefreshInGameHelpToggle() {
+		if (SBConfig.HELP_LABELS_ON) {
+			inGameHelpToggle.text = "ON";
+			inGameHelpToggle.color = new Color(0, 0.8f, 0, 1.0f);
+		}
+		else {
+			inGameHelpToggle.text = "OFF";
+			inGameHelpToggle.color = Color.red;
+		}
+	}
+	
 	public void HandleWordFinishedComingIn(AbstractTween tween) {
 		FSprite word = (tween as Tween).target as FSprite;
 		ShakeWord(word);
@@ -75,12 +178,23 @@ public class SBTitleScene : FStage {
 		}
 		else if ((int)word.data == 1) {
 			introIsDone = true;
+			Go.to(helpLabel, 0.5f, new TweenConfig().floatProp("alpha", 1));
+			Go.to(player1, 0.5f, new TweenConfig().floatProp("alpha", 1));
+			Go.to(player2, 0.5f, new TweenConfig().floatProp("alpha", 1));
+			Go.to(ready1, 0.5f, new TweenConfig().floatProp("alpha", 1));
+			Go.to(ready2, 0.5f, new TweenConfig().floatProp("alpha", 1));
+			Go.to(inGameHelp, 0.5f, new TweenConfig().floatProp("alpha", 1));
+			Go.to(inGameHelpToggle, 0.5f, new TweenConfig().floatProp("alpha", 1));
 		}
 	}
 	
 	public void HandleWordFinishedShake(AbstractTween tween) {
 		FSprite word = (tween as Tween).target as FSprite;
 		ShakeWord(word);
+	}
+	
+	public void HandleWordDoneDismissing(AbstractTween tween) {
+		if (player1Ready && player2Ready) WTMain.SwitchToScene(SceneType.GameScene);
 	}
 	
 	public void DismissWord(FSprite word) {
@@ -100,7 +214,8 @@ public class SBTitleScene : FStage {
 		Go.to(word, duration, new TweenConfig()
 			.floatProp("x", Futile.screen.halfWidth - amt)
 			.floatProp("y", Futile.screen.halfHeight - amt)
-			.setEaseType(easeType));
+			.setEaseType(easeType)
+			.onComplete(HandleWordDoneDismissing));
 	}
 	
 	public void ShakeWord(FSprite word) {
@@ -141,11 +256,31 @@ public class SBTitleScene : FStage {
 		Futile.instance.SignalUpdate -= HandleUpdate;
 	}
 	
+	public void ToggleInGameHelp() {
+		SBConfig.HELP_LABELS_ON = !SBConfig.HELP_LABELS_ON;
+		RefreshInGameHelpToggle();
+	}
+	
 	public void HandleUpdate() {
 		if (!introIsDone) return;
 				
-		if (Input.GetKeyDown(KeyCode.Alpha1)) DismissWord(super);
-		if (Input.GetKeyDown(KeyCode.Alpha2)) DismissWord(blackout);
-		if (Input.GetKeyDown(KeyCode.H)) WTMain.SwitchToScene(SceneType.HelpScene);
+		if (Input.GetKeyDown(KeyCode.Alpha1)) {
+			ready1.color = new Color(0, 0.8f, 0, 1.0f);
+			ready1.y -= 6f;
+			ready1.text = "Ready";
+			player1Ready = true;
+			DismissWord(super);
+		}
+		if (Input.GetKeyDown(KeyCode.Alpha2)) {
+			ready2.color = new Color(0, 0.8f, 0, 1.0f);
+			ready2.y -= 6f;
+			ready2.text = "Ready";
+			player2Ready = true;
+			DismissWord(blackout);
+		}
+		
+		if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.V)) ToggleInGameHelp();
+		
+		if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Q)) WTMain.SwitchToScene(SceneType.HelpScene);
 	}
 }

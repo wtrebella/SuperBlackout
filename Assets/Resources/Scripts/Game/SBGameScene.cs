@@ -19,7 +19,7 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 	
 	//FLabel tempLogLabel;
 	
-	private static int frameCount_ = 0;
+	private int frameCount_ = 0;
 	
 	public SBGameScene(bool addToFutileOnInit) : base("") {
 		if (addToFutileOnInit) Futile.AddStage(this);
