@@ -382,6 +382,9 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		}
 	}
 	
+	public static bool drinker1HadDrink = false;
+	public static bool drinker2HadDrink = false;
+	
 	public void HandleUpdate() {
 		/*bool debugPressed = false;
 		if (Input.GetKeyDown(KeyCode.Alpha0)) {
@@ -442,22 +445,28 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		}
 		
 		if (SBConfig.HELP_LABELS_ON) {
-			if (drinker1.HasDrink()) {
-				backgroundLayer.player1DrinkHelpContainer.isVisible = true;
-				backgroundLayer.player1GetDrinkHelpContainer.isVisible = false;
-			}
-			else {
-				backgroundLayer.player1DrinkHelpContainer.isVisible = false;
-				backgroundLayer.player1GetDrinkHelpContainer.isVisible = true;
+			if (drinker1.HasDrink() != drinker1HadDrink) {
+				drinker1HadDrink = drinker1.HasDrink();
+				if (drinker1.HasDrink()) {
+					backgroundLayer.ShowDrinkHelp(1);
+					backgroundLayer.HideGetDrinkHelp(1);
+				}
+				else {
+					backgroundLayer.HideDrinkHelp(1);
+					backgroundLayer.ShowGetDrinkHelp(1);
+				}
 			}
 			
-			if (drinker2.HasDrink()) {
-				backgroundLayer.player2DrinkHelpContainer.isVisible = true;
-				backgroundLayer.player2GetDrinkHelpContainer.isVisible = false;
-			}
-			else {
-				backgroundLayer.player2DrinkHelpContainer.isVisible = false;
-				backgroundLayer.player2GetDrinkHelpContainer.isVisible = true;
+			if (drinker2.HasDrink() != drinker2HadDrink) {
+				drinker2HadDrink = drinker2.HasDrink();
+				if (drinker2.HasDrink()) {
+					backgroundLayer.ShowDrinkHelp(2);
+					backgroundLayer.HideGetDrinkHelp(2);
+				}
+				else {
+					backgroundLayer.HideDrinkHelp(2);
+					backgroundLayer.ShowGetDrinkHelp(2);
+				}
 			}
 		}
 	}

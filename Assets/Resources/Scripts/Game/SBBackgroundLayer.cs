@@ -16,11 +16,47 @@ public class SBBackgroundLayer : FContainer {
 		}
 	}
 	
+	public void ShowDrinkHelp(int playerNum) {
+		FContainer hContainer = null;
+		
+		if (playerNum == 1) hContainer = player1DrinkHelpContainer;
+		else if (playerNum == 2) hContainer = player2DrinkHelpContainer;
+		
+		Go.to(hContainer, 0.5f, new TweenConfig().floatProp("alpha", 1));
+	}
+	
+	public void ShowGetDrinkHelp(int playerNum) {
+		FContainer hContainer = null;
+		
+		if (playerNum == 1) hContainer = player1GetDrinkHelpContainer;
+		else if (playerNum == 2) hContainer = player2GetDrinkHelpContainer;
+		
+		Go.to(hContainer, 0.5f, new TweenConfig().floatProp("alpha", 1));
+	}
+	
+	public void HideDrinkHelp(int playerNum) {
+		FContainer hContainer = null;
+		
+		if (playerNum == 1) hContainer = player1DrinkHelpContainer;
+		else if (playerNum == 2) hContainer = player2DrinkHelpContainer;
+		
+		Go.to(hContainer, 0.5f, new TweenConfig().floatProp("alpha", 0));
+	}
+	
+	public void HideGetDrinkHelp(int playerNum) {
+		FContainer hContainer = null;
+		
+		if (playerNum == 1) hContainer = player1GetDrinkHelpContainer;
+		else if (playerNum == 2) hContainer = player2GetDrinkHelpContainer;
+		
+		Go.to(hContainer, 0.5f, new TweenConfig().floatProp("alpha", 0));
+	}
+	
 	private void MakeHelpLabels() {
 		AddChild(player1DrinkHelpContainer);
 		AddChild(player2DrinkHelpContainer);
 		
-		player1DrinkHelpContainer.isVisible = player2DrinkHelpContainer.isVisible = false;
+		player1DrinkHelpContainer.alpha = player2DrinkHelpContainer.alpha = 0;
 		
 		AddChild(player1GetDrinkHelpContainer);
 		AddChild(player2GetDrinkHelpContainer);
