@@ -26,7 +26,7 @@
 },
 "barStool.psd":
 {
-	"frame": {"x":436,"y":456,"w":48,"h":48},
+	"frame": {"x":452,"y":564,"w":48,"h":48},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":48,"h":48},
@@ -40,12 +40,28 @@
 	"spriteSourceSize": {"x":0,"y":8,"w":248,"h":120},
 	"sourceSize": {"w":248,"h":128}
 },
+"bathroomBottomEdges.png":
+{
+	"frame": {"x":100,"y":692,"w":248,"h":96},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":32,"w":248,"h":96},
+	"sourceSize": {"w":248,"h":128}
+},
 "bathroomTop.psd":
 {
 	"frame": {"x":502,"y":450,"w":248,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":248,"h":128},
+	"sourceSize": {"w":248,"h":128}
+},
+"bathroomTopEdges.png":
+{
+	"frame": {"x":2,"y":692,"w":248,"h":96},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":248,"h":96},
 	"sourceSize": {"w":248,"h":128}
 },
 "borderBarPieceCurved.psd":
@@ -58,7 +74,7 @@
 },
 "borderBarPieceStraight.psd":
 {
-	"frame": {"x":2,"y":822,"w":32,"h":120},
+	"frame": {"x":124,"y":456,"w":32,"h":120},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":120},
@@ -66,7 +82,7 @@
 },
 "drink.psd":
 {
-	"frame": {"x":168,"y":896,"w":32,"h":32},
+	"frame": {"x":698,"y":614,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -90,23 +106,23 @@
 },
 "drinkerIdle.png":
 {
-	"frame": {"x":288,"y":456,"w":80,"h":96},
-	"rotated": false,
+	"frame": {"x":336,"y":636,"w":80,"h":96},
+	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":16,"y":8,"w":80,"h":96},
 	"sourceSize": {"w":112,"h":112}
 },
 "drinkerLeftFront.png":
 {
-	"frame": {"x":214,"y":580,"w":80,"h":96},
-	"rotated": false,
+	"frame": {"x":238,"y":636,"w":80,"h":96},
+	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":16,"y":8,"w":80,"h":96},
 	"sourceSize": {"w":112,"h":112}
 },
 "drinkerPassOut0.png":
 {
-	"frame": {"x":182,"y":930,"w":80,"h":96},
+	"frame": {"x":600,"y":580,"w":80,"h":96},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":16,"y":8,"w":80,"h":96},
@@ -114,15 +130,15 @@
 },
 "drinkerPassOut1.png":
 {
-	"frame": {"x":206,"y":692,"w":80,"h":96},
-	"rotated": false,
+	"frame": {"x":502,"y":580,"w":80,"h":96},
+	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":8,"y":8,"w":80,"h":96},
 	"sourceSize": {"w":128,"h":112}
 },
 "drinkerPassOut2.png":
 {
-	"frame": {"x":116,"y":580,"w":96,"h":96},
+	"frame": {"x":362,"y":456,"w":96,"h":96},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":8,"w":96,"h":96},
@@ -130,32 +146,32 @@
 },
 "drinkerPassOut3.png":
 {
-	"frame": {"x":108,"y":692,"w":104,"h":96},
-	"rotated": true,
+	"frame": {"x":256,"y":456,"w":104,"h":96},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":8,"y":8,"w":104,"h":96},
 	"sourceSize": {"w":128,"h":112}
 },
 "drinkerPassOut4.png":
 {
-	"frame": {"x":2,"y":692,"w":128,"h":104},
-	"rotated": true,
+	"frame": {"x":2,"y":580,"w":128,"h":104},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":8,"w":128,"h":104},
 	"sourceSize": {"w":128,"h":112}
 },
 "drinkerPunching.png":
 {
-	"frame": {"x":134,"y":798,"w":80,"h":96},
-	"rotated": false,
+	"frame": {"x":354,"y":554,"w":80,"h":96},
+	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":16,"y":8,"w":80,"h":96},
 	"sourceSize": {"w":112,"h":112}
 },
 "drinkerRightFront.png":
 {
-	"frame": {"x":206,"y":456,"w":80,"h":96},
-	"rotated": false,
+	"frame": {"x":256,"y":554,"w":80,"h":96},
+	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":16,"y":8,"w":80,"h":96},
 	"sourceSize": {"w":112,"h":112}
@@ -170,15 +186,15 @@
 },
 "drinkerSittingTrans0.png":
 {
-	"frame": {"x":124,"y":456,"w":80,"h":96},
-	"rotated": false,
+	"frame": {"x":100,"y":942,"w":80,"h":96},
+	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":16,"y":8,"w":80,"h":96},
 	"sourceSize": {"w":112,"h":112}
 },
 "drinkerSittingTrans1.png":
 {
-	"frame": {"x":84,"y":936,"w":80,"h":96},
+	"frame": {"x":2,"y":942,"w":80,"h":96},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":16,"y":8,"w":80,"h":96},
@@ -202,7 +218,7 @@
 },
 "glass.psd":
 {
-	"frame": {"x":134,"y":896,"w":32,"h":32},
+	"frame": {"x":698,"y":580,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -218,8 +234,8 @@
 },
 "glassSpill1.png":
 {
-	"frame": {"x":370,"y":456,"w":64,"h":40},
-	"rotated": false,
+	"frame": {"x":460,"y":456,"w":64,"h":40},
+	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":64,"w":64,"h":40},
 	"sourceSize": {"w":136,"h":160}
@@ -234,8 +250,8 @@
 },
 "glassSpill3.png":
 {
-	"frame": {"x":2,"y":580,"w":112,"h":104},
-	"rotated": false,
+	"frame": {"x":132,"y":578,"w":112,"h":104},
+	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":32,"w":112,"h":104},
 	"sourceSize": {"w":136,"h":160}
@@ -258,15 +274,15 @@
 },
 "pee2.png":
 {
-	"frame": {"x":2,"y":944,"w":80,"h":72},
-	"rotated": false,
+	"frame": {"x":198,"y":718,"w":80,"h":72},
+	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":80,"y":80,"w":80,"h":72},
 	"sourceSize": {"w":240,"h":240}
 },
 "pee3.png":
 {
-	"frame": {"x":36,"y":822,"w":112,"h":96},
+	"frame": {"x":158,"y":456,"w":112,"h":96},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":64,"y":72,"w":112,"h":96},
@@ -298,7 +314,7 @@
 },
 "uiDrink.psd":
 {
-	"frame": {"x":412,"y":506,"w":40,"h":40},
+	"frame": {"x":452,"y":614,"w":40,"h":40},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":40,"h":40},
@@ -306,7 +322,7 @@
 },
 "uiDrinkBW.psd":
 {
-	"frame": {"x":370,"y":498,"w":40,"h":40},
+	"frame": {"x":460,"y":522,"w":40,"h":40},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":40,"h":40},
@@ -319,6 +335,6 @@
 	"format": "RGBA8888",
 	"size": {"w":1024,"h":1024},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:746de419424ed23027f5943d39ef0546$"
+	"smartupdate": "$TexturePacker:SmartUpdate:a3065ca51615115f5d827e7ea16e32ae$"
 }
 }
