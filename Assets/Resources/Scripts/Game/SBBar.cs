@@ -40,7 +40,7 @@ public class SBBar : SBEntity {
 	private void InitBarStools() {
 		barStools = new List<SBBarStool>();
 		
-		float barStoolMargin = 150f;
+		//float barStoolMargin = 150f;
 		
 		/*for (int i = 0; i < 8; i++) {
 			SBBarStool barStool = new SBBarStool(string.Format("barStool{0}", i), new Color(165f/255f, 115f/255f, 67f/255f));

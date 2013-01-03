@@ -24,7 +24,7 @@ public class WTMain : MonoBehaviour {
 		Futile.instance.Init(fp);
 
 		Futile.atlasManager.LoadAtlas("Atlases/MainSheet");
-		Futile.atlasManager.LoadImage("Atlases/splash");
+		Futile.atlasManager.LoadAtlas("Atlases/TitlePageSheet");
 		Futile.atlasManager.LoadFont("Silkscreen", "Silkscreen.png", "Atlases/Silkscreen");
 		
 		Go.defaultEaseType = EaseType.SineInOut;
