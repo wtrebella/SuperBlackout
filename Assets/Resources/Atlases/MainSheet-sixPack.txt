@@ -10,7 +10,7 @@
 },
 "arrow.psd":
 {
-	"frame": {"x":930,"y":472,"w":96,"h":88},
+	"frame": {"x":928,"y":472,"w":96,"h":88},
 	"rotated": true,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":96,"h":88},
@@ -90,19 +90,19 @@
 },
 "drinkHere1.psd":
 {
-	"frame": {"x":502,"y":114,"w":298,"h":110},
+	"frame": {"x":502,"y":338,"w":278,"h":110},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":6,"y":5,"w":298,"h":110},
-	"sourceSize": {"w":310,"h":122}
+	"spriteSourceSize": {"x":5,"y":5,"w":278,"h":110},
+	"sourceSize": {"w":288,"h":122}
 },
 "drinkHere2.psd":
 {
-	"frame": {"x":502,"y":2,"w":298,"h":110},
+	"frame": {"x":502,"y":226,"w":278,"h":110},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":6,"y":5,"w":298,"h":110},
-	"sourceSize": {"w":310,"h":122}
+	"spriteSourceSize": {"x":5,"y":5,"w":278,"h":110},
+	"sourceSize": {"w":288,"h":122}
 },
 "drinkerIdle.png":
 {
@@ -178,7 +178,7 @@
 },
 "drinkerSitting.png":
 {
-	"frame": {"x":930,"y":374,"w":88,"h":96},
+	"frame": {"x":928,"y":374,"w":88,"h":96},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":16,"y":8,"w":88,"h":96},
@@ -202,19 +202,19 @@
 },
 "getDrinkHere1.psd":
 {
-	"frame": {"x":502,"y":338,"w":280,"h":110},
+	"frame": {"x":502,"y":114,"w":298,"h":110},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":5,"y":4,"w":280,"h":110},
-	"sourceSize": {"w":290,"h":120}
+	"spriteSourceSize": {"x":6,"y":4,"w":298,"h":110},
+	"sourceSize": {"w":310,"h":120}
 },
 "getDrinkHere2.psd":
 {
-	"frame": {"x":502,"y":226,"w":280,"h":110},
+	"frame": {"x":502,"y":2,"w":298,"h":110},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":5,"y":4,"w":280,"h":110},
-	"sourceSize": {"w":290,"h":120}
+	"spriteSourceSize": {"x":6,"y":4,"w":298,"h":110},
+	"sourceSize": {"w":310,"h":120}
 },
 "glass.psd":
 {
@@ -290,7 +290,7 @@
 },
 "pee4.png":
 {
-	"frame": {"x":784,"y":374,"w":144,"h":136},
+	"frame": {"x":782,"y":374,"w":144,"h":136},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":48,"y":48,"w":144,"h":136},
@@ -335,6 +335,6 @@
 	"format": "RGBA8888",
 	"size": {"w":1024,"h":1024},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:a3065ca51615115f5d827e7ea16e32ae$"
+	"smartupdate": "$TexturePacker:SmartUpdate:c982b6af49119630ff9e220e3c7b0be1$"
 }
 }

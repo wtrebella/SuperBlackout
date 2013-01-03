@@ -9,7 +9,8 @@ public class WTMain : MonoBehaviour {
 	
 	public enum SceneType {
 		None,
-		GameScene
+		GameScene,
+		TitleScene
 	}
 	
 	void Start () {
@@ -21,8 +22,9 @@ public class WTMain : MonoBehaviour {
 		fp.origin = Vector2.zero;
 		
 		Futile.instance.Init(fp);
-		
+
 		Futile.atlasManager.LoadAtlas("Atlases/MainSheet");
+		Futile.atlasManager.LoadImage("Atlases/splash");
 		Futile.atlasManager.LoadFont("Silkscreen", "Silkscreen.png", "Atlases/Silkscreen");
 		
 		Go.defaultEaseType = EaseType.SineInOut;
@@ -71,13 +73,17 @@ public class WTMain : MonoBehaviour {
 			"drinkerPassOut3.png",
 			"drinkerPassOut4.png"}, 0.04f, false);
 		
-		SwitchToScene(SceneType.GameScene);
+		SwitchToScene(SceneType.TitleScene);
 	}
 	
-	public void SwitchToScene(SceneType sceneType) {
+	public static void SwitchToScene(SceneType sceneType) {
 		if (currentScene != null) Futile.RemoveStage(currentScene);
 		
 		if (sceneType == SceneType.GameScene) currentScene = new SBGameScene(true);
+		if (sceneType == SceneType.TitleScene) {
+			currentScene = new SBTitleScene();
+			Futile.AddStage(currentScene);
+		}
 		if (sceneType == SceneType.None) currentScene = null;
 	}
 }
