@@ -25,6 +25,7 @@ public class SBSpriteComponent : SBAbstractComponent {
 	
 	public void PauseAnimation() {
 		isAnimating = false;
+		if (currentAnimation == null) return;
 		currentAnimation.animationDelegate = null;
 		currentAnimation.animationTimer = currentAnimation.frameDuration;
 	}
@@ -71,7 +72,7 @@ public class SBSpriteComponent : SBAbstractComponent {
 	
 	override public void HandleUpdate() {
 		base.HandleUpdate();
-		
+
 		if (!isAnimating || currentAnimation == null) return;
 		
 		currentAnimation.HandleUpdateWithSprite(sprite);	

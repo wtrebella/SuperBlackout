@@ -156,7 +156,7 @@ public class SBDrinker : SBEntity {
 	
 	override public void HandleUpdate() {
 		base.HandleUpdate();
-		
+
 		if (isInSitStandTransition) return;
 		
 		if (isDrinking) { // is sitting in a special chair

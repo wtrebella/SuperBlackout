@@ -1,17 +1,18 @@
 using UnityEngine;
 using System.Collections;
 
+public enum SceneType {
+	None,
+	GameScene,
+	TitleScene,
+	HelpScene
+}
+
 public class WTMain : MonoBehaviour {
 
 	public static FStage currentScene;
 	public static WTMain instance;
 	public static WTAnimationManager animationManager;
-	
-	public enum SceneType {
-		None,
-		GameScene,
-		TitleScene
-	}
 	
 	void Start () {
 		if (instance == null) instance = this;
@@ -82,6 +83,10 @@ public class WTMain : MonoBehaviour {
 		if (sceneType == SceneType.GameScene) currentScene = new SBGameScene(true);
 		if (sceneType == SceneType.TitleScene) {
 			currentScene = new SBTitleScene();
+			Futile.AddStage(currentScene);
+		}
+		if (sceneType == SceneType.HelpScene) {
+			currentScene = new SBHelpScene();
 			Futile.AddStage(currentScene);
 		}
 		if (sceneType == SceneType.None) currentScene = null;

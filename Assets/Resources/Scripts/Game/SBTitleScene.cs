@@ -16,6 +16,26 @@ public class SBTitleScene : FStage {
 		background.y = Futile.screen.halfHeight;
 		AddChild(background);
 		
+		float boardWidth = 200f;
+		float boardHeight = 20f;
+		float padding = 2f;
+		int boardRowCount = (int)(Futile.screen.height / boardHeight);
+		
+		for (int i = 0; i < boardRowCount; i++) {
+			float rowOffset = Random.Range(-boardWidth, 0);
+			int boardColumnCount = (int)((Futile.screen.width - rowOffset) / boardWidth) + 1;
+			for (int j = 0; j < boardColumnCount; j++) {
+				FSprite board = WTSquareMaker.Square(boardWidth + padding * 2, boardHeight + padding * 2);
+				float rand = Random.Range(-0.05f, 0.05f) + 0.25f;
+				board.color = new Color(0.66f + rand, 0.55f + rand, 0.4f + rand);
+				board.anchorX = 0;
+				board.anchorY = 0;
+				board.x = j * boardWidth + rowOffset - padding;
+				board.y = i * boardHeight - padding;
+				AddChild(board);
+			}
+		}
+		
 		float amt = 700f;
 		
 		super = new FSprite("super.png");
@@ -41,7 +61,7 @@ public class SBTitleScene : FStage {
 			.onComplete(HandleWordFinishedComingIn));
 		
 		Go.to(blackout, duration, new TweenConfig()
-			.setDelay(duration)
+			.setDelay(duration / 2f)
 			.floatProp("x", Futile.screen.halfWidth - 5f)
 			.floatProp("y", Futile.screen.halfHeight - 5f)
 			.setEaseType(easeType)
@@ -126,5 +146,6 @@ public class SBTitleScene : FStage {
 				
 		if (Input.GetKeyDown(KeyCode.Alpha1)) DismissWord(super);
 		if (Input.GetKeyDown(KeyCode.Alpha2)) DismissWord(blackout);
+		if (Input.GetKeyDown(KeyCode.H)) WTMain.SwitchToScene(SceneType.HelpScene);
 	}
 }
