@@ -77,7 +77,7 @@ public class WTMain : MonoBehaviour {
 		SwitchToScene(SceneType.TitleScene);
 	}
 	
-	public static void SwitchToScene(SceneType sceneType) {
+	public static void SwitchToScene(SceneType sceneType) {		
 		if (currentScene != null) Futile.RemoveStage(currentScene);
 		
 		if (sceneType == SceneType.GameScene) currentScene = new SBGameScene(true);
