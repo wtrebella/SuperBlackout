@@ -266,7 +266,7 @@ public class SBTitleScene : FStage {
 			tweenChain2.destroy();
 		}
 		
-		float duration = 1.0f;
+		float duration = 0.75f;
 		float amt = 800f;
 		EaseType easeType = EaseType.SineOut;
 		

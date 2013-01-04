@@ -51,7 +51,7 @@ public class SBHelpScene : FStage {
 		drinker2 = NewPrefabbedDrinker(Direction.Right, new Color(1.0f, 0.3f, 0.5f, 1.0f), 2);
 		
 		Go.to(drinker1, 3.0f, new TweenConfig().setIterations(-1).setEaseType(EaseType.Linear).floatProp("rotation", 360, true));
-		Go.to(drinker2, 2.5f, new TweenConfig().setIterations(-1).setEaseType(EaseType.Linear).floatProp("rotation", -360, true));
+		Go.to(drinker2, 2.5f, new TweenConfig().setIterations(-1).setEaseType(EaseType.Linear).floatProp("rotation", 360, true));
 		
 		SetupPage(0);
 	}
@@ -66,7 +66,7 @@ public class SBHelpScene : FStage {
 		Futile.instance.SignalUpdate -= HandleUpdate;
 	}
 	
-	public void HandleUpdate() {
+	public void HandleUpdate() {		
 		for (int i = 0; i < mainContainer.GetChildCount(); i++) {
 			FNode node = mainContainer.GetChildAt(i);
 			if (node.GetType().FullName == "SBDrinker") {
@@ -142,29 +142,38 @@ public class SBHelpScene : FStage {
 		}
 		
 		if (pageNum == 1) {
-			drinker1.y = Futile.screen.halfHeight + 150f;
-			drinker2.y = Futile.screen.halfHeight + 150f;
+			drinker1.y = Futile.screen.halfHeight + 200f;
+			drinker2.y = Futile.screen.halfHeight + 200f;
 			
-			drinker1.SpriteComponent(1).StartAnimation(WTMain.animationManager.AnimationForName("drinkerPassOut"));
-			drinker2.SpriteComponent(1).StartAnimation(WTMain.animationManager.AnimationForName("drinkerPassOut"));
+			drinker1.SpriteComponent(1).StartAnimation(WTMain.animationManager.AnimationForName("drinkerWalk"));
+			drinker2.SpriteComponent(1).StartAnimation(WTMain.animationManager.AnimationForName("drinkerWalk"));
 			
-			FLabel text = new FLabel("Silkscreen", "First one to pass out\nfrom drinking wins!");
+			SBArcadeButtons ab1 = new SBArcadeButtons(true);
+			ab1.joystickIsRotating = true;
+			ab1.x = drinker1.x - 75f;
+			ab1.y = drinker1.y - 70f;
+			ab1.scale = 0.3f;
+			
+			SBArcadeButtons ab2 = new SBArcadeButtons(true);
+			ab2.joystickIsRotating = true;
+			ab2.x = drinker2.x - 75f;
+			ab2.y = drinker2.y - 70f;
+			ab2.scale = 0.3f;
+			
+			FLabel text = new FLabel("Silkscreen", "Get a drink at your bar,\nthen drink it at your barstool");
 			text.scale = 0.8f;
 			text.color = Color.black;
 			text.anchorY = 1;
 			text.x = Futile.screen.halfWidth;
 			text.y = Futile.screen.halfHeight - 50f;			
 			
-			ShowNodes(new FNode[] {drinker1, drinker2, text}, 0.5f, 0.25f);
+			ShowNodes(new FNode[] {drinker1, ab1, drinker2, ab2, text}, 0.5f, 0.25f);
 		}
 		
 		if (pageNum == 2) {
 			drinker1.SpriteComponent(1).StartAnimation(WTMain.animationManager.AnimationForName("drinkerWalk"));
 			drinker2.SpriteComponent(1).StartAnimation(WTMain.animationManager.AnimationForName("drinkerWalk"));
-			
-			drinker1.y += 50f;
-			drinker2.y += 50f;
-			
+						
 			SBArcadeButtons ab1 = new SBArcadeButtons(true);
 			ab1.currentFlashingButton = 6;
 			ab1.x = drinker1.x - 75f;
@@ -187,7 +196,24 @@ public class SBHelpScene : FStage {
 			ShowNodes(new FNode[] {drinker1, ab1, drinker2, ab2, punch}, 0.5f, 0.25f);
 		}
 		
-		if (pageNum == 3) {			
+		if (pageNum == 3) {
+			drinker1.y = Futile.screen.halfHeight + 150f;
+			drinker2.y = Futile.screen.halfHeight + 150f;
+			
+			drinker1.SpriteComponent(1).StartAnimation(WTMain.animationManager.AnimationForName("drinkerPassOut"));
+			drinker2.SpriteComponent(1).StartAnimation(WTMain.animationManager.AnimationForName("drinkerPassOut"));
+			
+			FLabel text = new FLabel("Silkscreen", "First one to pass out\nfrom drinking wins!");
+			text.scale = 0.8f;
+			text.color = Color.black;
+			text.anchorY = 1;
+			text.x = Futile.screen.halfWidth;
+			text.y = Futile.screen.halfHeight - 50f;			
+			
+			ShowNodes(new FNode[] {drinker1, drinker2, text}, 0.5f, 0.25f);
+		}
+		
+		if (pageNum == 4) {			
 			drinker1.SpriteComponent(0).sprite.isVisible = true;
 			drinker2.SpriteComponent(0).sprite.isVisible = true;
 			
@@ -204,7 +230,7 @@ public class SBHelpScene : FStage {
 			ShowNodes(new FNode[] {drinker1, drinker2, pee}, 0.5f, 0.25f);
 		}
 		
-		if (pageNum == 4) {
+		if (pageNum == 5) {
 			WTMain.SwitchToScene(SceneType.TitleScene);	
 		}
 	}

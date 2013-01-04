@@ -19,6 +19,11 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 	public SBHudLayer hudLayer;
 	public KeyCode lastKeyPressed1 = KeyCode.None;
 	public KeyCode lastKeyPressed2 = KeyCode.None;
+	public bool sceneIsSwitching = false;
+	public FLabel playAgain;
+	public FLabel mainMenu;
+	public SBArcadeButtons playAgainButtons;
+	public SBArcadeButtons mainMenuButtons;
 	
 	//FLabel tempLogLabel;
 	
@@ -54,7 +59,7 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		specialBarStools.Add(specialBarStool2);
 		AddChild(specialBarStool2);
 		
-		drinker1 = new SBDrinker("drinker 1");
+		drinker1 = new SBDrinker("player 1");
 		drinker1.tag = 1;
 		drinker1.SpriteComponent(1).sprite.color = new Color(0.3f, 0.5f, 1.0f, 1.0f);
 		drinker1.x = Futile.screen.halfWidth - 200f;
@@ -66,7 +71,7 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		drinkers.Add(drinker1);
 		AddChild(drinker1);
 
-		drinker2 = new SBDrinker("drinker 2");
+		drinker2 = new SBDrinker("player 2");
 		drinker2.tag = 2;
 		drinker2.SpriteComponent(1).sprite.color = new Color(1.0f, 0.3f, 0.5f, 1.0f);
 		drinker2.x = Futile.screen.halfWidth + 200f;
@@ -98,6 +103,34 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		borderLayer = new SBBorderLayer();
 		AddChild(borderLayer);
 		
+		playAgain = new FLabel("Silkscreen", "play again");
+		playAgain.scale = 0.5f;
+		playAgain.x = Futile.screen.halfWidth - 200f;
+		playAgain.y = -175f;
+		playAgain.color = Color.black;
+		AddChild(playAgain);
+		
+		mainMenu = new FLabel("Silkscreen", "main menu");
+		mainMenu.scale = 0.5f;
+		mainMenu.x = Futile.screen.halfWidth + 200f;
+		mainMenu.y = -175f;
+		mainMenu.color = Color.black;
+		AddChild(mainMenu);
+		
+		playAgainButtons = new SBArcadeButtons(true);
+		playAgainButtons.currentFlashingButton = 2;
+		playAgainButtons.scale = 0.3f;
+		playAgainButtons.x = playAgain.x - 90f;
+		playAgainButtons.y = playAgain.y - 140f;
+		AddChild(playAgainButtons);
+		
+		mainMenuButtons = new SBArcadeButtons(true);
+		mainMenuButtons.currentFlashingButton = 5;
+		mainMenuButtons.scale = 0.3f;
+		mainMenuButtons.x = mainMenu.x - 90f;
+		mainMenuButtons.y = mainMenu.y - 140f;
+		AddChild(mainMenuButtons);
+		
 		/*tempLogLabel = new FLabel("Silkscreen", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 		tempLogLabel.color = Color.black;
 		tempLogLabel.x = 400f;
@@ -111,6 +144,10 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		AddChild(drinker2);
 		AddChild(borderLayer);
 		AddChild(hudLayer);
+		AddChild(playAgain);
+		AddChild(mainMenu);
+		AddChild(playAgainButtons);
+		AddChild(mainMenuButtons);
 	}
 	
 	public override void HandleAddedToStage() {
@@ -382,8 +419,17 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		FLabel label = new FLabel("Silkscreen", string.Format(drinker.name + " pissed himself!"));
 		label.color = Color.black;
 		label.x = Futile.screen.halfWidth;
-		label.y = Futile.screen.height * 0.75f;
+		label.y = Futile.screen.height * 1.25f;
+		Go.to(label, 0.5f, new TweenConfig().floatProp("y", Futile.screen.height * 0.75f));
 		AddChild(label);
+		PopupEndGameLabels();
+	}
+	
+	public void PopupEndGameLabels() {
+		Go.to(mainMenu, 0.5f, new TweenConfig().floatProp("y", -mainMenu.y));
+		Go.to(playAgain, 0.5f, new TweenConfig().floatProp("y", -playAgain.y));
+		Go.to(mainMenuButtons, 0.5f, new TweenConfig().floatProp("y", -mainMenuButtons.y));
+		Go.to(playAgainButtons, 0.5f, new TweenConfig().floatProp("y", -playAgainButtons.y));
 	}
 	
 	public void HandleDrinkerFinishedDrink(SBDrinker drinker) {
@@ -393,8 +439,10 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 			FLabel label = new FLabel("Silkscreen", string.Format(drinker.name + " blacked out!"));
 			label.color = Color.black;
 			label.x = Futile.screen.halfWidth;
-			label.y = Futile.screen.height * 0.75f;
+			label.y = Futile.screen.height * 1.25f;
+			Go.to(label, 0.5f, new TweenConfig().floatProp("y", Futile.screen.height * 0.75f));
 			AddChild(label);
+			PopupEndGameLabels();
 		}
 	}
 	
@@ -402,6 +450,14 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 	public static bool drinker2HadDrink = false;
 	
 	public void HandleUpdate() {
+		if (sceneIsSwitching) return;
+		
+		if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Alpha2)) {
+			sceneIsSwitching = true;
+			WTMain.SwitchToScene(SceneType.TitleScene);
+			return;
+		}
+		
 		if (!gameHasStarted) {
 			countdownTimer += Time.fixedDeltaTime;
 			if (countdownTimer < 1.2) countdownLabel.text = "3";
@@ -457,8 +513,18 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		}*/
 		
 		if (frameCount_++ < 5) return;
-				
-		if (!isGameOver) {
+			
+		if (isGameOver) {
+			if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Q)) {
+				sceneIsSwitching = true;
+				WTMain.SwitchToScene(SceneType.TitleScene);
+			}
+			if (Input.GetKeyDown(KeyCode.V) || Input.GetKeyDown(KeyCode.X)) {
+				sceneIsSwitching = true;
+				WTMain.SwitchToScene(SceneType.GameScene);
+			}	
+		}
+		else {
 			HandleKeyInput();
 			UpdateDrinkerPositions();
 			UpdateDrinkerBathroomRelations();

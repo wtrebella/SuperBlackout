@@ -7,7 +7,10 @@ public class SBArcadeButtons : FContainer {
 	public int currentFlashingButton = -1;
 	public bool isFlashing = true;
 	bool currentButtonIsColored = false;
+	public bool joystickIsRotating = false;
 	float flashingButtonTimer = 0;
+	float joystickTimer = 0;
+	FSprite joystick;
 	
 	public SBArcadeButtons(bool withJoystick) {		
 		buttons = new List<FSprite>();
@@ -30,9 +33,9 @@ public class SBArcadeButtons : FContainer {
 			xJoystickOffset = 175f;
 			yJoystickOffset = -100f;
 			
-			FSprite joystick = new FSprite("joystick.psd");
-			joystick.anchorX = 0;
-			joystick.anchorY = 1;
+			joystick = new FSprite("joystick.psd");
+			joystick.x = joystick.width / 2f - 12f;
+			joystick.y = -joystick.height / 2f;
 			
 			AddChild(joystick);
 		}
@@ -73,5 +76,15 @@ public class SBArcadeButtons : FContainer {
 				currentButtonIsColored = !currentButtonIsColored;
 			}
 		}
+		
+		if (joystickIsRotating) {
+			joystick.color = Color.red;
+			joystickTimer += Time.fixedDeltaTime;
+			if (joystickTimer >= 0.25f) {
+				joystickTimer = 0;
+				joystick.rotation += 90f;
+			}
+		}
+		else joystick.color = Color.white;
 	}
 }
