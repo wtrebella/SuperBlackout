@@ -249,7 +249,7 @@ public class SBTitleScene : FStage {
 		ShakeWord(word);
 	}
 	
-	public void HandleWordDoneDismissing(AbstractTween tween) {
+	public void HandleWordDoneDismissing(AbstractTween tween) {		
 		if (player1Ready && player2Ready && !isSwitchingScenes) {
 			WTMain.SwitchToScene(SceneType.GameScene);
 			isSwitchingScenes = true;

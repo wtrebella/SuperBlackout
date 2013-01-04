@@ -13,6 +13,9 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 	public List<SBEntity> drinkers;
 	public List<SBBarStool> specialBarStools;
 	public bool isGameOver = false;
+	public bool gameHasStarted = false;
+	public float countdownTimer = 0;
+	public FLabel countdownLabel;
 	public SBHudLayer hudLayer;
 	public KeyCode lastKeyPressed1 = KeyCode.None;
 	public KeyCode lastKeyPressed2 = KeyCode.None;
@@ -54,7 +57,7 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		drinker1 = new SBDrinker("drinker 1");
 		drinker1.tag = 1;
 		drinker1.SpriteComponent(1).sprite.color = new Color(0.3f, 0.5f, 1.0f, 1.0f);
-		drinker1.x = Futile.screen.halfWidth - 100f;
+		drinker1.x = Futile.screen.halfWidth - 200f;
 		drinker1.y = (Futile.screen.height - SBConfig.TOP_UI_HEIGHT) / 2f;
 		drinker1.ProgressBarComponent().progressBar.isVisible = false;
 		drinker1.ProgressBarComponent().progressBar.y += 45f;
@@ -66,7 +69,7 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		drinker2 = new SBDrinker("drinker 2");
 		drinker2.tag = 2;
 		drinker2.SpriteComponent(1).sprite.color = new Color(1.0f, 0.3f, 0.5f, 1.0f);
-		drinker2.x = Futile.screen.halfWidth + 100f;
+		drinker2.x = Futile.screen.halfWidth + 200f;
 		drinker2.y = (Futile.screen.height - SBConfig.TOP_UI_HEIGHT) / 2f;
 		drinker2.ProgressBarComponent().progressBar.isVisible = false;
 		drinker2.ProgressBarComponent().progressBar.y += 45f;
@@ -85,6 +88,12 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		drinker1.SignalPissedHimself += HandleDrinkerPissedHimself;
 		drinker2.SignalPissedHimself += HandleDrinkerPissedHimself;
 		AddChild(hudLayer);
+		
+		countdownLabel = new FLabel("Silkscreen", "3");
+		countdownLabel.color = Color.red;
+		countdownLabel.x = Futile.screen.halfWidth;
+		countdownLabel.y = (Futile.screen.height - SBConfig.TOP_UI_HEIGHT) / 2f;
+		AddChild(countdownLabel);
 		
 		borderLayer = new SBBorderLayer();
 		AddChild(borderLayer);
@@ -386,6 +395,20 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 	public static bool drinker2HadDrink = false;
 	
 	public void HandleUpdate() {
+		if (!gameHasStarted) {
+			countdownTimer += Time.fixedDeltaTime;
+			if (countdownTimer < 1.2) countdownLabel.text = "3";
+			else if (countdownTimer < 2.4) countdownLabel.text = "2";
+			else if (countdownTimer < 3.6) countdownLabel.text = "1";
+			else {
+				countdownLabel.text = "Drink!";
+				countdownLabel.color = new Color(0, 0.8f, 0, 1.0f);
+				Go.to(countdownLabel, 1.0f, new TweenConfig().floatProp("alpha", 0));
+				gameHasStarted = true;
+			}
+			return;
+		}
+		
 		/*bool debugPressed = false;
 		if (Input.GetKeyDown(KeyCode.Alpha0)) {
 			drinker2.VelocityComponent().debugDrinkCount = 0;
