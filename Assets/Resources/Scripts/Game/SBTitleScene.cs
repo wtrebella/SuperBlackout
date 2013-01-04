@@ -124,7 +124,7 @@ public class SBTitleScene : FStage {
 		arcadeButtonsHelpLabels = new SBArcadeButtons(true);
 		arcadeButtonsHelpLabels.alpha = 0;
 		arcadeButtonsHelpLabels.scale = 0.3f;
-		arcadeButtonsHelpLabels.x = Futile.screen.width - 245f;
+		arcadeButtonsHelpLabels.x = Futile.screen.width - 170f;
 		arcadeButtonsHelpLabels.y = Futile.screen.height - 15f;
 		arcadeButtonsHelpLabels.currentFlashingButton = 2;
 		AddChild(arcadeButtonsHelpLabels);
@@ -135,7 +135,7 @@ public class SBTitleScene : FStage {
 		inGameHelp.scale = 0.4f;
 		inGameHelp.anchorX = 1;
 		inGameHelp.anchorY = 1;
-		inGameHelp.x = Futile.screen.width - 335f;
+		inGameHelp.x = Futile.screen.width - 260f;
 		inGameHelp.y = Futile.screen.height - 50f;
 		AddChild(inGameHelp);
 		
@@ -145,7 +145,7 @@ public class SBTitleScene : FStage {
 		inGameHelpToggle.scale = 0.4f;
 		inGameHelpToggle.anchorX = 1;
 		inGameHelpToggle.anchorY = 1;
-		inGameHelpToggle.x = Futile.screen.width - 265f;
+		inGameHelpToggle.x = Futile.screen.width - 190f;
 		inGameHelpToggle.y = Futile.screen.height - 55f;
 		AddChild(inGameHelpToggle);
 		RefreshInGameHelpToggle();
@@ -156,14 +156,14 @@ public class SBTitleScene : FStage {
 		tutorialLabel.scale = 0.4f;
 		tutorialLabel.anchorX = 0;
 		tutorialLabel.anchorY = 1;
-		tutorialLabel.x = Futile.screen.width - 425f;
+		tutorialLabel.x = Futile.screen.width - 350f;
 		tutorialLabel.y = Futile.screen.height - 200f;
 		AddChild(tutorialLabel);
 		
 		arcadeButtonsTutorial = new SBArcadeButtons(true);
 		arcadeButtonsTutorial.alpha = 0;
 		arcadeButtonsTutorial.scale = 0.3f;
-		arcadeButtonsTutorial.x = Futile.screen.width - 245f;
+		arcadeButtonsTutorial.x = Futile.screen.width - 170f;
 		arcadeButtonsTutorial.y = Futile.screen.height - 165f;
 		arcadeButtonsTutorial.currentFlashingButton = 5;
 		AddChild(arcadeButtonsTutorial);
@@ -323,7 +323,7 @@ public class SBTitleScene : FStage {
 	public void HandleUpdate() {
 		if (!introIsDone || isSwitchingScenes) return;
 				
-		if (Input.GetKeyDown(KeyCode.Alpha1) && !player1Ready) {
+		if (Input.GetKeyDown(SBConfig.ATTACK_BUTTON_1) && !player1Ready) {
 			arcadeButtonsReady1.RemoveFromContainer();
 			ready1.color = new Color(0, 0.8f, 0, 1.0f);
 			ready1.x -= 130f;
@@ -332,7 +332,7 @@ public class SBTitleScene : FStage {
 			player1Ready = true;
 			DismissWord(super);
 		}
-		if (Input.GetKeyDown(KeyCode.Alpha2) && !player2Ready) {
+		if (Input.GetKeyDown(SBConfig.ATTACK_BUTTON_2) && !player2Ready) {
 			arcadeButtonsReady2.RemoveFromContainer();
 			ready2.color = new Color(0, 0.8f, 0, 1.0f);
 			ready2.x -= 130f;

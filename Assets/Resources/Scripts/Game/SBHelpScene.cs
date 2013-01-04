@@ -5,7 +5,7 @@ public class SBHelpScene : FStage {
 	private int pageNum_ = 0;
 	private FContainer mainContainer = new FContainer();
 	private bool currentPageIsFullySetup = false;
-	private FLabel continueLabel;
+	private SBArcadeButtons continueButtons;
 	private SBDrinker drinker1;
 	private SBDrinker drinker2;
 	
@@ -38,22 +38,12 @@ public class SBHelpScene : FStage {
 			}
 		}
 		
-		continueLabel = new FLabel("Silkscreen", "Press C or J to continue");
-		continueLabel.anchorY = 0;
-		continueLabel.x = Futile.screen.halfWidth;
-		continueLabel.y = 30f;
-		continueLabel.color = Color.black;
-		
-		Tween fadeOut = new Tween(continueLabel, 0.15f, new TweenConfig().floatProp("alpha", 0));
-		Tween fadeIn = new Tween(continueLabel, 0.15f, new TweenConfig().floatProp("alpha", 1));
-		
-		TweenChain chain = new TweenChain();
-		chain.setIterations(-1);
-		chain.appendDelay(0.3f);
-		chain.append(fadeOut);
-		chain.append(fadeIn);
-		Go.addTween(chain);
-		chain.play();
+		continueButtons = new SBArcadeButtons(true);
+		continueButtons.x = Futile.screen.halfWidth - 65f;
+		continueButtons.y = 145f;
+		continueButtons.scale = 0.3f;
+		continueButtons.currentFlashingButton = 5;
+		AddChild(continueButtons);
 		
 		AddChild(mainContainer);
 		
@@ -103,7 +93,7 @@ public class SBHelpScene : FStage {
 		
 		if (!currentPageIsFullySetup) return;
 		
-		if (Input.GetKeyDown(SBConfig.ATTACK_BUTTON_1) || Input.GetKeyDown(SBConfig.ATTACK_BUTTON_2)) DismissAllNodes(0.2f, 0.1f);
+		if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Q)) DismissAllNodes(0.2f, 0.1f);
 	}
 	
 	public void GoToNextPage() {
@@ -128,7 +118,6 @@ public class SBHelpScene : FStage {
 		
 		drinker1.scale = 1;
 		drinker2.scale = 1;
-		continueLabel.scale = 0.4f;
 		
 		if (pageNum == 0) {
 			drinker1.x = Futile.screen.width * 1f/3f;
@@ -149,7 +138,7 @@ public class SBHelpScene : FStage {
 			label2.color = drinker2.SpriteComponent(1).sprite.color;
 			label2.scale = 0.5f;
 			
-			ShowNodes(new FNode[] {drinker1, label1, drinker2, label2, continueLabel}, 0.6f, 0.3f);
+			ShowNodes(new FNode[] {drinker1, label1, drinker2, label2}, 0.6f, 0.3f);
 		}
 		
 		if (pageNum == 1) {
@@ -166,7 +155,7 @@ public class SBHelpScene : FStage {
 			text.x = Futile.screen.halfWidth;
 			text.y = Futile.screen.halfHeight - 50f;			
 			
-			ShowNodes(new FNode[] {drinker1, drinker2, text, continueLabel}, 0.5f, 0.25f);
+			ShowNodes(new FNode[] {drinker1, drinker2, text}, 0.5f, 0.25f);
 		}
 		
 		if (pageNum == 2) {
@@ -176,17 +165,17 @@ public class SBHelpScene : FStage {
 			drinker1.y += 50f;
 			drinker2.y += 50f;
 			
-			FLabel label1 = new FLabel("Silkscreen", "Punch: C");
-			label1.x = drinker1.x;
-			label1.y = drinker1.y - 100f;
-			label1.color = drinker1.SpriteComponent(1).sprite.color;
-			label1.scale = 0.5f;
+			SBArcadeButtons ab1 = new SBArcadeButtons(true);
+			ab1.currentFlashingButton = 6;
+			ab1.x = drinker1.x - 75f;
+			ab1.y = drinker1.y - 70f;
+			ab1.scale = 0.3f;
 			
-			FLabel label2 = new FLabel("Silkscreen", "Punch: J");
-			label2.x = drinker2.x;
-			label2.y = drinker2.y - 100f;
-			label2.color = drinker2.SpriteComponent(1).sprite.color;
-			label2.scale = 0.5f;
+			SBArcadeButtons ab2 = new SBArcadeButtons(true);
+			ab2.currentFlashingButton = 6;
+			ab2.x = drinker2.x - 75f;
+			ab2.y = drinker2.y - 70f;
+			ab2.scale = 0.3f;
 			
 			FLabel punch = new FLabel("Silkscreen", "Punch each other\nto spill drinks!");
 			punch.anchorY = 0;
@@ -195,7 +184,7 @@ public class SBHelpScene : FStage {
 			punch.x = Futile.screen.halfWidth;
 			punch.y = Futile.screen.halfHeight - 150f;
 			
-			ShowNodes(new FNode[] {drinker1, label1, drinker2, label2, punch, continueLabel}, 0.5f, 0.25f);
+			ShowNodes(new FNode[] {drinker1, ab1, drinker2, ab2, punch}, 0.5f, 0.25f);
 		}
 		
 		if (pageNum == 3) {			
@@ -212,7 +201,7 @@ public class SBHelpScene : FStage {
 			pee.x = Futile.screen.halfWidth;
 			pee.y = Futile.screen.halfHeight - 150f;
 			
-			ShowNodes(new FNode[] {drinker1, drinker2, pee, continueLabel}, 0.5f, 0.25f);
+			ShowNodes(new FNode[] {drinker1, drinker2, pee}, 0.5f, 0.25f);
 		}
 		
 		if (pageNum == 4) {
