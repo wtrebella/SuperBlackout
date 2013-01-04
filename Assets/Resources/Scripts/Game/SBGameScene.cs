@@ -110,6 +110,7 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		AddChild(drinker1);
 		AddChild(drinker2);
 		AddChild(borderLayer);
+		AddChild(hudLayer);
 	}
 	
 	public override void HandleAddedToStage() {
@@ -278,8 +279,11 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		
 		SBDrinker punchableDrinker = null;
 		
-		if (Input.GetKeyDown(SBConfig.ATTACK_BUTTON_1)) {			
-			if (drinker1.SpriteComponent(1).GetGlobalRectWithExpansion(-25).CheckIntersect(drinker2.SpriteComponent(1).GetGlobalRectWithExpansion(-25))) {
+		if (Input.GetKeyDown(SBConfig.ATTACK_BUTTON_1)) {
+			if (drinker1.SpriteComponent(1).GetGlobalRectWithExpansion(-25).CheckIntersect(drinker2.SpriteComponent(1).GetGlobalRectWithExpansion(-25))
+				&& !drinker2.isActuallySitting
+				&& !drinker2.isInBathroom
+				&& !drinker2.isBeingControlledBySittableComponent) {
 				punchableDrinker = drinker2;
 			}
 			
@@ -287,7 +291,10 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		}
 			
 		if (Input.GetKeyDown(SBConfig.ATTACK_BUTTON_2)) {
-			if (drinker2.SpriteComponent(1).GetGlobalRectWithExpansion(-25).CheckIntersect(drinker1.SpriteComponent(1).GetGlobalRectWithExpansion(-25))) {
+			if (drinker2.SpriteComponent(1).GetGlobalRectWithExpansion(-25).CheckIntersect(drinker1.SpriteComponent(1).GetGlobalRectWithExpansion(-25))
+				&& !drinker1.isActuallySitting
+				&& !drinker1.isInBathroom
+				&& !drinker1.isBeingControlledBySittableComponent) {
 				punchableDrinker = drinker1;
 			}
 			
