@@ -266,9 +266,9 @@ public class SBTitleScene : FStage {
 			tweenChain2.destroy();
 		}
 		
-		float duration = 0.75f;
+		float duration = 0.5f;
 		float amt = 800f;
-		EaseType easeType = EaseType.SineOut;
+		EaseType easeType = EaseType.SineIn;
 		
 		Go.to(word, duration, new TweenConfig()
 			.floatProp("x", Futile.screen.halfWidth - amt)
