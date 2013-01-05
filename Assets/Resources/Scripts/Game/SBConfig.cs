@@ -26,13 +26,21 @@ public static class SBConfig {
 	public const float PEE_TIME = 1.0f; // per drink
 	public const int DRINKS_TO_WIN = 7;
 		
-	public const KeyCode ATTACK_BUTTON_1 = KeyCode.C;
-	public const KeyCode ATTACK_BUTTON_2 = KeyCode.J;
+	/*public const KeyCode ATTACK_BUTTON_1 = KeyCode.C;
+	public const KeyCode ATTACK_BUTTON_2 = KeyCode.J;*/
 	
-	public const KeyCode JOYSTICK_2_RIGHT = KeyCode.G;
+	public const KeyCode ATTACK_BUTTON_1 = KeyCode.KeypadEnter;
+	public const KeyCode ATTACK_BUTTON_2 = KeyCode.LeftShift;
+	
+	/*public const KeyCode JOYSTICK_2_RIGHT = KeyCode.G;
 	public const KeyCode JOYSTICK_2_LEFT = KeyCode.D;
 	public const KeyCode JOYSTICK_2_UP = KeyCode.R;
-	public const KeyCode JOYSTICK_2_DOWN = KeyCode.F;
+	public const KeyCode JOYSTICK_2_DOWN = KeyCode.F;*/
+	
+	public const KeyCode JOYSTICK_2_RIGHT = KeyCode.D;
+	public const KeyCode JOYSTICK_2_LEFT = KeyCode.A;
+	public const KeyCode JOYSTICK_2_UP = KeyCode.W;
+	public const KeyCode JOYSTICK_2_DOWN = KeyCode.S;
 	
 	public const KeyCode JOYSTICK_1_RIGHT = KeyCode.RightArrow;
 	public const KeyCode JOYSTICK_1_LEFT = KeyCode.LeftArrow;

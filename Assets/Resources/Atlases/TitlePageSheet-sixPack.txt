@@ -1,5 +1,13 @@
 {"frames": {
 
+"blackFadeyBoy.psd":
+{
+	"frame": {"x":1748,"y":2,"w":480,"h":270},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":480,"h":270},
+	"sourceSize": {"w":480,"h":270}
+},
 "blackout.png":
 {
 	"frame": {"x":2,"y":2,"w":1744,"h":630},
@@ -23,6 +31,6 @@
 	"format": "RGBA8888",
 	"size": {"w":2048,"h":2048},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:a8d74861f2f5e05ff914c6d80f8e8d97$"
+	"smartupdate": "$TexturePacker:SmartUpdate:25ea9a0021294c28b8470502d990c567$"
 }
 }

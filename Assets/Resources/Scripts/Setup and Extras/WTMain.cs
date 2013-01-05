@@ -24,7 +24,7 @@ public class WTMain : MonoBehaviour {
 		
 		Futile.instance.Init(fp);
 		
-		FSoundManager.PlayMusic("song1.0");
+		//FSoundManager.PlayMusic("song1.0", 0.5f);
 		
 		Futile.atlasManager.LoadAtlas("Atlases/MainSheet");
 		Futile.atlasManager.LoadAtlas("Atlases/TitlePageSheet");
@@ -82,7 +82,10 @@ public class WTMain : MonoBehaviour {
 	public static void SwitchToScene(SceneType sceneType) {		
 		if (currentScene != null) Futile.RemoveStage(currentScene);
 		
-		if (sceneType == SceneType.GameScene) currentScene = new SBGameScene(true);
+		if (sceneType == SceneType.GameScene) {
+			currentScene = new SBGameScene(true);
+			FSoundManager.StopMusic();
+		}
 		if (sceneType == SceneType.TitleScene) {
 			currentScene = new SBTitleScene();
 			Futile.AddStage(currentScene);

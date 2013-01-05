@@ -87,6 +87,44 @@ public class SBTitleScene : FStage {
 		
 		AddChild(helpLabel);*/
 		
+		float amt = 700f;
+		
+		super = new FSprite("super.png");
+		super.data = 0;
+		super.x = Futile.screen.halfWidth - amt;
+		super.y = Futile.screen.halfHeight - amt;
+		
+		blackout = new FSprite("blackout.png");
+		blackout.data = 1;
+		blackout.x = Futile.screen.halfHeight - amt;
+		blackout.y = Futile.screen.halfHeight - amt;
+		
+		AddChild(blackout);
+		AddChild(super);
+		
+		EaseType easeType = EaseType.BounceOut;
+		float duration = 0.8f;
+		
+		Go.to(super, duration, new TweenConfig()
+			.floatProp("x", Futile.screen.halfWidth - 5f)
+			.floatProp("y", Futile.screen.halfHeight - 5f)
+			.setEaseType(easeType)
+			.onComplete(HandleWordFinishedComingIn));
+		
+		Go.to(blackout, duration, new TweenConfig()
+			.setDelay(duration / 2f)
+			.floatProp("x", Futile.screen.halfWidth - 5f)
+			.floatProp("y", Futile.screen.halfHeight - 5f)
+			.setEaseType(easeType)
+			.onComplete(HandleWordFinishedComingIn));
+				
+		FSprite blackFadeyBoy = new FSprite("blackFadeyBoy.psd");
+		blackFadeyBoy.alpha = 0.35f;
+		blackFadeyBoy.scale = 4f;
+		blackFadeyBoy.x = Futile.screen.halfWidth;
+		blackFadeyBoy.y = Futile.screen.halfHeight;
+		AddChild(blackFadeyBoy);
+		
 		player1 = new FLabel("Silkscreen", "Player 1");
 		player1.alpha = 0;
 		player1.color = Color.black;
@@ -189,37 +227,6 @@ public class SBTitleScene : FStage {
 		arcadeButtonsTutorial.y = Futile.screen.height - 165f;
 		arcadeButtonsTutorial.currentFlashingButton = 5;
 		AddChild(arcadeButtonsTutorial);
-		
-		float amt = 700f;
-		
-		super = new FSprite("super.png");
-		super.data = 0;
-		super.x = Futile.screen.halfWidth - amt;
-		super.y = Futile.screen.halfHeight - amt;
-		
-		blackout = new FSprite("blackout.png");
-		blackout.data = 1;
-		blackout.x = Futile.screen.halfHeight - amt;
-		blackout.y = Futile.screen.halfHeight - amt;
-		
-		AddChild(blackout);
-		AddChild(super);
-		
-		EaseType easeType = EaseType.BounceOut;
-		float duration = 0.8f;
-		
-		Go.to(super, duration, new TweenConfig()
-			.floatProp("x", Futile.screen.halfWidth - 5f)
-			.floatProp("y", Futile.screen.halfHeight - 5f)
-			.setEaseType(easeType)
-			.onComplete(HandleWordFinishedComingIn));
-		
-		Go.to(blackout, duration, new TweenConfig()
-			.setDelay(duration / 2f)
-			.floatProp("x", Futile.screen.halfWidth - 5f)
-			.floatProp("y", Futile.screen.halfHeight - 5f)
-			.setEaseType(easeType)
-			.onComplete(HandleWordFinishedComingIn));
 	}
 	
 	public void RefreshInGameHelpToggle() {

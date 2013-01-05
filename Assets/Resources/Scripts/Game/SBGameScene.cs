@@ -459,11 +459,23 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		}
 		
 		if (!gameHasStarted) {
+			float prevCountdownTimer = countdownTimer;
 			countdownTimer += Time.fixedDeltaTime;
-			if (countdownTimer < 1.2) countdownLabel.text = "3";
-			else if (countdownTimer < 2.4) countdownLabel.text = "2";
-			else if (countdownTimer < 3.6) countdownLabel.text = "1";
+			if (countdownTimer < 1.2) {
+				if (prevCountdownTimer == 0) FSoundManager.PlaySound("countdownLow");
+				countdownLabel.text = "3";
+			}
+			else if (countdownTimer < 2.4) {
+				if (prevCountdownTimer < 1.2) FSoundManager.PlaySound("countdownLow");
+				countdownLabel.text = "2";
+			}
+			else if (countdownTimer < 3.6) {
+				if (prevCountdownTimer < 2.4) FSoundManager.PlaySound("countdownLow");
+				countdownLabel.text = "1";
+			}
 			else {
+				FSoundManager.PlaySound("countdownHigh");
+				FSoundManager.PlayMusic("song1.0");
 				countdownLabel.text = "Drink!";
 				countdownLabel.color = new Color(0, 0.8f, 0, 1.0f);
 				Go.to(countdownLabel, 1.0f, new TweenConfig().floatProp("alpha", 0));

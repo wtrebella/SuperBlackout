@@ -41,6 +41,13 @@ public class SBHelpScene : FStage {
 			}
 		}
 		
+		FSprite blackFadeyBoy = new FSprite("blackFadeyBoy.psd");
+		blackFadeyBoy.alpha = 0.35f;
+		blackFadeyBoy.scale = 4f;
+		blackFadeyBoy.x = Futile.screen.halfWidth;
+		blackFadeyBoy.y = Futile.screen.halfHeight;
+		AddChild(blackFadeyBoy);
+		
 		continueButtons = new SBArcadeButtons(true);
 		continueButtons.x = Futile.screen.halfWidth - 65f;
 		continueButtons.y = 145f;
@@ -212,7 +219,6 @@ public class SBHelpScene : FStage {
 			float yAmt = 220f;
 			
 			FSprite drinkHere1 = new FSprite("drinkHere1.psd");
-			drinkHere1.alpha = 0.5f;
 			drinkHere1.color = new Color(0.3f, 0.5f, 1.0f, 1.0f);
 			drinkHere1.anchorX = 0;
 			drinkHere1.x = xAmt;
@@ -227,7 +233,6 @@ public class SBHelpScene : FStage {
 			arrow1.y = drinkHere1.y - 5f;
 			
 			FSprite drinkHere2 = new FSprite("drinkHere2.psd");
-			drinkHere2.alpha = 0.5f;
 			drinkHere2.color = new Color(1.0f, 0.3f, 0.5f, 1.0f);
 			drinkHere2.anchorX = 1;
 			drinkHere2.x = Futile.screen.width - xAmt;
@@ -246,7 +251,6 @@ public class SBHelpScene : FStage {
 			yAmt = 285f;
 			
 			FSprite getDrinkHere1 = new FSprite("getDrinkHere1.psd");
-			getDrinkHere1.alpha = 0.5f;
 			getDrinkHere1.color = new Color(0.3f, 0.5f, 1.0f, 1.0f);
 			getDrinkHere1.anchorX = 1;
 			getDrinkHere1.x = Futile.screen.width - xAmt;
@@ -262,7 +266,6 @@ public class SBHelpScene : FStage {
 			getArrow1.y = getDrinkHere1.y - 5f;
 			
 			FSprite getDrinkHere2 = new FSprite("getDrinkHere2.psd");
-			getDrinkHere2.alpha = 0.5f;
 			getDrinkHere2.color = new Color(1.0f, 0.3f, 0.5f, 1.0f);
 			getDrinkHere2.anchorX = 0;
 			getDrinkHere2.x = xAmt;
