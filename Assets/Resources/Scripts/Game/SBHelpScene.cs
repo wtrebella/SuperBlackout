@@ -8,6 +8,9 @@ public class SBHelpScene : FStage {
 	private SBArcadeButtons continueButtons;
 	private SBDrinker drinker1;
 	private SBDrinker drinker2;
+	private SBDrinkCounter dc1;
+	private SBDrinkCounter dc2;
+	private float drinkCounterTimer = 0;
 	
 	float punchTimer1 = 0;
 	float punchTimer2 = 0;
@@ -94,6 +97,15 @@ public class SBHelpScene : FStage {
 			}
 		}
 		
+		if (pageNum_ == 4) {
+			drinkCounterTimer += Time.fixedDeltaTime;
+			if (drinkCounterTimer >= 0.1f && dc1 != null && dc2 != null) {
+				drinkCounterTimer = 0;
+				dc1.drinkCount = (dc1.drinkCount + 1) % 8;
+				dc2.drinkCount = (dc2.drinkCount + 1) % 8;
+			}
+		}
+		
 		if (!currentPageIsFullySetup) return;
 		
 		if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Q)) DismissAllNodes(0.2f, 0.1f);
@@ -163,7 +175,7 @@ public class SBHelpScene : FStage {
 			ab2.y = drinker2.y - 70f;
 			ab2.scale = 0.3f;
 			
-			FLabel text = new FLabel("Silkscreen", "Walk around the bar with the joystick");
+			FLabel text = new FLabel("Silkscreen", "Use the joystick to walk.\nThe more you drink, the harder it is!");
 			text.scale = 0.8f;
 			text.color = Color.black;
 			text.anchorY = 1;
@@ -262,7 +274,7 @@ public class SBHelpScene : FStage {
 			getArrow2.x = getDrinkHere2.x - 10f;
 			getArrow2.y = getDrinkHere2.y - 5f;
 			
-			ShowNodes(new FNode[] {drinker1, drinker2, text, specialBarStool1, specialBarStool2, drinkHere1, drinkHere2, getDrinkHere1, getDrinkHere2, arrow1, arrow2, getArrow1, getArrow2, bar}, 0.25f, 0.125f);
+			ShowNodes(new FNode[] {specialBarStool1, specialBarStool2, drinkHere1, drinkHere2, getDrinkHere1, getDrinkHere2, arrow1, arrow2, getArrow1, getArrow2, bar, text}, 0.25f, 0.125f);
 		}
 		
 		if (pageNum == 3) {
@@ -296,41 +308,54 @@ public class SBHelpScene : FStage {
 			punch.x = Futile.screen.halfWidth;
 			punch.y = Futile.screen.halfHeight - 150f;
 			
-			ShowNodes(new FNode[] {drinker1, ab1, drinker2, ab2, punch, drink}, 0.5f, 0.25f);
+			ShowNodes(new FNode[] {drinker1, ab1, drinker2, ab2, drink, punch}, 0.5f, 0.25f);
 		}
 		
 		if (pageNum == 4) {
+			dc1 = new SBDrinkCounter(7);
+			dc1.x = Futile.screen.halfWidth - dc1.GetWidth() / 2f - 325f;
+			dc1.y = Futile.screen.halfHeight + 320f;
+			
+			dc2 = new SBDrinkCounter(7);
+			dc2.x = Futile.screen.halfWidth - dc2.GetWidth() / 2f + 325f;
+			dc2.y = Futile.screen.halfHeight + 320f;
+			
 			drinker1.y = Futile.screen.halfHeight + 150f;
 			drinker2.y = Futile.screen.halfHeight + 150f;
 			
 			drinker1.SpriteComponent(1).StartAnimation(WTMain.animationManager.AnimationForName("drinkerPassOut"));
 			drinker2.SpriteComponent(1).StartAnimation(WTMain.animationManager.AnimationForName("drinkerPassOut"));
 			
-			FLabel text = new FLabel("Silkscreen", "First one to pass out\nfrom drinking wins!");
+			FLabel text = new FLabel("Silkscreen", "First one to 7 drinks\npasses out and wins!");
 			text.scale = 0.8f;
 			text.color = Color.black;
 			text.anchorY = 1;
 			text.x = Futile.screen.halfWidth;
 			text.y = Futile.screen.halfHeight - 50f;			
 			
-			ShowNodes(new FNode[] {drinker1, drinker2, text}, 0.5f, 0.25f);
+			ShowNodes(new FNode[] {drinker1, drinker2, dc1, dc2, text}, 0.5f, 0.25f);
 		}
 		
 		if (pageNum == 5) {			
+			FSprite bathroom = new FSprite("bathroomTop.psd");
+			
+			bathroom.x = Futile.screen.halfWidth;
+			bathroom.y = drinker1.y;
+			
 			drinker1.SpriteComponent(0).sprite.isVisible = true;
 			drinker2.SpriteComponent(0).sprite.isVisible = true;
 			
 			drinker1.SpriteComponent(0).StartAnimation(WTMain.animationManager.AnimationForName("pee"));
 			drinker2.SpriteComponent(0).StartAnimation(WTMain.animationManager.AnimationForName("pee"));
 			
-			FLabel pee = new FLabel("Silkscreen", "But make sure you\ndon't piss yourself!");
+			FLabel pee = new FLabel("Silkscreen", "But make sure you\ngo to the bathroom before\nyou piss yourself!");
 			pee.anchorY = 0;
 			pee.color = Color.black;
 			pee.scale = 0.8f;
 			pee.x = Futile.screen.halfWidth;
-			pee.y = Futile.screen.halfHeight - 150f;
+			pee.y = Futile.screen.halfHeight - 175f;
 			
-			ShowNodes(new FNode[] {drinker1, drinker2, pee}, 0.5f, 0.25f);
+			ShowNodes(new FNode[] {drinker1, drinker2, bathroom, pee}, 0.5f, 0.25f);
 		}
 		
 		if (pageNum == 6) {

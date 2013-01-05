@@ -23,7 +23,9 @@ public class WTMain : MonoBehaviour {
 		fp.origin = Vector2.zero;
 		
 		Futile.instance.Init(fp);
-
+		
+		FSoundManager.PlayMusic("jazz");
+		
 		Futile.atlasManager.LoadAtlas("Atlases/MainSheet");
 		Futile.atlasManager.LoadAtlas("Atlases/TitlePageSheet");
 		Futile.atlasManager.LoadFont("Silkscreen", "Silkscreen.png", "Atlases/Silkscreen");

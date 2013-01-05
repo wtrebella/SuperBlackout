@@ -31,7 +31,7 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 	
 	public SBGameScene(bool addToFutileOnInit) : base("") {
 		if (addToFutileOnInit) Futile.AddStage(this);
-		
+
 		backgroundLayer = new SBBackgroundLayer();
 		AddChild(backgroundLayer);
 			
