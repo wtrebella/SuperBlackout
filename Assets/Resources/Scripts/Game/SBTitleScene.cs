@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class SBTitleScene : FStage {
 	FSprite super;
@@ -31,9 +32,13 @@ public class SBTitleScene : FStage {
 	SBArcadeButtons arcadeButtonsHelpLabels;
 	SBArcadeButtons arcadeButtonsTutorial;
 	
+	//List<SBEntity> drinks;
+	
 	//FLabel helpLabel;
 	
-	public SBTitleScene() : base("") {		
+	public SBTitleScene() : base("") {
+		//drinks = new List<SBEntity>();
+		
 		float boardWidth = 200f;
 		float boardHeight = 20f;
 		float padding = 2f;
@@ -53,6 +58,23 @@ public class SBTitleScene : FStage {
 				AddChild(board);
 			}
 		}
+		
+		/*for (int i = 0; i < 25; i++) {
+			SBEntity drink = new SBEntity("drink");
+			drink.alpha = Random.Range(0.2f, 0.7f);
+			drink.scale = Random.Range(1.0f, 2.0f);
+			drink.AddComponent(new SBSpriteComponent("uiDrink.psd", false));
+			drink.AddComponent(new SBVelocityComponent());
+			drink.VelocityComponent().shouldDecelerate = false;
+			drink.VelocityComponent().yVelocity = Random.Range(-100f, -500f);
+			drink.x = Random.Range(0, Futile.screen.width);
+			drink.y = Futile.screen.height + drink.SpriteComponent(0).sprite.height + Random.Range(0, 300f);
+			AddChild(drink);
+			int sign = 1;
+			if (RXRandom.Float() < 0.5f) sign = -1;
+			Go.to(drink, Random.Range(1.0f, 4.0f), new TweenConfig().setEaseType(EaseType.Linear).setIterations(-1).floatProp("rotation", 360 * sign, true));
+			drinks.Add(drink);
+		}*/
 		
 		/*helpLabel = new FLabel("Silkscreen", "Press SPACE or Q for tutorial");
 		helpLabel.scale = 0.35f;
@@ -323,6 +345,14 @@ public class SBTitleScene : FStage {
 	public void HandleUpdate() {
 		if (!introIsDone || isSwitchingScenes) return;
 				
+		/*if (drinks != null) {
+			foreach (SBEntity drink in drinks) {
+				drink.HandleUpdate();
+				drink.y += drink.VelocityComponent().yVelocity * Time.fixedDeltaTime;
+				if (drink.y < -drink.SpriteComponent(0).sprite.height) drink.y = Futile.screen.height + drink.SpriteComponent(0).sprite.height;
+			}
+		}*/
+		
 		if (Input.GetKeyDown(SBConfig.ATTACK_BUTTON_1) && !player1Ready) {
 			arcadeButtonsReady1.RemoveFromContainer();
 			ready1.color = new Color(0, 0.8f, 0, 1.0f);

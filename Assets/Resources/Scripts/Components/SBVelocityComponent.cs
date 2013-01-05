@@ -10,6 +10,8 @@ public class SBVelocityComponent : SBAbstractComponent {
 	public Direction xDrunkLean = Direction.Left;
 	public Direction yDrunkLean = Direction.Down;
 	
+	public bool shouldDecelerate = true;
+	
 	public float maxDrunkLeanVelocity;
 	public float drunkLeanVelocityAdder;
 	public float likelihoodOfDrunkLeanVariation;
@@ -93,6 +95,8 @@ public class SBVelocityComponent : SBAbstractComponent {
 	}
 		
 	public void UpdateDeceleration() {
+		if (!shouldDecelerate) return;
+		
 		float decelAmt = Time.fixedDeltaTime * SBConfig.DRINKER_ACCELERATION_CONSTANT;
 		
 		float xVelPrev = xVelocity;
@@ -217,7 +221,10 @@ public class SBVelocityComponent : SBAbstractComponent {
 	}
 		
 	private int OwnerDrinkCount() {
-		//return debugDrinkCount;
-		return (owner as SBDrinker).drinkCount;	
+		if (owner.GetType().FullName == "SBDrinker") {
+			//return debugDrinkCount;
+			return (owner as SBDrinker).drinkCount;
+		}
+		return 0;
 	}
 }
