@@ -24,7 +24,7 @@ public class WTMain : MonoBehaviour {
 		
 		Futile.instance.Init(fp);
 		
-		FSoundManager.PlayMusic("jazz");
+		FSoundManager.PlayMusic("song1.0");
 		
 		Futile.atlasManager.LoadAtlas("Atlases/MainSheet");
 		Futile.atlasManager.LoadAtlas("Atlases/TitlePageSheet");

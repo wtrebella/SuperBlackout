@@ -361,6 +361,7 @@ public class SBTitleScene : FStage {
 			ready1.text = "Ready";
 			player1Ready = true;
 			DismissWord(super);
+			FSoundManager.PlaySound("buDuBuDuBuDu", 0.5f);
 		}
 		if (Input.GetKeyDown(SBConfig.ATTACK_BUTTON_2) && !player2Ready) {
 			arcadeButtonsReady2.RemoveFromContainer();
@@ -370,11 +371,16 @@ public class SBTitleScene : FStage {
 			ready2.text = "Ready";
 			player2Ready = true;
 			DismissWord(blackout);
+			FSoundManager.PlaySound("buDuBuDuBuDu", 0.5f);
 		}
 		
-		if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.V)) ToggleInGameHelp();
+		if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.V)) {
+			ToggleInGameHelp();
+			SBConfig.PlayBooDup();
+		}
 		
 		if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Q)) {
+			SBConfig.PlayBooDup();
 			isSwitchingScenes = true;
 			WTMain.SwitchToScene(SceneType.HelpScene);
 		}

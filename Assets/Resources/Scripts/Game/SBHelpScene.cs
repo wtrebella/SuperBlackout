@@ -108,7 +108,10 @@ public class SBHelpScene : FStage {
 		
 		if (!currentPageIsFullySetup) return;
 		
-		if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Q)) DismissAllNodes(0.2f, 0.1f);
+		if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Q)) {
+			DismissAllNodes(0.2f, 0.1f);
+			SBConfig.PlayBooDup();
+		}
 	}
 	
 	public void GoToNextPage() {

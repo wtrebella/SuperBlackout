@@ -105,4 +105,8 @@ public static class SBConfig {
 		
 		return new Vector2(0, 0);
 	}
+	
+	public static void PlayBooDup() {
+		FSoundManager.PlaySound("booDup", 0.5f);
+	}
 }
