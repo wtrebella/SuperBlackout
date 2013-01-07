@@ -21,6 +21,10 @@ public class SBDirectionComponent : SBAbstractComponent {
 		componentType = ComponentType.Direction;
 	}
 	
+	public Direction GetCurrentDirection() {
+		return direction_;	
+	}
+	
 	public void FaceDirection(Direction toDirection, bool instantly = false) {		
 		Direction fromDirection = direction_;
 						

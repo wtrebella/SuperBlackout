@@ -4,7 +4,7 @@ using System.Collections;
 public class SBHelpScene : FStage {
 	private int pageNum_ = 0;
 	private FContainer mainContainer = new FContainer();
-	private bool currentPageIsFullySetup = false;
+	//private bool currentPageIsFullySetup = false;
 	private SBArcadeButtons continueButtons;
 	private SBDrinker drinker1;
 	private SBDrinker drinker2;
@@ -113,7 +113,7 @@ public class SBHelpScene : FStage {
 			}
 		}
 		
-		if (!currentPageIsFullySetup) return;
+		//if (!currentPageIsFullySetup) return;
 		
 		if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Q)) {
 			DismissAllNodes(0.2f, 0.1f);
@@ -139,7 +139,7 @@ public class SBHelpScene : FStage {
 	}
 	
 	public void SetupPage(int pageNum) {
-		currentPageIsFullySetup = false;
+		//currentPageIsFullySetup = false;
 		
 		drinker1.scale = 1;
 		drinker2.scale = 1;
@@ -406,7 +406,7 @@ public class SBHelpScene : FStage {
 	}
 	
 	public void HandleDoneShowingNodes(AbstractTween tween) {
-		currentPageIsFullySetup = true;
+		//currentPageIsFullySetup = true;
 	}
 	
 	public void HandleDoneDismissingNodes(AbstractTween tween) {

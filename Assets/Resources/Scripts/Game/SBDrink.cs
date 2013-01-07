@@ -24,7 +24,18 @@ public class SBDrink : SBEntity {
 		}
 	}
 	
-	public void Spill() {
+	public void Spill(bool withSound = false) {
+		if (withSound) {
+			int spillNum = Random.Range(1, 3);
+			int glassNum = Random.Range(1, 4);
+			
+			string spillName = string.Format("drinkSpill{0}", spillNum);
+			string glassName = string.Format("glassDrop{0}", glassNum);
+			
+			FSoundManager.PlaySound(spillName);
+			FSoundManager.PlaySound(glassName);
+		}
+		
 		RemoveComponent(SpriteComponent(0));
 		RemoveComponent(SpriteComponent(1));
 		

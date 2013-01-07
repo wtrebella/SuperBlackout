@@ -44,4 +44,8 @@ public class SBTimerComponent : SBAbstractComponent {
 	public float timer {
 		get {return timer_;}
 	}
+	
+	public bool isRunning {
+		get {return isRunning_;}	
+	}
 }

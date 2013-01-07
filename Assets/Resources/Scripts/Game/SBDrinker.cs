@@ -51,7 +51,15 @@ public class SBDrinker : SBEntity {
 		WTAnimation sitAnim = WTMain.animationManager.AnimationForName("drinkerSitTransition");
 		SpriteComponent(1).StartAnimation(sitAnim);
 		isInSitStandTransition = true;
-		if (currentSittableComponent.isSpecial) ProgressBarComponent().progressBar.isVisible = true;
+		if (currentSittableComponent.isSpecial) {
+			ProgressBarComponent().progressBar.isVisible = true;
+			string soundName = string.Format("drink{0}", tag);
+			FSoundManager.PlaySound(soundName);
+		}
+		else {
+			string pourName = string.Format("drinkPour{0}", tag);
+			FSoundManager.PlaySound(pourName, 0.2f);
+		}
 	}
 	
 	public void Stand() {
@@ -106,7 +114,7 @@ public class SBDrinker : SBEntity {
 		currentDrink.x = newPos.x;
 		currentDrink.y = newPos.y;
 		rotatingContainer.AddChild(currentDrink);
-		Go.to(currentDrink, 0.5f, new TweenConfig()
+		Go.to(currentDrink, 0.25f, new TweenConfig()
 			.floatProp("x", 20f)
 			.floatProp("y", -40f)
 			.onComplete(HandleActuallyReceivedDrink));
@@ -125,7 +133,7 @@ public class SBDrinker : SBEntity {
 		
 		ProgressBarComponent().progressBar.percent = 1;
 		isDrinking = true;
-		TimerComponent().Restart();
+		//TimerComponent().Restart();
 		Go.to(currentDrink, 0.8f, new TweenConfig()
 			.floatProp("x", 23f)
 			.floatProp("y", -10f));
@@ -160,6 +168,7 @@ public class SBDrinker : SBEntity {
 		if (isInSitStandTransition) return;
 		
 		if (isDrinking) { // is sitting in a special chair
+			if (!TimerComponent().isRunning) TimerComponent().Restart();
 			currentDrink.percentLeft = 1.0f - (TimerComponent().timer / SBConfig.DRINK_DRINK_TIME);
 			ProgressBarComponent().progressBar.percent = currentDrink.percentLeft;
 			if (currentDrink.percentLeft <= 0) {
@@ -207,6 +216,30 @@ public class SBDrinker : SBEntity {
 		SpriteComponent(1).StartAnimation(WTMain.animationManager.AnimationForName("punch"));
 		
 		if (drinker != null) {
+			Direction curDir = this.DirectionComponent().GetCurrentDirection();
+				
+			float amt = 1500;
+			
+			if (curDir == Direction.Left) {
+				drinker.VelocityComponent().xVelocity = -amt;
+				this.VelocityComponent().xVelocity = amt;
+			}
+			
+			else if (curDir == Direction.Right) {
+				drinker.VelocityComponent().xVelocity = amt;
+				this.VelocityComponent().xVelocity = -amt;
+			}
+			
+			else if (curDir == Direction.Down) {
+				drinker.VelocityComponent().yVelocity = -amt;
+				this.VelocityComponent().yVelocity = amt;
+			}
+			
+			else if (curDir == Direction.Up) {
+				drinker.VelocityComponent().yVelocity = amt;
+				this.VelocityComponent().yVelocity = -amt;
+			}
+			
 			if (drinker.HasDrink()) {
 				FContainer mainContainer = this.container;
 				
@@ -216,7 +249,7 @@ public class SBDrinker : SBEntity {
 				otherDrinkersDrink.RemoveFromContainer();
 				otherDrinkersDrink.x = globalPos.x;
 				otherDrinkersDrink.y = globalPos.y;
-				otherDrinkersDrink.Spill();
+				otherDrinkersDrink.Spill(true);
 				mainContainer.AddChild(otherDrinkersDrink);
 				(mainContainer as SBGameScene).RefreshZOrders();
 			}

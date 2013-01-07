@@ -20,6 +20,33 @@ public class SBHudLayer : FContainer {
 		background.color = new Color(0.32f, 0.32f, 0.32f, 1.0f);
 		AddChild(background);
 		
+		float width = 627f;
+		float alpha = 0.5f;
+		
+		FSprite blue = WTSquareMaker.Square(width, SBConfig.TOP_UI_HEIGHT);
+		blue.alpha = alpha;
+		blue.anchorX = 0;
+		blue.anchorY = 1;
+		blue.x = 0;
+		blue.y = Futile.screen.height;
+		blue.color = new Color(0.3f, 0.5f, 1.0f, 1.0f);
+		AddChild(blue);
+		
+		FSprite red = WTSquareMaker.Square(width, SBConfig.TOP_UI_HEIGHT);
+		red.alpha = alpha;
+		red.anchorX = 1;
+		red.anchorY = 1;
+		red.x = Futile.screen.width;
+		red.y = Futile.screen.height;
+		red.color = new Color(1.0f, 0.3f, 0.5f, 1.0f);
+		AddChild(red);
+		
+		FLabel superBlackout = new FLabel("Silkscreen", "Super Blackout!");
+		superBlackout.scale = 0.6f;
+		superBlackout.x = Futile.screen.halfWidth;
+		superBlackout.y = Futile.screen.height - SBConfig.TOP_UI_HEIGHT / 2f + 4f;
+		AddChild(superBlackout);
+				
 		/*drinkCountLabel1.scale = drinkCountLabel2.scale = 0.75f;
 		drinkCountLabel1 = new FLabel("Silkscreen", "Drinks: 0");
 		drinkCountLabel2 = new FLabel("Silkscreen", "Drinks: 0");

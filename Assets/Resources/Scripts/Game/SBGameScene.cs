@@ -408,21 +408,32 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 				}
 			}
 			else if (!drinker.isLeavingBathroom) {
+				bool prev = drinker.isInBathroom;
 				if (drinker.y < -drinker.SpriteComponent(1).sprite.height / 2f) drinker.isInBathroom = true;
 				if (drinker.y > Futile.screen.height - SBConfig.TOP_UI_HEIGHT + drinker.SpriteComponent(1).sprite.height / 2f) drinker.isInBathroom = true;
+				
+				if (prev != drinker.isInBathroom) {
+					FSoundManager.PlaySound("pee", 0.3f);	
+				}
 			}
 		}
 	}
 	
 	public void HandleDrinkerPissedHimself(SBDrinker drinker) {
 		isGameOver = true;
-		FLabel label = new FLabel("Silkscreen", string.Format(drinker.name + " pissed himself!"));
+		SBDrinker otherDrinker;
+		if (drinker.tag == 1) otherDrinker = drinker2;
+		else otherDrinker = drinker1;
+		
+		FLabel label = new FLabel("Silkscreen", string.Format(drinker.name + " pissed himself!\n" + otherDrinker.name + " wins!"));
 		label.color = Color.black;
 		label.x = Futile.screen.halfWidth;
 		label.y = Futile.screen.height * 1.25f;
 		Go.to(label, 0.5f, new TweenConfig().floatProp("y", Futile.screen.height * 0.75f));
 		AddChild(label);
 		PopupEndGameLabels();
+		FSoundManager.StopMusic();
+		FSoundManager.PlaySound("pissSong");
 	}
 	
 	public void PopupEndGameLabels() {
@@ -436,13 +447,15 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		if (drinker.drinkCount >= SBConfig.DRINKS_TO_WIN) {
 			drinker.SpriteComponent(1).StartAnimation(WTMain.animationManager.AnimationForName("drinkerPassOut"));
 			isGameOver = true;
-			FLabel label = new FLabel("Silkscreen", string.Format(drinker.name + " blacked out!"));
+			FLabel label = new FLabel("Silkscreen", string.Format(drinker.name + " wins!"));
 			label.color = Color.black;
 			label.x = Futile.screen.halfWidth;
 			label.y = Futile.screen.height * 1.25f;
 			Go.to(label, 0.5f, new TweenConfig().floatProp("y", Futile.screen.height * 0.75f));
 			AddChild(label);
 			PopupEndGameLabels();
+			FSoundManager.StopMusic();
+			FSoundManager.PlaySound("winSong");
 		}
 	}
 	
@@ -462,20 +475,20 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 			float prevCountdownTimer = countdownTimer;
 			countdownTimer += Time.fixedDeltaTime;
 			if (countdownTimer < 1.2) {
-				if (prevCountdownTimer == 0) FSoundManager.PlaySound("countdownLow");
+				if (prevCountdownTimer == 0) FSoundManager.PlaySound("countdownLow", 0.4f);
 				countdownLabel.text = "3";
 			}
 			else if (countdownTimer < 2.4) {
-				if (prevCountdownTimer < 1.2) FSoundManager.PlaySound("countdownLow");
+				if (prevCountdownTimer < 1.2) FSoundManager.PlaySound("countdownLow", 0.4f);
 				countdownLabel.text = "2";
 			}
 			else if (countdownTimer < 3.6) {
-				if (prevCountdownTimer < 2.4) FSoundManager.PlaySound("countdownLow");
+				if (prevCountdownTimer < 2.4) FSoundManager.PlaySound("countdownLow", 0.4f);
 				countdownLabel.text = "1";
 			}
 			else {
-				FSoundManager.PlaySound("countdownHigh");
-				FSoundManager.PlayMusic("song1.0");
+				FSoundManager.PlaySound("countdownHigh", 0.4f);
+				FSoundManager.PlayMusic("jazz");
 				countdownLabel.text = "Drink!";
 				countdownLabel.color = new Color(0, 0.8f, 0, 1.0f);
 				Go.to(countdownLabel, 1.0f, new TweenConfig().floatProp("alpha", 0));

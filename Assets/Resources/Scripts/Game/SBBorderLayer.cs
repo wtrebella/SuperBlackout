@@ -9,7 +9,7 @@ public class SBBorderLayer : FContainer {
 	private void MakeBorder() {
 		float borderPieceWidth = 120f;
 		int horizontalPieceCount = (int)(Futile.screen.width / borderPieceWidth) + 1;
-		int verticalPieceCount = (int)(Futile.screen.height / borderPieceWidth);
+		int verticalPieceCount = (int)(Futile.screen.height / borderPieceWidth) - 1;
 		
 		for (int i = horizontalPieceCount / 2; i >= 0; i--) {
 			FSprite borderPiece = new FSprite("borderBarPieceStraight.psd");

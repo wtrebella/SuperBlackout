@@ -2,27 +2,27 @@
 
 "blackFadeyBoy.psd":
 {
-	"frame": {"x":1748,"y":2,"w":480,"h":270},
-	"rotated": true,
+	"frame": {"x":884,"y":884,"w":680,"h":470},
+	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":480,"h":270},
-	"sourceSize": {"w":480,"h":270}
+	"spriteSourceSize": {"x":0,"y":0,"w":680,"h":470},
+	"sourceSize": {"w":680,"h":470}
 },
 "blackout.png":
 {
-	"frame": {"x":2,"y":2,"w":1744,"h":630},
+	"frame": {"x":2,"y":2,"w":1994,"h":880},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":450,"w":1744,"h":630},
-	"sourceSize": {"w":1920,"h":1080}
+	"spriteSourceSize": {"x":0,"y":700,"w":1994,"h":880},
+	"sourceSize": {"w":2420,"h":1580}
 },
 "super.png":
 {
-	"frame": {"x":2,"y":634,"w":722,"h":630},
+	"frame": {"x":2,"y":884,"w":972,"h":880},
 	"rotated": true,
 	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":450,"w":722,"h":630},
-	"sourceSize": {"w":1920,"h":1080}
+	"spriteSourceSize": {"x":0,"y":700,"w":972,"h":880},
+	"sourceSize": {"w":2420,"h":1580}
 }},
 "meta": {
 	"app": "http://www.texturepacker.com",
@@ -31,6 +31,6 @@
 	"format": "RGBA8888",
 	"size": {"w":2048,"h":2048},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:25ea9a0021294c28b8470502d990c567$"
+	"smartupdate": "$TexturePacker:SmartUpdate:0de676b5438b9d32c14bdad5a88bc139$"
 }
 }

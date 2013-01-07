@@ -15,6 +15,9 @@ public class SBTitleScene : FStage {
 	bool player1Ready = false;
 	bool player2Ready = false;
 	
+	bool word1out = false;
+	bool word2out = false;
+	
 	FLabel inGameHelp;
 	FLabel inGameHelpToggle;
 	
@@ -38,6 +41,8 @@ public class SBTitleScene : FStage {
 	
 	public SBTitleScene() : base("") {
 		//drinks = new List<SBEntity>();
+		
+		FSoundManager.PlayMusic("song1.0");
 		
 		float boardWidth = 200f;
 		float boardHeight = 20f;
@@ -279,7 +284,7 @@ public class SBTitleScene : FStage {
 	}
 	
 	public void HandleWordDoneDismissing(AbstractTween tween) {		
-		if (player1Ready && player2Ready && !isSwitchingScenes) {
+		if (player1Ready && player2Ready && word1out && word2out && !isSwitchingScenes) {
 			WTMain.SwitchToScene(SceneType.GameScene);
 			isSwitchingScenes = true;
 		}
@@ -289,9 +294,11 @@ public class SBTitleScene : FStage {
 		Go.killAllTweensWithTarget(word);
 		
 		if ((int)word.data == 0) {
+			word1out = true;
 			tweenChain1.destroy();
 		}
 		else if ((int)word.data == 1) {
+			word2out = true;
 			tweenChain2.destroy();
 		}
 		
@@ -349,7 +356,7 @@ public class SBTitleScene : FStage {
 		RefreshInGameHelpToggle();
 	}
 	
-	public void HandleUpdate() {
+	public void HandleUpdate() {		
 		if (!introIsDone || isSwitchingScenes) return;
 				
 		/*if (drinks != null) {
@@ -368,7 +375,7 @@ public class SBTitleScene : FStage {
 			ready1.text = "Ready";
 			player1Ready = true;
 			DismissWord(super);
-			FSoundManager.PlaySound("buDuBuDuBuDu", 0.5f);
+			SBConfig.PlayBooDup();
 		}
 		if (Input.GetKeyDown(SBConfig.ATTACK_BUTTON_2) && !player2Ready) {
 			arcadeButtonsReady2.RemoveFromContainer();
@@ -378,7 +385,7 @@ public class SBTitleScene : FStage {
 			ready2.text = "Ready";
 			player2Ready = true;
 			DismissWord(blackout);
-			FSoundManager.PlaySound("buDuBuDuBuDu", 0.5f);
+			SBConfig.PlayBooDup();
 		}
 		
 		if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.V)) {
