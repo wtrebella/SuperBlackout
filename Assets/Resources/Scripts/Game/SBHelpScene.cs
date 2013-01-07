@@ -1,3 +1,5 @@
+//#define ARCADE_VERSION
+
 using UnityEngine;
 using System.Collections;
 
@@ -5,7 +7,12 @@ public class SBHelpScene : FStage {
 	private int pageNum_ = 0;
 	private FContainer mainContainer = new FContainer();
 	//private bool currentPageIsFullySetup = false;
+#if ARCADE_VERSION
 	private SBArcadeButtons continueButtons;
+#else
+	private SBKeyCodeLabel continueLabel;
+#endif
+	
 	private SBDrinker drinker1;
 	private SBDrinker drinker2;
 	private SBDrinkCounter dc1;
@@ -48,13 +55,21 @@ public class SBHelpScene : FStage {
 		blackFadeyBoy.y = Futile.screen.halfHeight;
 		AddChild(blackFadeyBoy);
 		
+#if ARCADE_VERSION
 		continueButtons = new SBArcadeButtons(true);
 		continueButtons.x = Futile.screen.halfWidth - 65f;
 		continueButtons.y = 145f;
 		continueButtons.scale = 0.3f;
 		continueButtons.currentFlashingButton = 5;
 		AddChild(continueButtons);
-		
+#else
+		continueLabel = new SBKeyCodeLabel("PRESS SPACE TO CONTINUE", Color.black, new Color(0.3f, 0, 0, 1.0f));
+		continueLabel.x = Futile.screen.halfWidth - 340f;
+		continueLabel.y = 145f;
+		continueLabel.scale = 0.5f;
+		AddChild(continueLabel);
+#endif
+
 		AddChild(mainContainer);
 		
 		drinker1 = NewPrefabbedDrinker(Direction.Left, new Color(0.3f, 0.5f, 1.0f, 1.0f), 1);
@@ -115,7 +130,11 @@ public class SBHelpScene : FStage {
 		
 		//if (!currentPageIsFullySetup) return;
 		
+#if ARCADE_VERSION
 		if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Q)) {
+#else
+		if (Input.GetKeyDown(KeyCode.Space)) {
+#endif
 			DismissAllNodes(0.2f, 0.1f);
 			SBConfig.PlayBooDup();
 		}
@@ -173,6 +192,7 @@ public class SBHelpScene : FStage {
 			drinker1.SpriteComponent(1).StartAnimation(WTMain.animationManager.AnimationForName("drinkerWalk"));
 			drinker2.SpriteComponent(1).StartAnimation(WTMain.animationManager.AnimationForName("drinkerWalk"));
 			
+#if ARCADE_VERSION
 			SBArcadeButtons ab1 = new SBArcadeButtons(true);
 			ab1.joystickIsRotating = true;
 			ab1.x = drinker1.x - 75f;
@@ -184,6 +204,17 @@ public class SBHelpScene : FStage {
 			ab2.x = drinker2.x - 75f;
 			ab2.y = drinker2.y - 70f;
 			ab2.scale = 0.3f;
+#else
+			SBKeyCodeLabel kcl1 = new SBKeyCodeLabel("WASD", Color.black, new Color(0.3f, 0, 0, 1.0f));
+			kcl1.x = drinker1.x - 75f;
+			kcl1.y = drinker1.y - 70f;
+			kcl1.scale = 0.5f;
+			
+			SBKeyCodeLabel kcl2 = new SBKeyCodeLabel("ARROW KEYS", Color.black, new Color(0.3f, 0, 0, 1.0f));
+			kcl2.x = drinker2.x - 125f;
+			kcl2.y = drinker2.y - 70f;
+			kcl2.scale = 0.5f;
+#endif
 			
 			FLabel text = new FLabel("Silkscreen", "Use the joystick to walk.\nThe more you drink, the harder it is!");
 			text.scale = 0.8f;
@@ -191,8 +222,12 @@ public class SBHelpScene : FStage {
 			text.anchorY = 1;
 			text.x = Futile.screen.halfWidth;
 			text.y = Futile.screen.halfHeight - 50f;			
-			
+
+#if ARCADE_VERSION
 			ShowNodes(new FNode[] {drinker1, ab1, drinker2, ab2, text}, 0.5f, 0.25f);
+#else
+			ShowNodes(new FNode[] {drinker1, kcl1, drinker2, kcl2, text}, 0.5f, 0.25f);
+#endif
 		}
 		
 		if (pageNum == 2) {
@@ -294,7 +329,8 @@ public class SBHelpScene : FStage {
 			
 			drinker1.SpriteComponent(1).StartAnimation(WTMain.animationManager.AnimationForName("drinkerWalk"));
 			drinker2.SpriteComponent(1).StartAnimation(WTMain.animationManager.AnimationForName("drinkerWalk"));
-						
+					
+#if ARCADE_VERSION
 			SBArcadeButtons ab1 = new SBArcadeButtons(true);
 			ab1.currentFlashingButton = 6;
 			ab1.x = drinker1.x - 75f;
@@ -306,15 +342,30 @@ public class SBHelpScene : FStage {
 			ab2.x = drinker2.x - 75f;
 			ab2.y = drinker2.y - 70f;
 			ab2.scale = 0.3f;
+#else
+			SBKeyCodeLabel kcl1 = new SBKeyCodeLabel("LEFT\nSHIFT", Color.black, new Color(0.3f, 0, 0, 1.0f));
+			kcl1.x = drinker1.x - 75f;
+			kcl1.y = drinker1.y - 70f;
+			kcl1.scale = 0.5f;
 			
+			SBKeyCodeLabel kcl2 = new SBKeyCodeLabel("M", Color.black, new Color(0.3f, 0, 0, 1.0f));
+			kcl2.x = drinker2.x - 15f;
+			kcl2.y = drinker2.y - 70f;
+			kcl2.scale = 0.5f;
+#endif	
+		
 			FLabel punch = new FLabel("Silkscreen", "Punch each other\nto spill drinks!");
 			punch.anchorY = 0;
 			punch.color = Color.black;
 			punch.scale = 0.8f;
 			punch.x = Futile.screen.halfWidth;
 			punch.y = Futile.screen.halfHeight - 150f;
-			
+		
+#if ARCADE_VERSION
 			ShowNodes(new FNode[] {drinker1, ab1, drinker2, ab2, drink, punch}, 0.5f, 0.25f);
+#else
+			ShowNodes(new FNode[] {drinker1, kcl1, drinker2, kcl2, drink, punch}, 0.5f, 0.25f);
+#endif
 		}
 		
 		if (pageNum == 4) {

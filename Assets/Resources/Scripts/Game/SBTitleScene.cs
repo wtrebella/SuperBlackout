@@ -1,3 +1,5 @@
+//#define ARCADE_VERSION
+
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -29,11 +31,19 @@ public class SBTitleScene : FStage {
 	
 	FLabel tutorialLabel;
 	
+#if ARCADE_VERSION
 	SBArcadeButtons arcadeButtonsReady1;
 	SBArcadeButtons arcadeButtonsReady2;
 	
 	SBArcadeButtons arcadeButtonsHelpLabels;
 	SBArcadeButtons arcadeButtonsTutorial;
+#else
+	SBKeyCodeLabel labelReady1;
+	SBKeyCodeLabel labelReady2;
+	
+	SBKeyCodeLabel helpLabel;
+	SBKeyCodeLabel tutorialKeyLabel;
+#endif
 	
 	FLabel creditLabel;
 	
@@ -172,6 +182,7 @@ public class SBTitleScene : FStage {
 		ready2.y = Futile.screen.height - 200f;
 		AddChild(ready2);
 		
+#if ARCADE_VERSION
 		arcadeButtonsReady1 = new SBArcadeButtons(true);
 		arcadeButtonsReady1.alpha = 0;
 		arcadeButtonsReady1.scale = 0.3f;
@@ -195,6 +206,43 @@ public class SBTitleScene : FStage {
 		arcadeButtonsHelpLabels.y = Futile.screen.height - 15f;
 		arcadeButtonsHelpLabels.currentFlashingButton = 2;
 		AddChild(arcadeButtonsHelpLabels);
+		
+		arcadeButtonsTutorial = new SBArcadeButtons(true);
+		arcadeButtonsTutorial.alpha = 0;
+		arcadeButtonsTutorial.scale = 0.3f;
+		arcadeButtonsTutorial.x = Futile.screen.width - 170f;
+		arcadeButtonsTutorial.y = Futile.screen.height - 165f;
+		arcadeButtonsTutorial.currentFlashingButton = 5;
+		AddChild(arcadeButtonsTutorial);
+#else
+		labelReady1 = new SBKeyCodeLabel("LEFT\nSHIFT", Color.white, new Color(1.0f, 0.8f, 0.8f, 1.0f));
+		labelReady1.alpha = 0;
+		labelReady1.scale = 0.5f;
+		labelReady1.x = 225f;
+		labelReady1.y = Futile.screen.height + 7f;
+		AddChild(labelReady1);
+		
+		labelReady2 = new SBKeyCodeLabel("M", Color.white, new Color(1.0f, 0.8f, 0.8f, 1.0f));
+		labelReady2.alpha = 0;
+		labelReady2.scale = 0.5f;
+		labelReady2.x = 225f;
+		labelReady2.y = Futile.screen.height - 165f;
+		AddChild(labelReady2);
+		
+		helpLabel = new SBKeyCodeLabel("H", Color.white, new Color(1.0f, 0.8f, 0.8f, 1.0f));
+		helpLabel.alpha = 0;
+		helpLabel.scale = 0.5f;
+		helpLabel.x = Futile.screen.width - 170f;
+		helpLabel.y = Futile.screen.height - 15f;
+		AddChild(helpLabel);
+		
+		tutorialKeyLabel = new SBKeyCodeLabel("SPACE", Color.white, new Color(1.0f, 0.8f, 0.8f, 1.0f));
+		tutorialKeyLabel.alpha = 0;
+		tutorialKeyLabel.scale = 0.5f;
+		tutorialKeyLabel.x = Futile.screen.width - 170f;
+		tutorialKeyLabel.y = Futile.screen.height - 165f;
+		AddChild(tutorialKeyLabel);
+#endif
 		
 		inGameHelp = new FLabel("Silkscreen", "In-Game Help:");
 		inGameHelp.alpha = 0;
@@ -226,14 +274,6 @@ public class SBTitleScene : FStage {
 		tutorialLabel.x = Futile.screen.width - 350f;
 		tutorialLabel.y = Futile.screen.height - 200f;
 		AddChild(tutorialLabel);
-		
-		arcadeButtonsTutorial = new SBArcadeButtons(true);
-		arcadeButtonsTutorial.alpha = 0;
-		arcadeButtonsTutorial.scale = 0.3f;
-		arcadeButtonsTutorial.x = Futile.screen.width - 170f;
-		arcadeButtonsTutorial.y = Futile.screen.height - 165f;
-		arcadeButtonsTutorial.currentFlashingButton = 5;
-		AddChild(arcadeButtonsTutorial);
 		
 		creditLabel = new FLabel("Silkscreen", "A game by\nWhitaker Trebella\n(@wtrebella)");
 		creditLabel.alpha = 0;
@@ -271,10 +311,19 @@ public class SBTitleScene : FStage {
 			Go.to(ready2, 0.5f, new TweenConfig().floatProp("alpha", 1));
 			Go.to(inGameHelp, 0.5f, new TweenConfig().floatProp("alpha", 1));
 			Go.to(inGameHelpToggle, 0.5f, new TweenConfig().floatProp("alpha", 1));
+			
+#if ARCADE_VERSION
 			Go.to(arcadeButtonsReady1, 0.5f, new TweenConfig().floatProp("alpha", 1));
 			Go.to(arcadeButtonsReady2, 0.5f, new TweenConfig().floatProp("alpha", 1));
 			Go.to(arcadeButtonsHelpLabels, 0.5f, new TweenConfig().floatProp("alpha", 1));
 			Go.to(arcadeButtonsTutorial, 0.5f, new TweenConfig().floatProp("alpha", 1));
+#else
+			Go.to(labelReady1, 0.5f, new TweenConfig().floatProp("alpha", 1));
+			Go.to(labelReady2, 0.5f, new TweenConfig().floatProp("alpha", 1));
+			Go.to(helpLabel, 0.5f, new TweenConfig().floatProp("alpha", 1));
+			Go.to(tutorialKeyLabel, 0.5f, new TweenConfig().floatProp("alpha", 1));
+#endif
+			
 			Go.to(tutorialLabel, 0.5f, new TweenConfig().floatProp("alpha", 1));
 			Go.to (creditLabel, 0.5f, new TweenConfig().floatProp("alpha", 1));
 			/*Tween fadeOut = new Tween(helpLabel, 0.15f, new TweenConfig().floatProp("alpha", 0));
@@ -387,7 +436,11 @@ public class SBTitleScene : FStage {
 		}*/
 		
 		if (Input.GetKeyDown(SBConfig.ATTACK_BUTTON_1) && !player1Ready) {
+#if ARCADE_VERSION
 			arcadeButtonsReady1.RemoveFromContainer();
+#else
+			labelReady1.RemoveFromContainer();
+#endif
 			ready1.color = new Color(0, 0.8f, 0, 1.0f);
 			ready1.x -= 130f;
 			ready1.y -= 6f;
@@ -397,7 +450,11 @@ public class SBTitleScene : FStage {
 			SBConfig.PlayBooDup();
 		}
 		if (Input.GetKeyDown(SBConfig.ATTACK_BUTTON_2) && !player2Ready) {
+#if ARCADE_VERSION
 			arcadeButtonsReady2.RemoveFromContainer();
+#else
+			labelReady2.RemoveFromContainer();
+#endif
 			ready2.color = new Color(0, 0.8f, 0, 1.0f);
 			ready2.x -= 130f;
 			ready2.y -= 6f;
@@ -407,12 +464,20 @@ public class SBTitleScene : FStage {
 			SBConfig.PlayBooDup();
 		}
 		
+#if ARCADE_VERSION
 		if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.V)) {
+#else
+		if (Input.GetKeyDown(KeyCode.H)) {
+#endif
 			ToggleInGameHelp();
 			SBConfig.PlayBooDup();
 		}
 		
+#if ARCADE_VERSION
 		if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Q)) {
+#else
+		if (Input.GetKeyDown(KeyCode.Space)) {
+#endif
 			SBConfig.PlayBooDup();
 			isSwitchingScenes = true;
 			WTMain.SwitchToScene(SceneType.HelpScene);

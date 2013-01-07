@@ -1,3 +1,5 @@
+//#define ARCADE_VERSION
+
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,9 +24,15 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 	public bool sceneIsSwitching = false;
 	public FLabel playAgain;
 	public FLabel mainMenu;
+	public List<SBDrink> finishedDrinks;
+
+#if ARCADE_VERSION
 	public SBArcadeButtons playAgainButtons;
 	public SBArcadeButtons mainMenuButtons;
-	public List<SBDrink> finishedDrinks;
+#else
+	public SBKeyCodeLabel playAgainLabel;
+	public SBKeyCodeLabel mainMenuLabel;
+#endif
 	
 	//FLabel tempLogLabel;
 	
@@ -87,6 +95,7 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		AddChild(drinker2);
 		
 		hudLayer = new SBHudLayer();
+		
 		drinker1.SignalFinishedDrink += hudLayer.HandleDrinkerFinishedDrink;
 		drinker2.SignalFinishedDrink += hudLayer.HandleDrinkerFinishedDrink;
 		drinker1.SignalFinishedDrink += HandleDrinkerFinishedDrink;
@@ -119,7 +128,8 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		mainMenu.y = -175f;
 		mainMenu.color = Color.black;
 		AddChild(mainMenu);
-		
+	
+#if ARCADE_VERSION
 		playAgainButtons = new SBArcadeButtons(true);
 		playAgainButtons.currentFlashingButton = 2;
 		playAgainButtons.scale = 0.3f;
@@ -133,6 +143,19 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		mainMenuButtons.x = mainMenu.x - 90f;
 		mainMenuButtons.y = mainMenu.y - 140f;
 		AddChild(mainMenuButtons);
+#else
+		playAgainLabel = new SBKeyCodeLabel("SPACE", Color.black, new Color(0.7f, 0, 0, 1.0f));
+		playAgainLabel.scale = 0.5f;
+		playAgainLabel.x = playAgain.x - 75f;
+		playAgainLabel.y = playAgain.y - 100f;
+		AddChild(playAgainLabel);
+		
+		mainMenuLabel = new SBKeyCodeLabel("Q", Color.black, new Color(0.7f, 0, 0, 1.0f));
+		mainMenuLabel.scale = 0.5f;
+		mainMenuLabel.x = mainMenu.x - 10f;
+		mainMenuLabel.y = mainMenu.y - 100f;
+		AddChild(mainMenuLabel);
+#endif
 		
 		/*tempLogLabel = new FLabel("Silkscreen", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 		tempLogLabel.color = Color.black;
@@ -154,8 +177,14 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		AddChild(hudLayer);
 		AddChild(playAgain);
 		AddChild(mainMenu);
+#if ARCADE_VERSION
 		AddChild(playAgainButtons);
 		AddChild(mainMenuButtons);
+#else
+		AddChild(playAgainLabel);
+		AddChild(mainMenuLabel);
+#endif
+		
 		foreach (SBDrink drink in finishedDrinks) AddChild(drink);
 	}
 	
@@ -448,8 +477,13 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 	public void PopupEndGameLabels() {
 		Go.to(mainMenu, 0.5f, new TweenConfig().floatProp("y", -mainMenu.y));
 		Go.to(playAgain, 0.5f, new TweenConfig().floatProp("y", -playAgain.y));
+#if ARCADE_VERSION
 		Go.to(mainMenuButtons, 0.5f, new TweenConfig().floatProp("y", -mainMenuButtons.y));
 		Go.to(playAgainButtons, 0.5f, new TweenConfig().floatProp("y", -playAgainButtons.y));
+#else
+		Go.to(mainMenuLabel, 0.5f, new TweenConfig().floatProp("y", -mainMenuLabel.y));
+		Go.to(playAgainLabel, 0.5f, new TweenConfig().floatProp("y", -playAgainLabel.y));
+#endif
 	}
 	
 	public void HandleDrinkerFinishedDrink(SBDrinker drinker) {
@@ -500,7 +534,9 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 				FSoundManager.PlayMusic("jazz");
 				countdownLabel.text = "Drink!";
 				countdownLabel.color = new Color(0, 0.8f, 0, 1.0f);
-				Go.to(countdownLabel, 1.0f, new TweenConfig().floatProp("alpha", 0));
+				Tween tween = new Tween(countdownLabel, 1.0f, new TweenConfig().floatProp("alpha", 0));
+				Go.addTween(tween);
+				tween.play();
 				gameHasStarted = true;
 			}
 			return;
@@ -549,11 +585,19 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		if (frameCount_++ < 5) return;
 			
 		if (isGameOver) {
+#if ARCADE_VERSION
 			if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Q)) {
+#else
+			if (Input.GetKeyDown(KeyCode.Q)) {
+#endif
 				sceneIsSwitching = true;
 				WTMain.SwitchToScene(SceneType.TitleScene);
 			}
+#if ARCADE_VERSION
 			if (Input.GetKeyDown(KeyCode.V) || Input.GetKeyDown(KeyCode.X)) {
+#else
+			if (Input.GetKeyDown(KeyCode.Space)) {
+#endif
 				sceneIsSwitching = true;
 				WTMain.SwitchToScene(SceneType.GameScene);
 			}	

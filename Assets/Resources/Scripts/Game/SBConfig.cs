@@ -1,3 +1,5 @@
+//#define ARCADE_VERSION
+
 using UnityEngine;
 using System.Collections;
 
@@ -24,28 +26,31 @@ public static class SBConfig {
 	public const float MAX_BLADDER_CAPACITY = 1.5f;	
 	public const float BLADDER_FILL_TIME = 16.0f; // per drink
 	public const float PEE_TIME = 1.0f; // per drink
-	public const int DRINKS_TO_WIN = 7;
-		
+	public const int DRINKS_TO_WIN = 1;
+	
+#if ARCADE_VERSION
 	public const KeyCode ATTACK_BUTTON_1 = KeyCode.C;
 	public const KeyCode ATTACK_BUTTON_2 = KeyCode.J;
-	
-	/*public const KeyCode ATTACK_BUTTON_1 = KeyCode.KeypadEnter;
-	public const KeyCode ATTACK_BUTTON_2 = KeyCode.LeftShift;*/
-	
 	public const KeyCode JOYSTICK_2_RIGHT = KeyCode.G;
 	public const KeyCode JOYSTICK_2_LEFT = KeyCode.D;
 	public const KeyCode JOYSTICK_2_UP = KeyCode.R;
 	public const KeyCode JOYSTICK_2_DOWN = KeyCode.F;
-	
-	/*public const KeyCode JOYSTICK_2_RIGHT = KeyCode.D;
-	public const KeyCode JOYSTICK_2_LEFT = KeyCode.A;
-	public const KeyCode JOYSTICK_2_UP = KeyCode.W;
-	public const KeyCode JOYSTICK_2_DOWN = KeyCode.S;*/
-	
 	public const KeyCode JOYSTICK_1_RIGHT = KeyCode.RightArrow;
 	public const KeyCode JOYSTICK_1_LEFT = KeyCode.LeftArrow;
 	public const KeyCode JOYSTICK_1_DOWN = KeyCode.DownArrow;
 	public const KeyCode JOYSTICK_1_UP = KeyCode.UpArrow;
+#else
+	public const KeyCode ATTACK_BUTTON_1 = KeyCode.LeftShift;
+	public const KeyCode ATTACK_BUTTON_2 = KeyCode.M;
+	public const KeyCode JOYSTICK_1_RIGHT = KeyCode.D;
+	public const KeyCode JOYSTICK_1_LEFT = KeyCode.A;
+	public const KeyCode JOYSTICK_1_UP = KeyCode.W;
+	public const KeyCode JOYSTICK_1_DOWN = KeyCode.S;
+	public const KeyCode JOYSTICK_2_RIGHT = KeyCode.RightArrow;
+	public const KeyCode JOYSTICK_2_LEFT = KeyCode.LeftArrow;
+	public const KeyCode JOYSTICK_2_DOWN = KeyCode.DownArrow;
+	public const KeyCode JOYSTICK_2_UP = KeyCode.UpArrow;
+#endif
 	
 	public static Vector2 EmptyGlassPosition(int drinkNum, int playerNum) {
 		float x1 = 28f;

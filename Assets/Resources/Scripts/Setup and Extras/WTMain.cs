@@ -1,3 +1,5 @@
+#define ARCADE_VERSION
+
 using UnityEngine;
 using System.Collections;
 
