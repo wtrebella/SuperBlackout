@@ -241,8 +241,8 @@ public class SBTitleScene : FStage {
 		creditLabel.color = Color.black;
 		creditLabel.anchorX = 1;
 		creditLabel.anchorY = 0;
-		creditLabel.x = Futile.screen.width - 15f;
-		creditLabel.y = 15f;
+		creditLabel.x = Futile.screen.width - 37f;
+		creditLabel.y = 30f;
 		AddChild(creditLabel);
 	}
 	
