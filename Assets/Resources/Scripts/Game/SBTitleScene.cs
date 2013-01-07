@@ -35,6 +35,8 @@ public class SBTitleScene : FStage {
 	SBArcadeButtons arcadeButtonsHelpLabels;
 	SBArcadeButtons arcadeButtonsTutorial;
 	
+	FLabel creditLabel;
+	
 	//List<SBEntity> drinks;
 	
 	//FLabel helpLabel;
@@ -232,6 +234,16 @@ public class SBTitleScene : FStage {
 		arcadeButtonsTutorial.y = Futile.screen.height - 165f;
 		arcadeButtonsTutorial.currentFlashingButton = 5;
 		AddChild(arcadeButtonsTutorial);
+		
+		creditLabel = new FLabel("Silkscreen", "A game by\nWhitaker Trebella\n(@wtrebella)");
+		creditLabel.alpha = 0;
+		creditLabel.scale = 0.4f;
+		creditLabel.color = Color.black;
+		creditLabel.anchorX = 1;
+		creditLabel.anchorY = 0;
+		creditLabel.x = Futile.screen.width - 15f;
+		creditLabel.y = 15f;
+		AddChild(creditLabel);
 	}
 	
 	public void RefreshInGameHelpToggle() {
@@ -264,7 +276,7 @@ public class SBTitleScene : FStage {
 			Go.to(arcadeButtonsHelpLabels, 0.5f, new TweenConfig().floatProp("alpha", 1));
 			Go.to(arcadeButtonsTutorial, 0.5f, new TweenConfig().floatProp("alpha", 1));
 			Go.to(tutorialLabel, 0.5f, new TweenConfig().floatProp("alpha", 1));
-			
+			Go.to (creditLabel, 0.5f, new TweenConfig().floatProp("alpha", 1));
 			/*Tween fadeOut = new Tween(helpLabel, 0.15f, new TweenConfig().floatProp("alpha", 0));
 			Tween fadeIn = new Tween(helpLabel, 0.15f, new TweenConfig().floatProp("alpha", 1));
 			
@@ -284,6 +296,15 @@ public class SBTitleScene : FStage {
 	}
 	
 	public void HandleWordDoneDismissing(AbstractTween tween) {		
+		FSprite word = (tween as Tween).target as FSprite;
+		
+		if ((int)word.data == 0) {
+			word1out = true;
+		}
+		else if ((int)word.data == 1) {
+			word2out = true;
+		}
+		
 		if (player1Ready && player2Ready && word1out && word2out && !isSwitchingScenes) {
 			WTMain.SwitchToScene(SceneType.GameScene);
 			isSwitchingScenes = true;
@@ -294,11 +315,9 @@ public class SBTitleScene : FStage {
 		Go.killAllTweensWithTarget(word);
 		
 		if ((int)word.data == 0) {
-			word1out = true;
 			tweenChain1.destroy();
 		}
 		else if ((int)word.data == 1) {
-			word2out = true;
 			tweenChain2.destroy();
 		}
 		
