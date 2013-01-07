@@ -146,7 +146,7 @@ public class SBDrinker : SBEntity {
 		rotatingContainer.RemoveChild(currentDrink);
 		currentDrink.x = newPos.x;
 		currentDrink.y = newPos.y;
-		WTMain.currentScene.AddChild(currentDrink);
+		(WTMain.currentScene as SBGameScene).AddFinishedDrink(currentDrink);
 		Vector2 goalPos = SBConfig.EmptyGlassPosition(drinkCount_, tag);
 		Go.to(currentDrink, 0.5f, new TweenConfig()
 			.floatProp("x", goalPos.x)

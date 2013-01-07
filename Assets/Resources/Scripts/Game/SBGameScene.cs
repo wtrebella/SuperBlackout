@@ -24,6 +24,7 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 	public FLabel mainMenu;
 	public SBArcadeButtons playAgainButtons;
 	public SBArcadeButtons mainMenuButtons;
+	public List<SBDrink> finishedDrinks;
 	
 	//FLabel tempLogLabel;
 	
@@ -31,7 +32,9 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 	
 	public SBGameScene(bool addToFutileOnInit) : base("") {
 		if (addToFutileOnInit) Futile.AddStage(this);
-
+		
+		finishedDrinks = new List<SBDrink>();
+		
 		backgroundLayer = new SBBackgroundLayer();
 		AddChild(backgroundLayer);
 			
@@ -139,6 +142,11 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		AddChild(tempLogLabel);*/
 	}
 	
+	public void AddFinishedDrink(SBDrink drink) {
+		finishedDrinks.Add(drink);
+		AddChild(drink);
+	}
+	
 	public void RefreshZOrders() {
 		AddChild(drinker1);
 		AddChild(drinker2);
@@ -148,6 +156,7 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		AddChild(mainMenu);
 		AddChild(playAgainButtons);
 		AddChild(mainMenuButtons);
+		foreach (SBDrink drink in finishedDrinks) AddChild(drink);
 	}
 	
 	public override void HandleAddedToStage() {
