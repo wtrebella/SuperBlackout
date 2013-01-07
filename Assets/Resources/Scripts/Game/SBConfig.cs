@@ -26,7 +26,7 @@ public static class SBConfig {
 	public const float MAX_BLADDER_CAPACITY = 1.5f;	
 	public const float BLADDER_FILL_TIME = 16.0f; // per drink
 	public const float PEE_TIME = 1.0f; // per drink
-	public const int DRINKS_TO_WIN = 1;
+	public const int DRINKS_TO_WIN = 7;
 	
 #if ARCADE_VERSION
 	public const KeyCode ATTACK_BUTTON_1 = KeyCode.C;

@@ -215,8 +215,12 @@ public class SBHelpScene : FStage {
 			kcl2.y = drinker2.y - 70f;
 			kcl2.scale = 0.5f;
 #endif
-			
+		
+#if ARCADE_VERSION
 			FLabel text = new FLabel("Silkscreen", "Use the joystick to walk.\nThe more you drink, the harder it is!");
+#else
+			FLabel text = new FLabel("Silkscreen", "Player 1 movement: WASD\nPlayer 2 movement: ARROW KEYS\nThe more you drink, the harder it is!");
+#endif
 			text.scale = 0.8f;
 			text.color = Color.black;
 			text.anchorY = 1;
