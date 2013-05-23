@@ -1,0 +1,61 @@
+-debug
+-target:library
+-nowarn:0169
+-out:'Temp/Assembly-CSharp.dll'
+-r:'/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEngine.dll'
+-r:'Library/ScriptAssemblies/Assembly-CSharp-firstpass.dll'
+-r:'Assets/Plugins/GoKit.dll'
+-r:'/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEditor.dll'
+-define:UNITY_WEBPLAYER
+-define:WEBPLUG
+-define:ENABLE_MICROPHONE
+-define:ENABLE_IMAGEEFFECTS
+-define:ENABLE_WEBCAM
+-define:ENABLE_AUDIO_FMOD
+-define:ENABLE_NETWORK
+-define:ENABLE_MONO
+-define:ENABLE_PHYSICS
+-define:ENABLE_TERRAIN
+-define:ENABLE_CACHING
+-define:ENABLE_SUBSTANCE
+-define:ENABLE_GENERICS
+-define:ENABLE_CLOTH
+-define:ENABLE_MOVIES
+-define:ENABLE_AUDIO
+-define:ENABLE_WWW
+-define:ENABLE_SHADOWS
+-define:ENABLE_DUCK_TYPING
+-define:UNITY_4_1_2
+-define:UNITY_4_1
+-define:ENABLE_PROFILER
+-define:UNITY_EDITOR
+'Assets/Resources/Scripts/Components/SBAbstractComponent.cs'
+'Assets/Resources/Scripts/Components/SBCollideComponent.cs'
+'Assets/Resources/Scripts/Components/SBDirectionComponent.cs'
+'Assets/Resources/Scripts/Components/SBProgressBarComponent.cs'
+'Assets/Resources/Scripts/Components/SBSittableComponent.cs'
+'Assets/Resources/Scripts/Components/SBSpriteComponent.cs'
+'Assets/Resources/Scripts/Components/SBTimerComponent.cs'
+'Assets/Resources/Scripts/Components/SBVelocityComponent.cs'
+'Assets/Resources/Scripts/Game/SBBackgroundLayer.cs'
+'Assets/Resources/Scripts/Game/SBBar.cs'
+'Assets/Resources/Scripts/Game/SBBarStool.cs'
+'Assets/Resources/Scripts/Game/SBBorderLayer.cs'
+'Assets/Resources/Scripts/Game/SBConfig.cs'
+'Assets/Resources/Scripts/Game/SBDrink.cs'
+'Assets/Resources/Scripts/Game/SBDrinker.cs'
+'Assets/Resources/Scripts/Game/SBEntity.cs'
+'Assets/Resources/Scripts/Game/SBGameScene.cs'
+'Assets/Resources/Scripts/Game/SBHelpScene.cs'
+'Assets/Resources/Scripts/Game/SBTitleScene.cs'
+'Assets/Resources/Scripts/Setup and Extras/WTAnimation.cs'
+'Assets/Resources/Scripts/Setup and Extras/WTAnimationManager.cs'
+'Assets/Resources/Scripts/Setup and Extras/WTMain.cs'
+'Assets/Resources/Scripts/Setup and Extras/WTSquareMaker.cs'
+'Assets/Resources/Scripts/UI Stuff/SBArcadeButtons.cs'
+'Assets/Resources/Scripts/UI Stuff/SBBladderBar.cs'
+'Assets/Resources/Scripts/UI Stuff/SBDrinkCounter.cs'
+'Assets/Resources/Scripts/UI Stuff/SBHudLayer.cs'
+'Assets/Resources/Scripts/UI Stuff/SBKeyCodeLabel.cs'
+'Assets/Resources/Scripts/UI Stuff/SBProgressBar.cs'
+'Assets/Resources/Scripts/Unused/SBBathroom.cs'

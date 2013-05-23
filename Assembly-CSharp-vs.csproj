@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+	<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+	<ProductVersion>10.0.20506</ProductVersion>
+	<SchemaVersion>2.0</SchemaVersion>
+	<ProjectGuid>{E530A651-5859-B8FD-6CA1-8E57049A09D9}</ProjectGuid>
+	<OutputType>Library</OutputType>
+	<AppDesignerFolder>Properties</AppDesignerFolder>
+	<RootNamespace></RootNamespace>
+	<AssemblyName>Assembly-CSharp</AssemblyName>
+	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+	<FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+	<DebugSymbols>true</DebugSymbols>
+	<DebugType>full</DebugType>
+	<Optimize>false</Optimize>
+	<OutputPath>Temp\bin\Debug\</OutputPath>
+	<DefineConstants>DEBUG;TRACE;UNITY_WEBPLAYER;WEBPLUG;ENABLE_MICROPHONE;ENABLE_IMAGEEFFECTS;ENABLE_WEBCAM;ENABLE_AUDIO_FMOD;ENABLE_NETWORK;ENABLE_MONO;ENABLE_PHYSICS;ENABLE_TERRAIN;ENABLE_CACHING;ENABLE_SUBSTANCE;ENABLE_GENERICS;ENABLE_CLOTH;ENABLE_MOVIES;ENABLE_AUDIO;ENABLE_WWW;ENABLE_SHADOWS;ENABLE_DUCK_TYPING;UNITY_4_1_2;UNITY_4_1;ENABLE_PROFILER;UNITY_EDITOR</DefineConstants>
+	<ErrorReport>prompt</ErrorReport>
+	<WarningLevel>4</WarningLevel>
+	<NoWarn>0169</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+	<DebugType>pdbonly</DebugType>
+	<Optimize>true</Optimize>
+	<OutputPath>Temp\bin\Release\</OutputPath>
+	<DefineConstants>TRACE</DefineConstants>
+	<ErrorReport>prompt</ErrorReport>
+	<WarningLevel>4</WarningLevel>
+	<NoWarn>0169</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+	<Reference Include="System" />
+    <Reference Include="System.XML" />
+	<Reference Include="System.Core" />
+	<Reference Include="UnityEngine">
+	  <HintPath>/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEngine.dll</HintPath>
+	</Reference>
+	<Reference Include="UnityEditor">
+	  <HintPath>/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEditor.dll</HintPath>
+	</Reference>
+  </ItemGroup>
+  <ItemGroup>
+     <Compile Include="Assets\Resources\Scripts\Components\SBAbstractComponent.cs" />
+     <Compile Include="Assets\Resources\Scripts\Components\SBCollideComponent.cs" />
+     <Compile Include="Assets\Resources\Scripts\Components\SBDirectionComponent.cs" />
+     <Compile Include="Assets\Resources\Scripts\Components\SBProgressBarComponent.cs" />
+     <Compile Include="Assets\Resources\Scripts\Components\SBSittableComponent.cs" />
+     <Compile Include="Assets\Resources\Scripts\Components\SBSpriteComponent.cs" />
+     <Compile Include="Assets\Resources\Scripts\Components\SBTimerComponent.cs" />
+     <Compile Include="Assets\Resources\Scripts\Components\SBVelocityComponent.cs" />
+     <Compile Include="Assets\Resources\Scripts\Game\SBBackgroundLayer.cs" />
+     <Compile Include="Assets\Resources\Scripts\Game\SBBar.cs" />
+     <Compile Include="Assets\Resources\Scripts\Game\SBBarStool.cs" />
+     <Compile Include="Assets\Resources\Scripts\Game\SBBorderLayer.cs" />
+     <Compile Include="Assets\Resources\Scripts\Game\SBConfig.cs" />
+     <Compile Include="Assets\Resources\Scripts\Game\SBDrink.cs" />
+     <Compile Include="Assets\Resources\Scripts\Game\SBDrinker.cs" />
+     <Compile Include="Assets\Resources\Scripts\Game\SBEntity.cs" />
+     <Compile Include="Assets\Resources\Scripts\Game\SBGameScene.cs" />
+     <Compile Include="Assets\Resources\Scripts\Game\SBHelpScene.cs" />
+     <Compile Include="Assets\Resources\Scripts\Game\SBTitleScene.cs" />
+     <Compile Include="Assets\Resources\Scripts\Setup and Extras\WTAnimation.cs" />
+     <Compile Include="Assets\Resources\Scripts\Setup and Extras\WTAnimationManager.cs" />
+     <Compile Include="Assets\Resources\Scripts\Setup and Extras\WTMain.cs" />
+     <Compile Include="Assets\Resources\Scripts\Setup and Extras\WTSquareMaker.cs" />
+     <Compile Include="Assets\Resources\Scripts\UI Stuff\SBArcadeButtons.cs" />
+     <Compile Include="Assets\Resources\Scripts\UI Stuff\SBBladderBar.cs" />
+     <Compile Include="Assets\Resources\Scripts\UI Stuff\SBDrinkCounter.cs" />
+     <Compile Include="Assets\Resources\Scripts\UI Stuff\SBHudLayer.cs" />
+     <Compile Include="Assets\Resources\Scripts\UI Stuff\SBKeyCodeLabel.cs" />
+     <Compile Include="Assets\Resources\Scripts\UI Stuff\SBProgressBar.cs" />
+     <Compile Include="Assets\Resources\Scripts\Unused\SBBathroom.cs" />
+     <None Include="Assets\Resources\Atlases\TitlePageSheet-sixPack.txt" />
+     <None Include="Assets\Resources\Shaders\UnlitTransparentVertexColored.shader" />
+     <None Include="Assets\Resources\Atlases\Silkscreen.txt" />
+     <None Include="Assets\Resources\Shaders\Unlit.shader" />
+     <None Include="Assets\Resources\Atlases\MainSheet-sixPack.txt" />
+     <None Include="Assets\Resources\Shaders\UnlitTransparentVertexColoredAdditive.shader" />
+ <Reference Include="Assets\Plugins\GoKit">
+ <HintPath>Assets\Plugins\GoKit.dll</HintPath>
+ </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass-vs.csproj">
+      <Project>{DC6625DA-1F3D-16D8-184B-B9AF066F57E0}</Project>      <Name>Assembly-CSharp-firstpass-vs</Name>    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+	   Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  
+</Project>

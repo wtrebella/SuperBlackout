@@ -45,7 +45,7 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		
 		backgroundLayer = new SBBackgroundLayer();
 		AddChild(backgroundLayer);
-			
+
 		bar = new SBBar();
 		AddChild(bar);
 				
@@ -128,7 +128,7 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 		mainMenu.y = -175f;
 		mainMenu.color = Color.black;
 		AddChild(mainMenu);
-	
+			
 #if ARCADE_VERSION
 		playAgainButtons = new SBArcadeButtons(true);
 		playAgainButtons.currentFlashingButton = 2;
@@ -458,6 +458,8 @@ public class SBGameScene : FStage, FSingleTouchableInterface {
 	}
 	
 	public void HandleDrinkerPissedHimself(SBDrinker drinker) {
+		if (isGameOver) return;
+
 		isGameOver = true;
 		SBDrinker otherDrinker;
 		if (drinker.tag == 1) otherDrinker = drinker2;

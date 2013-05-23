@@ -10,12 +10,14 @@ public class SBBorderLayer : FContainer {
 		float borderPieceWidth = 120f;
 		int horizontalPieceCount = (int)(Futile.screen.width / borderPieceWidth) + 1;
 		int verticalPieceCount = (int)(Futile.screen.height / borderPieceWidth) - 1;
-		
+		float amt = 1.1f;
+
 		for (int i = horizontalPieceCount / 2; i >= 0; i--) {
 			FSprite borderPiece = new FSprite("borderBarPieceStraight.psd");
 			borderPiece.anchorX = 0;
 			borderPiece.anchorY = 1;
 			borderPiece.rotation = 90;
+			borderPiece.height *= amt;
 			borderPiece.x = Futile.screen.halfWidth - SBConfig.BATHROOM_WIDTH / 2f - borderPieceWidth * i;
 			borderPiece.y = Futile.screen.height - SBConfig.TOP_UI_HEIGHT;
 			AddChild(borderPiece);
@@ -26,6 +28,7 @@ public class SBBorderLayer : FContainer {
 			borderPiece.anchorX = 0;
 			borderPiece.anchorY = 0;
 			borderPiece.rotation = 90;
+			borderPiece.height *= amt;
 			borderPiece.x = Futile.screen.halfWidth + SBConfig.BATHROOM_WIDTH / 2f + borderPieceWidth * i;
 			borderPiece.y = Futile.screen.height - SBConfig.TOP_UI_HEIGHT;
 			AddChild(borderPiece);
@@ -36,6 +39,7 @@ public class SBBorderLayer : FContainer {
 			borderPiece.anchorX = 0;
 			borderPiece.anchorY = 0;
 			borderPiece.rotation = -90;
+			borderPiece.height *= amt;
 			borderPiece.x = Futile.screen.halfWidth - SBConfig.BATHROOM_WIDTH / 2f - borderPieceWidth * i;
 			borderPiece.y = 0;
 			AddChild(borderPiece);
@@ -46,6 +50,7 @@ public class SBBorderLayer : FContainer {
 			borderPiece.anchorX = 0;
 			borderPiece.anchorY = 1;
 			borderPiece.rotation = -90;
+			borderPiece.height *= amt;
 			borderPiece.x = Futile.screen.halfWidth + SBConfig.BATHROOM_WIDTH / 2f + borderPieceWidth * i;
 			borderPiece.y = 0;
 			AddChild(borderPiece);
@@ -57,6 +62,7 @@ public class SBBorderLayer : FContainer {
 			borderPiece.anchorY = 0;
 			borderPiece.x = 0;
 			borderPiece.y = i * borderPieceWidth;
+			borderPiece.height *= amt;
 			AddChild(borderPiece);
 		}
 		
@@ -67,6 +73,7 @@ public class SBBorderLayer : FContainer {
 			borderPiece.rotation = 180;
 			borderPiece.x = Futile.screen.width;
 			borderPiece.y = i * borderPieceWidth;
+			borderPiece.height *= amt;
 			AddChild(borderPiece);
 		}
 		

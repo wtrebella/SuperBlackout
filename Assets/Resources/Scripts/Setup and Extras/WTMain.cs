@@ -1,4 +1,4 @@
-#define ARCADE_VERSION
+//#define ARCADE_VERSION
 
 using UnityEngine;
 using System.Collections;
@@ -18,7 +18,7 @@ public class WTMain : MonoBehaviour {
 	
 	void Start () {	
 		Screen.showCursor = false;
-		Screen.SetResolution(1920, 1080, true);
+		//Screen.SetResolution(1920, 1080, true);
 		//SetupLetterbox(Futile.instance.camera);
 
 		if (instance == null) instance = this;
@@ -82,7 +82,9 @@ public class WTMain : MonoBehaviour {
 			"drinkerPassOut2.png",
 			"drinkerPassOut3.png",
 			"drinkerPassOut4.png"}, 0.04f, false);
-		
+
+		Futile.screen.SignalResize += HandleResize;
+
 		SwitchToScene(SceneType.TitleScene);
 	}
 	
@@ -103,12 +105,18 @@ public class WTMain : MonoBehaviour {
 		}
 		if (sceneType == SceneType.None) currentScene = null;
 	}
+
+	public void HandleResize(bool shouldResize) {
+		currentScene.scale = Mathf.Max(Futile.screen.width / SBConfig.GAME_WIDTH, Futile.screen.height / SBConfig.GAME_HEIGHT);
+	}
 	
-	/*void Update() {
+	void Update() {
 		if (Input.GetKeyDown(KeyCode.F)) {
 			Screen.fullScreen = !Screen.fullScreen;
 		}
-	}*/
+
+		if (Input.GetKeyDown(KeyCode.Escape)) Screen.fullScreen = false;
+	}
 	
  	void SetupLetterbox(Camera camera)
     {

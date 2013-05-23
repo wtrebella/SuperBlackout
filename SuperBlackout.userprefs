@@ -1,0 +1,17 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="../../Desktop/SuperBlackout/SuperBlackout.html">
+    <Files>
+      <File FileName="Assets/Resources/Scripts/Game/SBGameScene.cs" Line="1" Column="1" />
+      <File FileName="Assets/Resources/Scripts/Game/SBBackgroundLayer.cs" Line="1" Column="1" />
+      <File FileName="Assets/Resources/Scripts/Game/SBBorderLayer.cs" Line="1" Column="1" />
+      <File FileName="Assets/Resources/Scripts/Setup and Extras/WTMain.cs" Line="27" Column="1" />
+      <File FileName="Assets/Resources/Scripts/Game/SBConfig.cs" Line="1" Column="1" />
+      <File FileName="../../Desktop/SuperBlackout/SuperBlackout.html" Line="119" Column="127" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
